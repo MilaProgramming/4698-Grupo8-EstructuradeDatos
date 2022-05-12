@@ -1,7 +1,7 @@
 /*ESPE
 *Enunciado del problema:
-*   A partir del codigo de clase, separar las funciones principales
-*   en clases.
+*   Realizar una funcion retorne un string, y contenga todas las funciones
+*   anteriores.
 *Autor 
 *   Camila Rivera
 *   Mateo Roman

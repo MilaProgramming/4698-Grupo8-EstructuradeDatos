@@ -1,5 +1,6 @@
-#include "t2IngresoDatosSol1.h"
+#include "t2IngresoDatos.h"
 
+//Constructor
 IngresoDatos::IngresoDatos(){ 
 }
 
@@ -13,7 +14,6 @@ char* IngresoDatos::ingresoDatos(string str){
     //Imprimo el mensaje de entrada, ingresado por parametro
     printf("%s ", str);
 
-    
 	int i=0;
 	while((c=getch())!=13){
 		if(c>='0'&& c<='9'){
