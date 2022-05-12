@@ -1,5 +1,5 @@
-#ifndef T2INGRESODATOS_H
-#define T2INGRESODATOS_H
+#ifndef T2INGRESODATOSSOL1_H
+#define T2INGRESODATOSSOL1_H
 
 #include <iostream>
 #include <stdio.h>
@@ -9,10 +9,9 @@ using namespace std;
 
 class IngresoDatos{
     private:
-        string str;
 
     public:
-        IngresoDatos(string str);  
+        IngresoDatos();  
 
         char *ingresoDatos(string str);
 };
