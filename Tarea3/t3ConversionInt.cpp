@@ -20,6 +20,6 @@ bool ConversionInt::convertir(char c){
     }
 }
 
-int numInt(char* dato){
+int ConversionInt::numInt(char* dato){
     return atoi(dato);
 }

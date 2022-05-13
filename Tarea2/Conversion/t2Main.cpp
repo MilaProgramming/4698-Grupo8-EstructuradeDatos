@@ -33,7 +33,7 @@ int main(){
 	}else if((a -> getDet()) == 'f'){
 		printf("\n Su numero es %f, y es un flotante", a -> devolverFloat(dato));
 	}else{
-		printf("ola");
+		printf("No estoy funcionando");
 	}
 
     return 0;

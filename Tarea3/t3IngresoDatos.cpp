@@ -63,4 +63,17 @@ char* IngresoDatos::agregoChars(char *dato){
 	return dato;
 }
 
+char IngresoDatos::getDet(){
+	return this -> det;
+}
+
+int  IngresoDatos::devolverInt(char *dato){
+	return this -> converInt.numInt(dato);
+}
+
+float  IngresoDatos::devolverFloat(char *dato){
+	return this -> converFloat.numFloat(dato);
+}
+
+
 
