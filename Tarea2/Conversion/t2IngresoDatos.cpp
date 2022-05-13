@@ -11,7 +11,7 @@ IngresoDatos::IngresoDatos(){
 char* IngresoDatos::ingresoDatos(char *str){
     
     //Creo con memoria dinamica un array de caracteres
-    char *dato=new char[20];
+    char *dato=new char[50];
     //Creo un caracter, con el que voy a recibir el input
     char c;
 
@@ -24,10 +24,9 @@ char* IngresoDatos::ingresoDatos(char *str){
 char* IngresoDatos::agregoChars(char *dato){
 	//Creo un caracter, con el que voy a recibir el input
     char c;
-	int pos=0; //Posicion final del arreglo
 	int j = 0; //Iterador para la verifiacion del unico punto
-
-	for(int i=0; c != 13; i++){
+	int i;
+	for(i=0; c != 13; i++){
 		
 		c=getch();
 
@@ -39,7 +38,6 @@ char* IngresoDatos::agregoChars(char *dato){
 				}else{
 					printf("%c", c);
 					dato[i]=c;
-					pos++;
 					++j;
 					this -> det = 'f'; //flotante
 				}
@@ -47,31 +45,22 @@ char* IngresoDatos::agregoChars(char *dato){
 
 						printf("%c", c);
 						dato[i]=c;
-						pos++;
 						this -> det = 'i'; //entero
 					}	else{
 						printf("a chikitaaaaa");
 						}
 
 		} else if(c == 8){
-			
+			printf("%c", c);
 			if(i != 0){
-				i--;
 				dato[i]='\0';
-				--pos;
+				i--;
 			}			
 		}
 	}
 
-	dato[pos]='\0';
+	dato[i]='\0';
 	return dato;
 }
 
-int main(){
-	IngresoDatos *a = new IngresoDatos();
-
-	a -> ingresoDatos("Ingrese sus numeritos: ");
-
-	return 0;
-}
 

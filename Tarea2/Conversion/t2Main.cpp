@@ -20,22 +20,13 @@
 #include <conio.h>
 #include <string.h>
 
+#include "t2IngresoDatos.cpp"
+
 int main(){
+	
+	IngresoDatos *a = new IngresoDatos();
 
-    char c;
-    char *dato=new char[10];
-    int i =0;
-    
-    while((c=getch())!=13){
-		if(c>='0'&& c<='9'){
-			printf("%c",c);
-			dato[i++]=c;
-			
-		}
-	}
-	dato[i]='\0';
-
-
+	a -> ingresoDatos("Ingrese sus numeritos: ");
 
     return 0;
 }
