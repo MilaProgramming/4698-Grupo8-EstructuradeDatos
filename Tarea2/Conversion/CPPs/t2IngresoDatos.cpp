@@ -58,15 +58,15 @@ char* IngresoDatos::agregoChars(char *dato){
 						printf("a chikita");
 						}
 
+		}else if(c == '\8'){
+			dato[i-1]='\0';
+			--i;
+			--pos;
 		}
 	}
 
 	dato[pos]='\0';
 	return dato;
-}
-
-char* IngresoDatos::backspace(int i, char *dato){
-
 }
 
 

@@ -23,7 +23,6 @@ class IngresoDatos{
         char *ingresoDatos(string str);
 
         //Sub metodos
-        char *backspace(int i, char *dato);
         char *agregoChars(char *dato);
         bool unicoPunto(char c);
 };
