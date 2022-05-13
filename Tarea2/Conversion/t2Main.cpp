@@ -25,8 +25,16 @@
 int main(){
 	
 	IngresoDatos *a = new IngresoDatos();
-
-	a -> ingresoDatos("Ingrese sus numeritos: ");
+	char *dato=new char[50];
+	dato = a -> ingresoDatos("Ingrese sus numeritos: ");
+	
+	if((a -> getDet()) == '\0'){
+		printf("\n Su numero es %i, y es un entero", a -> devolverInt(dato));
+	}else if((a -> getDet()) == 'f'){
+		printf("\n Su numero es %f, y es un flotante", a -> devolverFloat(dato));
+	}else{
+		printf("ola");
+	}
 
     return 0;
 }

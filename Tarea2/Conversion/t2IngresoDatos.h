@@ -25,6 +25,11 @@ class IngresoDatos{
         //Sub metodos
         char *agregoChars(char *dato);
         bool unicoPunto(char c);
+        char getDet();
+
+        //Metodos de retorno
+        int devolverInt(char *dato);
+        float devolverFloat(char *dato);
 };
 
 #endif  
