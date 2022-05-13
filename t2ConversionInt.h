@@ -11,9 +11,9 @@ using namespace std;
 
 class ConversionInt: public Conversion{
     public:
-        bool convertir();
+        bool convertir(char c);
 
-        int numInt();
+        int numInt(char* dato);
 };
 
 

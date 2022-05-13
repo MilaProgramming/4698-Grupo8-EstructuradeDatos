@@ -11,9 +11,10 @@ using namespace std;
 
 class ConversionFloat: public Conversion{
     public:
-        bool convertir();
+        bool convertir(char c);
 
-        float numFloat();
+        float numFloat(char* dato);
+        bool punto(char c);
 };
 
 #endif 

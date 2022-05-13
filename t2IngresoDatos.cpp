@@ -4,6 +4,8 @@
 IngresoDatos::IngresoDatos(){ 
 }
 
+//Definicion de metodos
+
 char* IngresoDatos::ingresoDatos(string str){
     
     //Creo con memoria dinamica un array de caracteres
@@ -24,4 +26,20 @@ char* IngresoDatos::ingresoDatos(string str){
 	dato[i]='\0';
 
 	return dato;
+}
+
+char* IngresoDatos::agregoChars(char *dato){
+	//Creo un caracter, con el que voy a recibir el input
+    char c;
+
+	for(int i=0;(c=getch())!=13; i++){
+		if(c>='0'&& c<='9'){
+			printf("%c",c);
+			dato[i++]=c;
+		}
+	}
+}
+
+char* IngresoDatos::backspace(int i, char *dato){
+
 }

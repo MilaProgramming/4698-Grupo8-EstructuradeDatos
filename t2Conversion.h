@@ -11,7 +11,7 @@ using namespace std;
 class Conversion{
    
     public:
-        virtual bool convertir() = 0; /* Método virtual puro o abstracto */
+        virtual bool convertir(char c) = 0; //Método virtual puro o abstracto 
   
 };
 
