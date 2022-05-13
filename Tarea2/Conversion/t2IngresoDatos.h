@@ -6,10 +6,10 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <stdexcept>
-using namespace std;
 
 #include "t2ConversionInt.h"
 #include "t2ConversionFloat.h"
+using namespace std;
 
 class IngresoDatos{
     private:
@@ -20,7 +20,7 @@ class IngresoDatos{
         IngresoDatos();  
 
         //metodo pincipal
-        char *ingresoDatos(string str);
+        char *ingresoDatos(char *str);
 
         //Sub metodos
         char *agregoChars(char *dato);

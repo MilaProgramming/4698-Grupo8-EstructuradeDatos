@@ -14,8 +14,28 @@
 *Github del grupo:
 * https://github.com/Grupo8-4698-EstructuraDeDatos/4698-Grupo8-EstructuradeDatos
 */
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
 
 int main(){
+
+    char c;
+    char *dato=new char[10];
+    int i =0;
+    
+    while((c=getch())!=13){
+		if(c>='0'&& c<='9'){
+			printf("%c",c);
+			dato[i++]=c;
+			
+		}
+	}
+	dato[i]='\0';
+
+
 
     return 0;
 }

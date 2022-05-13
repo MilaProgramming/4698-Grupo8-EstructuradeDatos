@@ -11,8 +11,8 @@ using namespace std;
 
 class ConversionFloat: public Conversion{
     public:
+        ConversionFloat();
         bool convertir(char c);
-
         float numFloat(char* dato);
         
 };
