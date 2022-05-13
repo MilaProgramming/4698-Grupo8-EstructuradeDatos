@@ -20,7 +20,7 @@
 #include <string.h>
 #include <math.h>
 
-#include "t3IngresoDatos.cpp"
+#include "at3Global.cpp"
 
 int main(){
 
@@ -39,25 +39,21 @@ int main(){
 
         switch ( opcion )
         {
-            case 1:     	
-				IngresoDatos *a = new IngresoDatos();
-				char *dato=new char[50];
-				dato = a -> ingresoDatos("Ingrese sus numeritos: ");
-				
-				if((a -> getDet()) == '\0'){
-					printf("\n Su numero es %i, y es un entero", a -> devolverInt(dato));
-				}else if((a -> getDet()) == 'f'){
-					printf("\n Su numero es %f, y es un flotante", a -> devolverFloat(dato));
-				}else{
-					printf("\n No estoy funcionando");
-				}
-                    break;
-         }
+            case 1:
+                char *dato;     	
+				Global *g = new Global(dato);
+                dato = g -> getString(50);
+                g -> imprimirMensaje("Ingrese sus numeros: ");
+                g -> leerDatos(dato);
 
+                g -> imprimirNumero();
+
+                printf("\n");
+                system("PAUSE");
+                system("CLS");
          /* Fin del anidamiento */
-
+        }
     } while ( opcion != 2 );
-
 
     return 0;
 }

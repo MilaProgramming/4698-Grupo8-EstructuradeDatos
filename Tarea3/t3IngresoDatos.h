@@ -19,13 +19,13 @@ class IngresoDatos{
     public:
         IngresoDatos();  
 
-        //metodo pincipal
-        char *ingresoDatos(char *str);
 
-        //Sub metodos
+        //Metodo principal
         char *agregoChars(char *dato);
-        bool unicoPunto(char c);
-         char getDet();
+
+        //Submetodos
+        char getDet();
+
         //Metodos de retorno
         int devolverInt(char *dato);
         float devolverFloat(char *dato);

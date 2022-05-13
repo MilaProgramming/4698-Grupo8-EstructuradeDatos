@@ -8,19 +8,6 @@ IngresoDatos::IngresoDatos(){
 
 //Definicion de metodos
 
-char* IngresoDatos::ingresoDatos(char *str){
-    
-    //Creo con memoria dinamica un array de caracteres
-    char *dato=new char[50];
-    //Creo un caracter, con el que voy a recibir el input
-    char c;
-
-    //Imprimo el mensaje de entrada, ingresado por parametro
-    printf("%s ", str);
-
-	return agregoChars(dato);
-}
-
 char* IngresoDatos::agregoChars(char *dato){
 	//Creo un caracter, con el que voy a recibir el input
     char c;
