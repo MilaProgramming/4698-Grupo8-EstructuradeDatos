@@ -25,8 +25,9 @@ void Global::imprimirMensaje(char *str){
 }
 
 void Global::imprimirNumero(){
-    if((this -> ingreso.getDet()) == '\0'){
+    if((this -> ingreso.getDet()) == '\0' || (this -> ingreso.getDet()) == 'a'){
 		printf("\n Su numero es %i, y es un entero", this -> ingreso.devolverInt(dato));
+        
 	}else if((this -> ingreso.getDet()) == 'f'){
 		printf("\n Su numero es %f, y es un flotante",  this -> ingreso.devolverFloat(dato));
 	}else{
