@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <stdexcept>
 using namespace std;
 
 #include "t2ConversionInt.h"
@@ -14,6 +15,7 @@ class IngresoDatos{
     private:
         ConversionInt converInt;
         ConversionFloat converFloat;
+        char det;
     public:
         IngresoDatos();  
 
@@ -23,6 +25,7 @@ class IngresoDatos{
         //Sub metodos
         char *backspace(int i, char *dato);
         char *agregoChars(char *dato);
+        bool unicoPunto(char c);
 };
 
 #endif  

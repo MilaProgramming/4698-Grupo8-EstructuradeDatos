@@ -14,9 +14,9 @@ ConversionInt::ConversionInt(){
 
 bool ConversionInt::convertir(char c){
     if (c == '\46'){
-        return true;
-    }else{
         return false;
+    }else{
+        return true;
     }
 }
 

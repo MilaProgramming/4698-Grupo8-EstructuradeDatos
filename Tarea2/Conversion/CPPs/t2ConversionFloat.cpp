@@ -14,9 +14,9 @@ ConversionFloat::ConversionFloat(){
 
 bool ConversionFloat::convertir(char c){
     if (c == '\46'){ //\46 codigo ASCII del punto (.)
-        return false;
-    }else{
         return true;
+    }else{
+        return false;
     }
 }
 
