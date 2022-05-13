@@ -3,7 +3,7 @@
 #include <conio.h>
 #include <stdlib.h>
 using namespace std;
-#include "t2ConversionInt.h"
+#include "Header/t2ConversionInt.h"
 
 //Constructor
 

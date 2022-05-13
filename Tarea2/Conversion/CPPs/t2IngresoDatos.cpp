@@ -1,4 +1,4 @@
-#include "t2IngresoDatos.h"
+#include "Header/t2IngresoDatos.h"
 
 //Constructor
 IngresoDatos::IngresoDatos(){ 

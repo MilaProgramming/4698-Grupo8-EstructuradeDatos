@@ -14,7 +14,7 @@ class ConversionFloat: public Conversion{
         bool convertir(char c);
 
         float numFloat(char* dato);
-        bool punto(char c);
+        
 };
 
 #endif 
