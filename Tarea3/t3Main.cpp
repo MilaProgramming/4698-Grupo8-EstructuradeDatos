@@ -1,7 +1,7 @@
 /*ESPE
 *Enunciado del problema:
-*   Realizar una funcion retorne un string, y contenga todas las funciones
-*   anteriores.
+*   Realizar una funcion que reciba un string y retorne un entero o flotante segun corresponda
+* y que contenga a todas las funciones de las demás.
 *Autor 
 *   Camila Rivera
 *   Mateo Roman
