@@ -45,7 +45,7 @@ char* IngresoDatos::agregoChars(char *dato){
 
 						printf("%c", c);
 						dato[i]=c;
-						this -> det = 'i'; //entero
+
 					}	else{
 						printf("a chikitaaaaa");
 						}
@@ -64,3 +64,14 @@ char* IngresoDatos::agregoChars(char *dato){
 }
 
 
+char IngresoDatos::getDet(){
+	return this -> det;
+}
+
+int  IngresoDatos::devolverInt(char *dato){
+	return this -> converInt.numInt(dato);
+}
+
+float  IngresoDatos::devolverFloat(char *dato){
+	return this -> converFloat.numFloat(dato);
+}
