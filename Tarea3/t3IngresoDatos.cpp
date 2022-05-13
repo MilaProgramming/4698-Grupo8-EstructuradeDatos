@@ -45,9 +45,9 @@ char* IngresoDatos::agregoChars(char *dato){
 
 						printf("%c", c);
 						dato[i]=c;
-						this -> det = 'i'; //entero
+					
 					}	else{
-						printf("a chikitaaaaa");
+						printf("Ha ocurrido un error");
 						}
 
 		} else if(c == 8){
