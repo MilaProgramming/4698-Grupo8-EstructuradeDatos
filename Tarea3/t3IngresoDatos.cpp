@@ -13,10 +13,10 @@ char* IngresoDatos::agregoChars(char *dato){
     char c;
 	int j = 0; //Iterador para la verifiacion del unico punto
 	int i;
+	this -> det = 'a';
 	for(i=0; c != 13; i++){
 		
 		c=getch();
-
 		if(c >= '0' && c <= '9' || c == 46){
 
 			if(this -> converFloat.convertir(c)){
