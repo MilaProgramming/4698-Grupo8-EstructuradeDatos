@@ -8,6 +8,6 @@ char *Cadena::DameCadena(void)
 {    return cad; 
 }
 
-void Cadena::operator +(Cadena C)
+void Cadena::operator + (Cadena C)
 {    strcat(cad, C.DameCadena()); 
 }
