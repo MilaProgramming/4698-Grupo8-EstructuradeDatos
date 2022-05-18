@@ -1,8 +1,12 @@
 #include "A.cpp"
+#include "B.cpp"
 
+int main(void)
+{    B Objeto;
+     A Obj;
+     Obj.defineA(2);
+     Objeto.defineB(3);
+     cout << Objeto.P(Obj) << endl;
 
-void main(void)
-{    A Objeto;
-     Objeto.defineA(3);
-     cout << P(Objeto) << endl;
+     return 0; 
 }
