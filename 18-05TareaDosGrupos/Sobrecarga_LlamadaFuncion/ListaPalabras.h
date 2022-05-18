@@ -1,3 +1,6 @@
+#ifndef LISTAPALABRAS_H
+#define LISTAPALABRAS_H
+
 #include <iostream>
 #include <iomanip>   // Para usar los manipuladores
 #include <string.h>
@@ -20,3 +23,5 @@ class ListaPalabras {
         int &operator[] (char *);
         void escribir_lista ();
 };
+
+#endif 

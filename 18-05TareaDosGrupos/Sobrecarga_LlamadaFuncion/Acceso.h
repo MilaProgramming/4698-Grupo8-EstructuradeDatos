@@ -1,3 +1,6 @@
+#ifndef ACCESO_H
+#define ACCESO_H
+
 #include <iostream>
 #include <iomanip>   // Para usar los manipuladores
 #include <string.h>
@@ -15,3 +18,5 @@ class Acceso {
         Acceso (ListaPalabras &pActual);
         elementos *operator ()();   // Definicion del operador()
 };
+
+#endif 

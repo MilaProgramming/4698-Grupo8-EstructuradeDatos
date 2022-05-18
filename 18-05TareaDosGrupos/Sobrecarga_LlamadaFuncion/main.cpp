@@ -17,6 +17,7 @@ int main (void)
     while (strcmp(palabra, "*")) {
         listaPalabras1[palabra]++;
         cin >> palabra;
+        cout << palabra << "\n";
     }
 
     Acceso siguiente (listaPalabras1);
