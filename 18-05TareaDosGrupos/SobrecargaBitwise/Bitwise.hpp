@@ -1,5 +1,5 @@
-#ifndef MENOSIGUAL_H
-#define MENOSIGUAL_H
+#ifndef BITWISE_H
+#define BITWISE_H
 
 #include <iostream>
 
