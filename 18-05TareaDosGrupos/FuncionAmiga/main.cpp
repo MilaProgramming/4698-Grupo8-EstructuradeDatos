@@ -1,5 +1,5 @@
 #include "A.cpp"
-#include "B.h"
+
 
 void main(void)
 {    A Objeto;

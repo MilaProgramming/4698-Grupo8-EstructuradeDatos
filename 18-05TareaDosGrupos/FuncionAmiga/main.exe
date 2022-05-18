@@ -32185,34 +32185,7 @@ int A::dameA(void)
 { return a;
 }
 # 2 "C:\\Users\\castlecloud\\Desktop\\Trabajo en Grupo\\18-05TareaDosGrupos\\FuncionAmiga\\main.cpp" 2
-# 1 "C:\\Users\\castlecloud\\Desktop\\Trabajo en Grupo\\18-05TareaDosGrupos\\FuncionAmiga\\B.h" 1
 
-
-
-# 1 "C:\\Users\\castlecloud\\Desktop\\Trabajo en Grupo\\18-05TareaDosGrupos\\FuncionAmiga\\A.h" 1
-
-
-
-using namespace std;
-
-class A
-{ int a;
-   public:
-     friend int P(A);
-     void defineA(int);
-     int dameA(void);
-};
-# 5 "C:\\Users\\castlecloud\\Desktop\\Trabajo en Grupo\\18-05TareaDosGrupos\\FuncionAmiga\\B.h" 2
-using namespace std;
-
-class B
-{ int b;
-   public:
-     friend int P(A);
-     void defineB(int);
-     int dameB(void);
-};
-# 3 "C:\\Users\\castlecloud\\Desktop\\Trabajo en Grupo\\18-05TareaDosGrupos\\FuncionAmiga\\main.cpp" 2
 
 void main(void)
 { A Objeto;
