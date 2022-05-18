@@ -12,13 +12,15 @@ class Quebrado
         int denominador;
 
    public:
-        Quebrado (int N=0, int D=0);
+        Quebrado (int, int);
+        Quebrado ();
         void DefineNum (int);
         void DefineDen (int);
         int DameNum (void);
         int DameDen (void);
         Quebrado operator+ (Quebrado &);
         // la referencia es sólo por eficiencia
+        void imprimirObjeto();
 };
 
 #endif 
