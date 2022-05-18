@@ -1,4 +1,4 @@
-#include "ClaseA.h"
+#include "ClaseA.cpp"
 
 class B //agregado
 {    int b;

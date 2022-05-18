@@ -5,7 +5,7 @@ B::B(void)
 }
 
 void B::DefineB(int x)
-{    b = x; 
+{    this -> b = x; 
 }
 
 int B::DameB(void)

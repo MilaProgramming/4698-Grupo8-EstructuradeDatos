@@ -5,7 +5,7 @@ A::A(int x)
 }
 
 void A::DefineA(int x)
-{    a = x; 
+{    this -> a = x; 
 }
 
 int A::DameA(void)
