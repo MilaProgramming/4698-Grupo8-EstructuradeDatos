@@ -26,11 +26,11 @@ template <typename T, typename N, T defaultT, N defaultN>
             }
 
             MenosIgual operator -= (MenosIgual mi){
-                return Menosigual(this -> getValor1() - this -> getValor2(), this -> getValor1() - (mi.getValor1() + mi.getValor2()));
+                return MenosIgual(this -> getValor1() - this -> getValor2(), this -> getValor1() - (mi.getValor1() + mi.getValor2()));
             }
 
 			void imprimir() {
-				std::cout << this -> valor1 << " y " << this -> valor2 <<std::endl;
+				std::cout << this -> valor1 << " y " << this -> valor2 << "\n" << std::endl;
 			}
 	};
 #endif
