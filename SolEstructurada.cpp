@@ -15,7 +15,7 @@ void decimaBinario(int val, char *cad){
 int main(){
 
     char *cad = new char[10];
-    cad[0] = '\0';
+    cad[0] = '\0'; 
     decimaBinario(124, cad);
 
     printf("%s ", cad);
