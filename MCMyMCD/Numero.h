@@ -9,10 +9,12 @@ class Numero{
     private:
         vector<int> nums;
         int euclidesMCD(int, int);
+        int MCM(int, int);
     public:
         Numero(string s);
         vector<int> creacionVector(string);
         int obtenerMCD();
+        int obtenerMCM();
         void imprimirLongitudVector();
         void imprimirDatosVector();
 };

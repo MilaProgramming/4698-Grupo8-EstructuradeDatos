@@ -1,61 +1,22 @@
-//#include "Numero.cpp"
-#include <vector>
+#include "Numero.cpp"
 #include <iostream>
+#include <vector>
 using std::vector;
 using namespace std;
-
-int euclidesMCD(int A, int B);
-int euclidesMCD(int A, int B){
-
-    if (A == 0){
-        return B;
-    }else if (B == 0){
-        return A;
-    }else{
-        return euclidesMCD(B, A%B);
-    }
-    
-}
-
-
-int sumarT(vector<int>);
-int sumarT(vector<int> nums) {
-   auto i = nums.begin();
-   int total = *i;
-    ++i;
-    
-    for ( i; i != nums.end(); ++i) {
-        total = euclidesMCD(total, *i); 
-    }
-
-    return total;
-}
-
 
 int main(){
 
     // !Funciona bien
-    //Numero *c = new Numero("Ingrese los numeros con los que desea trabajar");
-    //c ->imprimirLongitudVector();
-    //c ->imprimirDatosVector();
+    Numero *c = new Numero("Ingrese los numeros con los que desea trabajar");
 
-  
-    vector<int> g1;
-    int num=1;
-    std::cout << "Si ha terminado, escriba \"0\" " << std::endl;
+    //?Funciones de MCM y MCD
+    std::cout << "\nEl maximo comun divisor de los numeros" << std::endl;
+    c -> imprimirDatosVector();
+    std::cout << "\nes: " << c -> obtenerMCD() <<std::endl;
+
+    std::cout << "\nEl minimo comun multiplo de los numeros" << std::endl;
+    c -> imprimirDatosVector();
+    std::cout << "\nes: " << c -> obtenerMCM() <<std::endl;
     
-    while (num != 0){
-        std::cin >> num;
-        if (num != 0){
-            g1.push_back(num);
-        }
-    }
-
-    for (auto i = g1.begin(); i != g1.end(); ++i){
-        cout << *i << " ";
-    }
-
-    printf("%i", sumarT(g1));
-   
 }
 

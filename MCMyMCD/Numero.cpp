@@ -1,11 +1,7 @@
 #include <iostream>
 #include "Numero.h"
 #include <vector>
-#include <cstring>
 #include <string>
-#include <stdio.h>
-#include <conio.h>
-#include <stdlib.h>
 using std::vector;
 using namespace std;
 
@@ -29,7 +25,7 @@ vector<int> Numero::creacionVector(string s){
     return nums;
 }
 
-int euclidesMCD(int A, int B){
+int Numero::euclidesMCD(int A, int B){
 
     if (A == 0){
         return B;
@@ -41,7 +37,11 @@ int euclidesMCD(int A, int B){
 
 }
 
-int obtenerMCD(){
+int Numero::MCM(int A, int B){
+    return (A*B)/euclidesMCD(A,B);
+}
+
+int Numero::obtenerMCD(){
     auto i = nums.begin();
     int total = *i;
     ++i;
@@ -53,12 +53,24 @@ int obtenerMCD(){
     return total;
 }
 
+int Numero::obtenerMCM(){
+    auto i = nums.begin();
+    int total = *i;
+    ++i;
+    
+    for ( i; i != nums.end(); ++i) {
+        total = MCM(total, *i); 
+    }
+
+    return total;
+}
+
+
 void Numero::imprimirLongitudVector(){
     std::cout << "Longitud del vector: " << nums.size() << std::endl;
 }
 
 void Numero::imprimirDatosVector(){
-    std::cout << "Numeros en el vector\n " <<  std::endl;
     for (auto i = nums.begin(); i != nums.end(); ++i)
         std::cout << *i << " ";
 }
