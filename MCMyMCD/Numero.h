@@ -8,10 +8,11 @@ using namespace std;
 class Numero{
     private:
         vector<int> nums;
+        int euclidesMCD(int, int);
     public:
         Numero(string s);
         vector<int> creacionVector(string);
-        int euclidesMCD(int, int);
+        int obtenerMCD();
         void imprimirLongitudVector();
         void imprimirDatosVector();
 };

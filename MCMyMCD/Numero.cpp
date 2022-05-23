@@ -38,7 +38,19 @@ int euclidesMCD(int A, int B){
     }else{
         return euclidesMCD(B, A%B);
     }
+
+}
+
+int obtenerMCD(){
+    auto i = nums.begin();
+    int total = *i;
+    ++i;
     
+    for ( i; i != nums.end(); ++i) {
+        total = euclidesMCD(total, *i); 
+    }
+
+    return total;
 }
 
 void Numero::imprimirLongitudVector(){
