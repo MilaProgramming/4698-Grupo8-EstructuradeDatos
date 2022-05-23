@@ -1,13 +1,18 @@
 #ifndef NUMERO_H
 #define NUMERO_H
+#include <vector>
+#include <string>
+using std::vector;
+using namespace std;
 
 class Numero{
     private:
-        int* nums;
+        vector<int> nums;
     public:
-        Numero(int []);
-        int* primosHasta(int);
-        int contDivisor(int);
+        Numero(string s);
+        vector<int> creacionVector(string);
+        int euclidesMCD(int, int);
+        void imprimirLongitudVector();
+        void imprimirDatosVector();
 };
-
 #endif 
