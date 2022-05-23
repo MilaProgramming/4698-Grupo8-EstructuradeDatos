@@ -10,7 +10,7 @@
 *   11-05-2022
 *Fecha de modificacion
 *   13 - 05 -2022
-*Grupo #2
+*Grupo #8
 *Github del grupo:
 * https://github.com/Grupo8-4698-EstructuraDeDatos/4698-Grupo8-EstructuradeDatos
 */
