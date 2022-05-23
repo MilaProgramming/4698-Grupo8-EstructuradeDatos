@@ -1,0 +1,53 @@
+#include <iostream>
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Sobrecarga{
+    public:
+    Sobrecarga();
+
+    int suma(int);
+    float suma(int,int);
+    double suma(int,double);
+    char *suma(int,int,int);
+};
+
+//Constructor
+
+Sobrecarga::Sobrecarga(){
+
+}
+
+//Definicion de metodos
+
+int Sobrecarga::suma(int n){
+    return n*5;
+}
+
+float Sobrecarga::suma(int n,int m){
+    return (float)n*(float)m;
+}
+
+double Sobrecarga::suma(int n, double f){
+    return (double)n*f;
+}
+
+char* Sobrecarga::suma(int a,int b,int c){  
+    return "hola mundo";
+}
+
+
+int main(){
+
+    Sobrecarga *s = new Sobrecarga();
+
+    printf("%i \n", s -> suma(2));
+    printf("%f \n", s -> suma(2,5));
+    printf("%f \n", s -> suma(2,4.6));
+    printf("%s \n", s -> suma(3,4,5));
+  
+    return 0;
+}
