@@ -4,7 +4,12 @@
 
 int main(){
 
-    Binario *b = new Binario(124);
+    //?Ingreso por teclado
+    int num;
+    std::cout << "\nIngrese el binario que desea convertir: " << std::endl;
+    std::cin >> num;
+    //?Creo mi VI
+    Binario *b = new Binario(num);
     b -> imprimirBinario();
 
     return 0;

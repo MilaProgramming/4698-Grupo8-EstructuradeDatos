@@ -3,9 +3,11 @@
 
 class Numero{
     private:
-        int nums [0];
+        int* nums;
     public:
-
+        Numero(int []);
+        int* primosHasta(int);
+        int contDivisor(int);
 };
 
 #endif 
