@@ -1,0 +1,62 @@
+#ifndef EJER5_H
+#define EJER5_H
+#include<iostream>
+#include<iomanip>
+
+using namespace std;
+class A
+{    float x;
+  	 public:
+     A(float cx=0);
+     void DefineX(float);
+     float DameX(void);
+     A operator ++ (void); // como prefijo
+     A operator ++ (int);  // como sufijo
+                           // el par�metro int es obligatorio
+};
+
+
+A::A(float cx)
+{    
+	x=cx; 
+ }
+
+float A::DameX(void)
+{    
+	return x; 
+ }
+
+A A::operator ++ (void)
+{   
+ x=x*x;
+     return *this;
+ }
+
+A A::operator ++ (int)
+{    A aux=*this;
+     x=x*x;
+     return aux;
+ }
+
+  int main ()
+   {
+	 A A1(2),A2(3),A3;
+     cout << "Inicialmente : " << endl;
+     cout << "A1 : " << A1.DameX()<< endl;
+     cout << "A2 : " << A2.DameX()<< endl;
+     cout << endl;
+    
+     A3 = ++A1;
+     cout << "Como prefijo A3 = ++A1 : " << endl;
+     cout << "A1 : " << A1.DameX()<< endl;
+     cout << "A3 : " << A3.DameX()<< endl;
+
+     A3 = A2++;
+     cout << endl;
+     cout << "Como sufijo A3 = A2++: " << endl;
+     cout << "A2 : " << A2.DameX()<< endl;
+     cout << "A3 : " << A3.DameX()<< endl;
+     return 0;
+ 	}
+
+#endif

@@ -1,5 +1,5 @@
-#ifndef EJER4_H
-#define EJER4_H
+#ifndef EJER5_H
+#define EJER5_H
 #include<iostream>
 #include<iomanip>
 
@@ -12,7 +12,7 @@ class A
      float DameX(void);
      A operator ++ (void); // como prefijo
      A operator ++ (int);  // como sufijo
-                           // el parámetro int es obligatorio
+                           // el parï¿½metro int es obligatorio
 };
 
 #endif

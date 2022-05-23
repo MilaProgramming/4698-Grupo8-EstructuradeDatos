@@ -1,0 +1,57 @@
+#ifndef EJER4_H
+#define EJER4_H
+#include<iostream>
+#include<iomanip>
+using namespace std;
+class Complejo
+{    float real;
+     float imag;
+   public:
+     Complejo(float r=0, float i=0);
+     void DefineR(float);
+     void DefineI(float);
+     float DameR(void);
+     float DameI(void);
+     Complejo operator + (Complejo);
+     Complejo operator - (Complejo);
+};
+
+Complejo::Complejo(float r, float i)
+{    real=r; imag=i; 
+}
+
+void Complejo::DefineR(float r)
+{    real=r; 
+}
+
+void Complejo::DefineI(float i)
+{    imag=i; 
+}
+
+float Complejo::DameR(void)
+{    return real; 
+}
+
+float Complejo::DameI(void)
+{    return imag; 
+}
+
+Complejo Complejo::operator + (Complejo C)
+{    return Complejo(real+C.DameR() , imag+C.DameI());
+}
+
+Complejo Complejo::operator - (Complejo C)
+{    return Complejo(real-C.DameR() , imag-C.DameI());
+}
+
+
+int main(){
+
+    Complejo A(1.5,2.3), B(5.2,4.7), C(1.1,0.4), D;
+     D= A + B - C;
+     cout << "D = " << D.DameR()<<" + "<< D.DameI() << "i"
+          << endl;
+    return 0;
+}
+
+#endif

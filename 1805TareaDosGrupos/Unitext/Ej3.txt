@@ -1,0 +1,32 @@
+#include <iostream>
+#include <iomanip>
+#include <string.h>
+
+using namespace std;
+class Cadena
+{    char cad[40];
+   public:
+     Cadena(char *);
+     char * DameCadena(void);
+     void operator + (Cadena);
+};
+
+Cadena::Cadena(char *c)
+{    strcpy(cad,c);
+}
+
+char *Cadena::DameCadena(void)
+{    return cad; 
+}
+
+void Cadena::operator + (Cadena C)
+{    strcat(cad, C.DameCadena()); 
+}
+
+int main ()
+{    Cadena C1("Juan ") , C2("Lopez");
+     C1+C2;
+     cout << "Atributo de C1 = " << C1.DameCadena() << endl;
+
+    return 0;
+}

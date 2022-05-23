@@ -1,9 +1,19 @@
-/*
-Autores: Shared Tinoco, Sebastian Torres, Camila Rivera, Mateo Román.
-Fecha de creacion: 17/05/2022
-Fecha de modificacion: 18/05/2022
-Grupo 10 - Grupo 8
-Github del grupo: https://github.com/Grupo8-4698-EstructuraDeDatos
+/*ESPE
+*Enunciado del problema:
+*   Realizar ejercicios sobrecargando operadores
+*   Sobrecarga del operador masigual +=
+*Autor 
+*   Sebastian Torres 
+*   Shared Tinoco +=
+*   Camila Rivera
+*   Mateo Roman
+*Fecha de creacion
+*   17-05-2022
+*Fecha de modificacion
+*   18 - 05 -2022
+*Grupo #10 y #8
+*Github del grupo:
+* https://github.com/Grupo8-4698-EstructuraDeDatos/4698-Grupo8-EstructuradeDatos
 */
 
 
