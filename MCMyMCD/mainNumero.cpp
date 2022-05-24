@@ -17,6 +17,8 @@ int main(){
     std::cout << "\nEl minimo comun multiplo de los numeros" << std::endl;
     c -> imprimirDatosVector();
     std::cout << "\nes: " << c -> obtenerMCM() <<std::endl;
+
+    c ->~Numero();
     
 }
 

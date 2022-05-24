@@ -12,6 +12,7 @@ class Numero{
         int MCM(int, int);
     public:
         Numero(string s);
+        ~Numero();
         vector<int> creacionVector(string);
         int obtenerMCD();
         int obtenerMCM();

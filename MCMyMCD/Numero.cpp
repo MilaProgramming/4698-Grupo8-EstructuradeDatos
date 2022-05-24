@@ -9,6 +9,9 @@ Numero::Numero(string s){
     this -> nums = creacionVector(s);
 }
 
+Numero::~Numero(){
+}
+
 vector<int> Numero::creacionVector(string s){
     vector<int> nums;
     int num = 1;

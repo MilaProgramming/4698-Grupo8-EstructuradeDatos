@@ -11,6 +11,6 @@ int main(){
     //?Creo mi VI
     Binario *b = new Binario(num);
     b -> imprimirBinario();
-
+    b -> ~Binario();
     return 0;
 }
