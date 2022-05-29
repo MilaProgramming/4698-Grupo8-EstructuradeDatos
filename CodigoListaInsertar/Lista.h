@@ -28,5 +28,9 @@ class ListaEnlazada{
         void imprimirCola();
 
         //?Funciones extra
+        
+        int buscarIndice(int);
+        bool contiene(int);
+        int longitudLista();
 
 };

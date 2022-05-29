@@ -75,7 +75,6 @@ void ListaEnlazada::eliminarCola(){
 }
 
 //!5
-
 int ListaEnlazada::buscarPrimerNodo(){
 
     if (estaVacio()){
@@ -107,4 +106,32 @@ void ListaEnlazada::imprimirCola(){
         nimpreso = obtenerPrevio(nimpreso);
         cout << nimpreso ->getValor() << " ";
     }
+}
+
+//?Funciones extra
+
+int ListaEnlazada::buscarIndice(int buscado){
+
+    if(estaVacio()){
+        cout << "Lista vacia" <<endl;
+    }else{
+        int indice = 0; 
+        Nodo *actual = primero;
+
+        while(actual != nullptr){
+            if(actual->getValor() == buscado) return indice;
+                actual = actual->getNodo();
+                indice++;
+            }
+    }
+
+    return -1;
+}
+
+bool ListaEnlazada::contiene(int contenido){
+    return buscarIndice(contenido) != -1;
+}   
+
+int ListaEnlazada::longitudLista(){
+    
 }

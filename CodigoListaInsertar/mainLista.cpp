@@ -44,7 +44,15 @@ int main(){
     l -> imprimirCabeza();
 
     cout << "\n";
+
     l -> imprimirCola();
+    cout<< "\nEl indice del numero 25 es " << l -> buscarIndice(25) << endl;
+
+    if(l -> contiene(10)){
+        cout <<"Holi" << endl;
+    }else{
+        cout << "Chao" <<endl;
+    }
 
     return 0;
 }
