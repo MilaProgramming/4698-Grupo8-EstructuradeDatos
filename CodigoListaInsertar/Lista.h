@@ -8,6 +8,7 @@ class ListaEnlazada{
     public:
 
         ListaEnlazada();
+        ~ListaEnlazada();
         void agregarFinal(int);
         void imprimirCabeza();
 };
