@@ -1,0 +1,6 @@
+﻿  main.cpp
+  menu.cpp
+C:\Users\lizze\Documents\SEMESTRE III\ESTRUCTURA DE DATOS\_Trabajos_\1_Parcial\06_Listas\Lista_Simple_Enlazada\menu.cpp(87,46): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+  menu_option.cpp
+  Generando código...
+  LinkedList.vcxproj -> C:\Users\lizze\Documents\SEMESTRE III\ESTRUCTURA DE DATOS\_Trabajos_\1_Parcial\06_Listas\Lista_Simple_Enlazada\x64\Debug\LinkedList.exe

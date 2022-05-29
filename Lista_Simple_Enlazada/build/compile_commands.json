@@ -1,0 +1,17 @@
+[
+{
+  "directory": "C:/Users/lizze/Documents/SEMESTRE III/ESTRUCTURA DE DATOS/_Trabajos_/1_Parcial/06_Listas/Lista_Simple_Enlazada/build",
+  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe   -g -std=gnu++14 -o CMakeFiles\\linkedlist.dir\\menu_option.cpp.obj -c \"C:\\Users\\lizze\\Documents\\SEMESTRE III\\ESTRUCTURA DE DATOS\\_Trabajos_\\1_Parcial\\06_Listas\\Lista_Simple_Enlazada\\menu_option.cpp\"",
+  "file": "C:/Users/lizze/Documents/SEMESTRE III/ESTRUCTURA DE DATOS/_Trabajos_/1_Parcial/06_Listas/Lista_Simple_Enlazada/menu_option.cpp"
+},
+{
+  "directory": "C:/Users/lizze/Documents/SEMESTRE III/ESTRUCTURA DE DATOS/_Trabajos_/1_Parcial/06_Listas/Lista_Simple_Enlazada/build",
+  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe   -g -std=gnu++14 -o CMakeFiles\\linkedlist.dir\\menu.cpp.obj -c \"C:\\Users\\lizze\\Documents\\SEMESTRE III\\ESTRUCTURA DE DATOS\\_Trabajos_\\1_Parcial\\06_Listas\\Lista_Simple_Enlazada\\menu.cpp\"",
+  "file": "C:/Users/lizze/Documents/SEMESTRE III/ESTRUCTURA DE DATOS/_Trabajos_/1_Parcial/06_Listas/Lista_Simple_Enlazada/menu.cpp"
+},
+{
+  "directory": "C:/Users/lizze/Documents/SEMESTRE III/ESTRUCTURA DE DATOS/_Trabajos_/1_Parcial/06_Listas/Lista_Simple_Enlazada/build",
+  "command": "C:\\mingw64\\bin\\x86_64-w64-mingw32-g++.exe   -g -std=gnu++14 -o CMakeFiles\\linkedlist.dir\\main.cpp.obj -c \"C:\\Users\\lizze\\Documents\\SEMESTRE III\\ESTRUCTURA DE DATOS\\_Trabajos_\\1_Parcial\\06_Listas\\Lista_Simple_Enlazada\\main.cpp\"",
+  "file": "C:/Users/lizze/Documents/SEMESTRE III/ESTRUCTURA DE DATOS/_Trabajos_/1_Parcial/06_Listas/Lista_Simple_Enlazada/main.cpp"
+}
+]
