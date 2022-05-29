@@ -16,7 +16,9 @@ class Nodo{
 
         Nodo();
 
-        ~Nodo();
+        ~Nodo(){
+            delete &nodo;
+        }    
 
         void setValor(int v){
             this -> valor = v;

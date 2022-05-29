@@ -30,12 +30,21 @@ int main(){
     }
     */
 
+
     l -> agregarFinal(10);
     l -> agregarFinal(15);
     l -> agregarFinal(20);
 
     l -> agregarInicio(5);
+    l -> agregarFinal(25);
+    
+    l -> agregarInicio(0);
+    l -> agregarFinal(30);
+
     l -> imprimirCabeza();
+
+    cout << "\n";
+    l -> imprimirCola();
 
     return 0;
 }
