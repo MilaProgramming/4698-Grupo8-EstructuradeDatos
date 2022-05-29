@@ -6,6 +6,8 @@ using namespace std;
 int main(){
 
     ListaEnlazada *l = new ListaEnlazada();
+
+    /*
     IngresoDatos *i = new IngresoDatos();
     IngresoDatos *m = new IngresoDatos();
     int cont = 0;
@@ -26,7 +28,13 @@ int main(){
             cout<<"Ingrese un numero valido\n";
         }
     }
+    */
 
+    l -> agregarFinal(10);
+    l -> agregarFinal(15);
+    l -> agregarFinal(20);
+
+    l -> agregarInicio(5);
     l -> imprimirCabeza();
 
     return 0;
