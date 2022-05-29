@@ -25,7 +25,8 @@ void IngresoDatos::imprimirMensaje(string str){
 
 //Metodos publicos
 
-char* IngresoDatos::leerDatosSinString(){
+//Metodo sobrecargado sin string
+char* IngresoDatos::leerDatos(){
     char c;  //Creo un caracter, con el que voy a recibir el cada input
 	int j = 0; //Iterador para la verifiacion del unico punto
 	int i = 0; //Iterador para terminar el bucle, y asignar el valor final como nulo
@@ -39,7 +40,7 @@ char* IngresoDatos::leerDatosSinString(){
 
         }else if(c == 8){ //Si el input es un back space
 
-			backspaceSinMensaje(&i, &j,  &c); //Funcion para la tecla backspace
+			backspace(&i, &j,  &c); //Funcion para la tecla backspace
         }    			     
     }
 
@@ -87,7 +88,8 @@ void IngresoDatos::backspace(int* i, int* j, char* c, string mensaje){
     }
 }
 
- void IngresoDatos::backspaceSinMensaje(int* i, int* j, char* c){
+//Metodo sobrecargado sin mensaje
+ void IngresoDatos::backspace(int* i, int* j, char* c){
     system("CLS"); //Limpio pantalla
     cout<< *i <<endl;
     for(int p = 0; p < *i-1; p++){
@@ -106,5 +108,5 @@ int IngresoDatos::funcionPrincipal(string mensaje){
 
 
 int IngresoDatos::funcionPrincipal(){
-    return this -> conversion.numInt(leerDatosSinString());
+    return this -> conversion.numInt(leerDatos());
 }

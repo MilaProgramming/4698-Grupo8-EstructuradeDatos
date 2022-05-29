@@ -16,12 +16,14 @@ class IngresoDatos{
 
         //metodo pincipal
         char* leerDatos(string);
-        char* leerDatosSinString();
+        char* leerDatos();
         int funcionPrincipal(string);
+        //Metodo sobrecargado
         int funcionPrincipal();
         void unicoPunto(int*, int*, string, char*);
         void backspace(int*, int*, char*, string);
-        void backspaceSinMensaje(int*, int*, char*);
+        //Metodo sobrecargado
+        void backspace(int*, int*, char*);
 };
 
 #endif  
