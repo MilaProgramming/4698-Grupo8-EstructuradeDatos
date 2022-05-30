@@ -6,12 +6,14 @@ class ListaEnlazada{
     private:
         Nodo *primero = nullptr;
         Nodo *ultimo = nullptr;
-        bool estaVacio();
         Nodo* obtenerPrevio(Nodo*);
     public:
 
         ListaEnlazada();
         ~ListaEnlazada();
+        
+        bool estaVacio();
+
         //!1
         void agregarFinal(int);
         //!2
@@ -28,5 +30,7 @@ class ListaEnlazada{
         void imprimirCola();
 
         //?Funciones extra
+
+         int buscarIndice(int);
 
 };

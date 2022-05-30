@@ -108,3 +108,21 @@ void ListaEnlazada::imprimirCola(){
         cout << nimpreso ->getValor() << " ";
     }
 }
+
+int ListaEnlazada::buscarIndice(int buscado){
+
+    if(estaVacio()){
+        cout << "Lista vacia" <<endl;
+    }else{
+        int indice = 0; 
+        Nodo *actual = primero;
+
+        while(actual != nullptr){
+            if(actual->getValor() == buscado) return indice;
+                actual = actual->getNodo();
+                indice++;
+            }
+    }
+
+    return -1;
+}

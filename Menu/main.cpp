@@ -57,8 +57,8 @@ int main(int argc, char **argv) {
         std::cout << "[elemento agregado]" << std::endl;
     }));
 
-    menu.add_option(MenuOption("Eliminar elemento", [&](MenuOptionArguments args) {
-        if (list.empty()) {
+    /*menu.add_option(MenuOption("Eliminar elemento", [&](MenuOptionArguments args) {
+        if (l->estaVacio()) {
             std::cout << "[lista vacia]" << std::endl << std::endl;
             system("pause");
             return;
@@ -85,12 +85,33 @@ int main(int argc, char **argv) {
         }, false));
 
         items_menu.display();
-    }, false));
+    }, false));*/
+    menu.add_option(MenuOption("Eliminar Cabeza", [&](MenuOptionArguments args) {
+        do {
+            l ->eliminarCabeza();
+           
 
-    menu.add_option(MenuOption("Buscar elemento", [&](MenuOptionArguments args) {
+
+        } while (true);
+        std::cout << "[elemento eliminado]" << std::endl; 
+
+    }));
+
+    menu.add_option(MenuOption("Eliminar Cola", [&](MenuOptionArguments args) {
+        do {
+            l ->eliminarCola();
+           
+
+
+        } while (true);
+        std::cout << "[elemento eliminado]" << std::endl; 
+
+    }));    
+
+    /*menu.add_option(MenuOption("Buscar elemento", [&](MenuOptionArguments args) {
         int value;
 
-        if (list.empty()) {
+        if (l->estaVacio()) {
             std::cout << "[lista vacia]" << std::endl << std::endl;
             return;
         }
@@ -119,17 +140,39 @@ int main(int argc, char **argv) {
         } else {
             std::cout << "elemento encontrado en la posicion " << found_index << std::endl;
         }
-    }));
+    }));*/
 
-    menu.add_option(MenuOption("Imprimir lista", [&](MenuOptionArguments args) {
-        if (list.empty()) {
+    menu.add_option(MenuOption("Buscar ", [&](MenuOptionArguments args) {
+        int value;
+
+        do {
+            std::cout << "ingrese un valor: ";
+            std::cin >> value;
+
+            if (std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+            }
+
+            break;
+        } while (true);
+
+        l ->buscarIndice(value);
+        
+    }));
+    
+
+    menu.add_option(MenuOption("Imprimir Cabeza", [&](MenuOptionArguments args) {
+        if (l->estaVacio()) {
             std::cout << "[lista vacia]" << std::endl << std::endl;
             return;
         }
 
-        list.for_each([](int element) {
+        l->imprimirCabeza () {
+            int element
             std::cout << element << " -> ";
-        });
+        };
 
         std::cout << "NULL";
     }));
