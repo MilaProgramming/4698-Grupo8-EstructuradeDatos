@@ -99,9 +99,11 @@ void ListaEnlazada::imprimirCabeza(){
     nimpreso = primero;
 
     while( nimpreso != nullptr){
-        cout<< nimpreso -> getValor() << " ";
+        cout<< nimpreso -> getValor() << " -> ";
         nimpreso = nimpreso->getNodo();
     }
+
+    cout << " NULL";
 }
 
 //!7
@@ -112,8 +114,10 @@ void ListaEnlazada::imprimirCola(){
 
     while(obtenerPrevio(nimpreso) != nullptr){
         nimpreso = obtenerPrevio(nimpreso);
-        cout << nimpreso ->getValor() << " ";
+        cout << nimpreso ->getValor() << " -> ";
     }
+
+    cout << " NULL";
 }
 
 //?Funciones extra
@@ -146,5 +150,35 @@ int ListaEnlazada::longitudLista(){
 
 int* ListaEnlazada::convertiraArray(){
     int *array = new int[longitud];
+    Nodo *actual = primero;
+    int indice=0;
+    while (actual != nullptr){
+        array[indice++] = actual -> getValor();
+        actual = actual ->getNodo();
+    }
 
+    return array;
+}
+
+void ListaEnlazada::revertir(){
+
+    if (estaVacio()) return;
+    
+    Nodo *previo = primero;
+    Nodo *actual = primero -> getNodo();
+
+    while(actual != nullptr){
+        Nodo *siguiente  = actual ->getNodo();
+        actual -> setNodo(previo);
+        previo = actual;
+        actual = actual ->getNodo();
+    }
+
+    ultimo = primero;
+    ultimo -> setNodo(nullptr);
+    primero = previo;
+}
+
+int ListaEnlazada::obtenerValorIndiceRevertido(){
+    return 1;
 }

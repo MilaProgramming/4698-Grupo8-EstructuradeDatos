@@ -13,7 +13,7 @@ class ListaEnlazada{
 
         ListaEnlazada();
         ~ListaEnlazada();
-        
+
         bool estaVacio();
 
         //!1
@@ -37,5 +37,7 @@ class ListaEnlazada{
         bool contiene(int);
         int longitudLista();
         int* convertiraArray();
+        void revertir();
+        int obtenerValorIndiceRevertido();
 
 };
