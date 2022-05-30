@@ -1,7 +1,11 @@
 #include "1Nodo.h"
 #include <exception>
+#include "0Buscar.h"
+#include "0Agregar.h"
+#include "0Eliminar.h"
+#include "0Imprimir.h"
 
-class ListaEnlazada{
+class ListaEnlazada: public Buscar, public Agregar, public Eliminar, public Imprimir{
 
     private:
         Nodo *primero = nullptr;
