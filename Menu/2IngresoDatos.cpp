@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
-#include "Conversion.cpp"
-#include "IngresoDatos.h"
+#include "2Conversion.cpp"
+#include "2IngresoDatos.h"
 
 using namespace std;
 
@@ -70,7 +70,6 @@ char* IngresoDatos::leerDatos(string mensaje){
     dato[i]='\0';
     return dato;
 }
-
 
 
 void IngresoDatos::backspace(int* i, int* j, char* c, string mensaje){

@@ -1,5 +1,4 @@
-#ifndef NODO_H
-#define NODO_H
+#pragma once
 
 #include <iostream>
 using namespace std;
@@ -37,5 +36,3 @@ class Nodo{
         }
 
 };
-
-#endif

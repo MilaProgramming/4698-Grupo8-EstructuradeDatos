@@ -2,28 +2,26 @@
 
 #include <iostream>
 #include <limits>
-#include "menu.cpp"
-#include "menu_option.cpp"
-//#include "Lista.h"
-#include "Lista.cpp"
-#include "IngresoDatos.cpp"
+#include "3menu.cpp"
+#include "3menu_option.cpp"
+#include "1Lista.cpp"
+#include "2IngresoDatos.cpp"
 #include <iostream>
 
 using namespace std;
 
 int main(int argc, char **argv) {
     Menu menu("Listas - menu");
-    //LinkedList<int> list;
-    //ListaEnlazada<int> list;
     ListaEnlazada *l = new ListaEnlazada();
 
 
     menu.add_option(MenuOption("Agregar elemento al final", [&](MenuOptionArguments args) {
-        int value;
+        IngresoDatos *v = new IngresoDatos();
+        int valor;
 
         do {
-            std::cout << "ingrese un valor: ";
-            std::cin >> value;
+            cout << "ingrese un valor: ";
+            valor = v ->funcionPrincipal();
 
             if (std::cin.fail()) {
                 std::cin.clear();
@@ -34,16 +32,17 @@ int main(int argc, char **argv) {
             break;
         } while (true);
 
-        l -> agregarFinal(value);
-        std::cout << "[elemento agregado]" << std::endl;
+        l -> agregarFinal(valor);
+        cout << "[elemento agregado]" <<endl;
     }));
 
     menu.add_option(MenuOption("Agregar elemento al inicio", [&](MenuOptionArguments args) {
-        int value;
+        IngresoDatos *v = new IngresoDatos();
+        int valor;
 
         do {
-            std::cout << "ingrese un valor: ";
-            std::cin >> value;
+            cout << "Ingrese un valor: ";
+            valor = v ->funcionPrincipal();
 
             if (std::cin.fail()) {
                 std::cin.clear();
@@ -54,93 +53,31 @@ int main(int argc, char **argv) {
             break;
         } while (true);
 
-        l -> agregarInicio(value);
-        std::cout << "[elemento agregado]" << std::endl;
+        l -> agregarInicio(valor);
+        cout << "[elemento agregado]" <<endl;
     }));
 
-    /*menu.add_option(MenuOption("Eliminar elemento", [&](MenuOptionArguments args) {
-        if (l->estaVacio()) {
-            std::cout << "[lista vacia]" << std::endl << std::endl;
-            system("pause");
-            return;
-        }
-
-        Menu items_menu("Seleccione el elemento a eliminar: ");
-
-        list.for_each([&](int element, int index) {
-            MenuOptionArguments arguments;
-            arguments.add("index", index);
-
-            MenuOption option(std::to_string(index) + ": " + std::to_string(element), [&](MenuOptionArguments args) {
-                list.remove_at(args.get<int>("index"));
-                items_menu.stop();
-
-                std::cout << "[elemento eliminado]" << std::endl;
-            }, arguments);
-
-            items_menu.add_option(option);
-        });
-
-        items_menu.add_option(MenuOption("regresar", [&](MenuOptionArguments args) {
-            items_menu.stop();
-        }, false));
-
-        items_menu.display();
-    }, false));*/
     menu.add_option(MenuOption("Eliminar Cabeza", [&](MenuOptionArguments args) {
         
         l ->eliminarCabeza();
-        std::cout << "[elemento eliminado por la cabeza]" << std::endl; 
+        cout << "[elemento eliminado por la cabeza]" <<endl; 
 
     }));
 
     menu.add_option(MenuOption("Eliminar Cola", [&](MenuOptionArguments args) {
         
-        l ->eliminarCola();
-        std::cout << "[elemento eliminado por la cola]" << std::endl; 
+        l -> eliminarCola();
+        cout << "[elemento eliminado por la cola]" <<endl; 
 
     }));    
 
-    /*menu.add_option(MenuOption("Buscar elemento", [&](MenuOptionArguments args) {
-        int value;
-
-        if (l->estaVacio()) {
-            std::cout << "[lista vacia]" << std::endl << std::endl;
-            return;
-        }
-
-        do {
-            std::cout << "ingrese un valor: ";
-            std::cin >> value;
-
-            if (std::cin.fail()) {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                continue;
-            }
-
-            break;
-        } while (true);
-
-        int found_index;
-        Node<int> *found = list.find([&](int element, int index) {
-            found_index = index;
-            return value == element;
-        });
-
-        if (found == nullptr) {
-            std::cout << "elemento no encontrado" << std::endl;
-        } else {
-            std::cout << "elemento encontrado en la posicion " << found_index << std::endl;
-        }
-    }));*/
-
     menu.add_option(MenuOption("Buscar ", [&](MenuOptionArguments args) {
-        int value;
+        IngresoDatos *v = new IngresoDatos();
+        int valor;
 
         do {
-            std::cout << "ingrese un valor: ";
-            std::cin >> value;
+            cout << "ingrese un valor: ";
+            valor = v ->funcionPrincipal();
 
             if (std::cin.fail()) {
                 std::cin.clear();
@@ -151,14 +88,15 @@ int main(int argc, char **argv) {
             break;
         } while (true);
 
-        l ->buscarIndice(value);
+        l ->buscarIndice(valor);
         
     }));
     
 
     menu.add_option(MenuOption("Imprimir Cabeza", [&](MenuOptionArguments args) {
+
         if (l->estaVacio()) {
-            std::cout << "[lista vacia]" << std::endl << std::endl;
+            cout << "[lista vacia]" <<endl <<endl;
             return;
         }
 
@@ -168,7 +106,7 @@ int main(int argc, char **argv) {
 
     menu.add_option(MenuOption("Imprimir Cola", [&](MenuOptionArguments args) {
         if (l->estaVacio()) {
-            std::cout << "[lista vacia]" << std::endl << std::endl;
+            cout << "[lista vacia]" <<endl <<endl;
             return;
         }
 
@@ -176,9 +114,60 @@ int main(int argc, char **argv) {
 
     }));
 
+    //!Prueba de otras funciones
+    menu.add_option(MenuOption("Otras funciones", [&](MenuOptionArguments args) {
+        system("CLS");
+        Menu menuInterno("Otras funciones");
+
+        /*
+        menuInterno.add_option(MenuOption("Buscar solo la primera ocurrencia", [&](MenuOptionArguments args) {
+            
+        }));
+        */
+
+        menuInterno.add_option(MenuOption("Buscar si existe tal numero en la lista", [&](MenuOptionArguments args) {
+            IngresoDatos *v = new IngresoDatos();
+            int valor;
+
+            do {
+                cout << "Ingrese un valor: ";
+                valor = v ->funcionPrincipal();
+
+                if (std::cin.fail()) {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    continue;
+                }
+            break;
+        } while (true);
+
+            if(l -> estaVacio()){
+                cout<< "\nLista vacia" <<endl; 
+                return;
+            }else{  
+
+                if (l -> contiene(valor)){
+                    cout << "Existe en valor en la lista" <<endl;
+                }else{
+                    cout << "No existe el valor ingresado en la lista en la lista" <<endl;
+                }    
+            }
+        }));
+
+        /*
+        menuInterno.add_option(MenuOption("Revertir la lista", [&](MenuOptionArguments args) {
+        
+        }));
+        */
+        menuInterno.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
+            menuInterno.stop();
+        }, false));
+
+        menuInterno.display();
+    }));
 
     menu.add_option(MenuOption("salir", [&](MenuOptionArguments args) {
-        std::cout << "bye bye" << std::endl;
+        cout << "¡Gracias por usar el programa!" <<endl;
         menu.stop();
     }, false));
 

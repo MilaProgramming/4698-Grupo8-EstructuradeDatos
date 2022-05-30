@@ -181,6 +181,8 @@ void ListaEnlazada::revertir(){
 
 int ListaEnlazada::obtenerValorIndiceRevertido(int k){
     
+    if (k > longitud) return -1;
+    
     Nodo *a = primero;
     Nodo *b = primero;
 

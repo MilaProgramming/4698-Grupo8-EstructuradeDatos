@@ -1,7 +1,7 @@
 #ifndef INGRESODATOS_H
 #define INGRESODATOS_H
 #include <string>
-#include "Conversion.h"
+#include "2Conversion.h"
 using namespace std;
 class IngresoDatos{
     private:

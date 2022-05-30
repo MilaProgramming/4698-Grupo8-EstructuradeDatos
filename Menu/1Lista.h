@@ -1,4 +1,4 @@
-#include "Nodo.h"
+#include "1Nodo.h"
 #include <exception>
 
 class ListaEnlazada{
@@ -6,6 +6,7 @@ class ListaEnlazada{
     private:
         Nodo *primero = nullptr;
         Nodo *ultimo = nullptr;
+        int longitud;
         Nodo* obtenerPrevio(Nodo*);
     public:
 
@@ -31,6 +32,11 @@ class ListaEnlazada{
 
         //?Funciones extra
 
-         int buscarIndice(int);
+        int buscarIndice(int);
+        bool contiene(int);
+        int longitudLista();
+        int* convertiraArray();
+        void revertir();
+        int obtenerValorIndiceRevertido(int);
 
 };

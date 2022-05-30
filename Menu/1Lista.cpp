@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Lista.h"
+#include "1Lista.h"
 
 ListaEnlazada::ListaEnlazada(){
 
@@ -28,6 +28,8 @@ void ListaEnlazada::agregarFinal(int nuevo){
         ultimo -> setNodo(n);
         ultimo = n;
     }
+
+    longitud++;
 }
 
 //!2
@@ -40,6 +42,8 @@ void ListaEnlazada::agregarInicio(int nuevo){
         n -> setNodo(primero);
         primero = n;
     }
+
+    longitud++;
 }
 
 //!3
@@ -57,6 +61,8 @@ void ListaEnlazada::eliminarCabeza(){
         primero = nullptr; //Elimino referencia
         primero = segundo;
     }
+
+    longitud--;
 }
 
 //!4 
@@ -72,10 +78,11 @@ void ListaEnlazada::eliminarCola(){
         ultimo = previo;
         ultimo -> setNodo(nullptr);   
     }
+
+    longitud--;
 }
 
 //!5
-
 int ListaEnlazada::buscarPrimerNodo(){
 
     if (estaVacio()){
@@ -109,9 +116,11 @@ void ListaEnlazada::imprimirCola(){
         nimpreso = obtenerPrevio(nimpreso);
         cout << nimpreso ->getValor() << " -> ";
     }
-
+    
     cout << " NULL";
 }
+
+//?Funciones extra
 
 int ListaEnlazada::buscarIndice(int buscado){
 
@@ -129,4 +138,62 @@ int ListaEnlazada::buscarIndice(int buscado){
     }
 
     return -1;
+}
+
+bool ListaEnlazada::contiene(int contenido){
+    return buscarIndice(contenido) != -1;
+}   
+
+int ListaEnlazada::longitudLista(){
+    return longitud;
+}
+
+int* ListaEnlazada::convertiraArray(){
+    int *array = new int[longitud];
+    Nodo *actual = primero;
+    int indice=0;
+    while (actual != nullptr){
+        array[indice++] = actual -> getValor();
+        actual = actual ->getNodo();
+    }
+
+    return array;
+}
+
+void ListaEnlazada::revertir(){
+
+    if (estaVacio()) return;
+    
+    Nodo *previo = primero;
+    Nodo *actual = primero -> getNodo();
+
+    while(actual != nullptr){
+        Nodo *siguiente  = actual ->getNodo();
+        actual -> setNodo(previo);
+        previo = actual;
+        actual = actual ->getNodo();
+    }
+
+    ultimo = primero;
+    ultimo -> setNodo(nullptr);
+    primero = previo;
+}
+
+int ListaEnlazada::obtenerValorIndiceRevertido(int k){
+    
+    if (k > longitud) return -1;
+    
+    Nodo *a = primero;
+    Nodo *b = primero;
+
+    for(int i = 0; i < k-1; i++){
+        b = b ->getNodo();
+    }    
+
+    while (b ->getNodo() != nullptr){
+        a = a ->getNodo();
+        b = b ->getNodo();
+    } 
+
+    return a -> getValor();
 }

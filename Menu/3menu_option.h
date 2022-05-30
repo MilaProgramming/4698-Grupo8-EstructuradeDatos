@@ -5,8 +5,8 @@
 #include <map>
 #include <memory>
 
-#ifndef __MENU_CLASSES_
-#define __MENU_CLASSES_
+#ifndef __3MENU_CLASSES_
+#define __3MENU_CLASSES_
 
 class MenuOptionArgumentBase
 {
@@ -61,6 +61,7 @@ public:
     void set(std::string key, T value);
 
     bool has(std::string key);
+    
 private:
     std::map<std::string, std::unique_ptr<MenuOptionArgumentBase>> *arguments;
 };

@@ -1,5 +1,4 @@
-#ifndef CONVERSION_H
-#define CONVERSION_H
+#pragma once
 
 //Clase para verificar numero y realizar la conversion
 class Conversion{
@@ -10,5 +9,3 @@ class Conversion{
         ~Conversion(); //Destructor
         void convertir(char*); //Metodo de ejecucion para convertir numero
 };
-
-#endif 
