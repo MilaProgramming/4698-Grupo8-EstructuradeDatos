@@ -1,9 +1,8 @@
 #ifndef INGRESODATOS_H
 #define INGRESODATOS_H
 #include <string>
-using namespace std;
 #include "Conversion.h"
-
+using namespace std;
 class IngresoDatos{
     private:
         char* dato; //Arreglo donde guardare la insercion de mis numeros

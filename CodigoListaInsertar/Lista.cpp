@@ -116,7 +116,7 @@ void ListaEnlazada::imprimirCola(){
         nimpreso = obtenerPrevio(nimpreso);
         cout << nimpreso ->getValor() << " -> ";
     }
-
+    
     cout << " NULL";
 }
 

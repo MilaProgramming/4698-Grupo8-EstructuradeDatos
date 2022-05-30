@@ -1,4 +1,4 @@
-#include "Lista.cpp"
+/*#include "Lista.cpp"
 #include "IngresoDatos.cpp"
 #include <iostream>
 using namespace std;
@@ -30,7 +30,7 @@ int main(){
     }
     */
 
-
+/*
     l -> agregarFinal(10);
     l -> agregarFinal(15);
     l -> agregarFinal(20);
@@ -47,4 +47,4 @@ int main(){
     l -> imprimirCola();
 
     return 0;
-}
+}*/

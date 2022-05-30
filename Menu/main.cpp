@@ -4,10 +4,11 @@
 #include <limits>
 #include "menu.cpp"
 #include "menu_option.cpp"
-#include "Lista.h"
+//#include "Lista.h"
 #include "Lista.cpp"
 #include "IngresoDatos.cpp"
 #include <iostream>
+
 using namespace std;
 
 int main(int argc, char **argv) {
@@ -89,8 +90,6 @@ int main(int argc, char **argv) {
     menu.add_option(MenuOption("Eliminar Cabeza", [&](MenuOptionArguments args) {
         do {
             l ->eliminarCabeza();
-           
-
 
         } while (true);
         std::cout << "[elemento eliminado]" << std::endl; 
@@ -100,8 +99,6 @@ int main(int argc, char **argv) {
     menu.add_option(MenuOption("Eliminar Cola", [&](MenuOptionArguments args) {
         do {
             l ->eliminarCola();
-           
-
 
         } while (true);
         std::cout << "[elemento eliminado]" << std::endl; 
@@ -169,13 +166,20 @@ int main(int argc, char **argv) {
             return;
         }
 
-        l->imprimirCabeza () {
-            int element
-            std::cout << element << " -> ";
-        };
+        l->imprimirCabeza ();
 
-        std::cout << "NULL";
     }));
+
+    menu.add_option(MenuOption("Imprimir Cola", [&](MenuOptionArguments args) {
+        if (l->estaVacio()) {
+            std::cout << "[lista vacia]" << std::endl << std::endl;
+            return;
+        }
+
+        l->imprimirCola ();
+
+    }));
+
 
     menu.add_option(MenuOption("salir", [&](MenuOptionArguments args) {
         std::cout << "bye bye" << std::endl;
