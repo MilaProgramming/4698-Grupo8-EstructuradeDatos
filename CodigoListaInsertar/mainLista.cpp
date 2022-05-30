@@ -38,7 +38,6 @@ int main(){
     l -> agregarInicio(5);
     l -> agregarFinal(25);
     
-    l -> agregarInicio(0);
     l -> agregarFinal(30);
 
     l -> imprimirCabeza();
@@ -46,6 +45,9 @@ int main(){
     cout << "\n";
 
     l -> imprimirCola();
+
+    cout<< l ->obtenerValorIndiceRevertido(1) <<endl;
+    cout<< l ->obtenerValorIndiceRevertido(3) <<endl;
 
     return 0;
 }

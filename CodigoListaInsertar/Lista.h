@@ -38,6 +38,6 @@ class ListaEnlazada{
         int longitudLista();
         int* convertiraArray();
         void revertir();
-        int obtenerValorIndiceRevertido();
+        int obtenerValorIndiceRevertido(int);
 
 };

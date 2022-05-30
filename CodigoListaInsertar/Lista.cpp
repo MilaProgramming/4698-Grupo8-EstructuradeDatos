@@ -179,6 +179,19 @@ void ListaEnlazada::revertir(){
     primero = previo;
 }
 
-int ListaEnlazada::obtenerValorIndiceRevertido(){
-    return 1;
+int ListaEnlazada::obtenerValorIndiceRevertido(int k){
+    
+    Nodo *a = primero;
+    Nodo *b = primero;
+
+    for(int i = 0; i < k-1; i++){
+        b = b ->getNodo();
+    }    
+
+    while (b ->getNodo() != nullptr){
+        a = a ->getNodo();
+        b = b ->getNodo();
+    } 
+
+    return a -> getValor();
 }
