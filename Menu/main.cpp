@@ -13,7 +13,9 @@ using namespace std;
 int main(int argc, char **argv) {
     Menu menu("Listas - menu");
     //LinkedList<int> list;
-    ListaEnlazada<int> list;
+    //ListaEnlazada<int> list;
+    ListaEnlazada *l = new ListaEnlazada();
+
 
     menu.add_option(MenuOption("Agregar elemento al final", [&](MenuOptionArguments args) {
         int value;
@@ -31,7 +33,7 @@ int main(int argc, char **argv) {
             break;
         } while (true);
 
-        ListaEnlazada.push_back(value);
+        l -> agregarFinal(value);
         std::cout << "[elemento agregado]" << std::endl;
     }));
 
@@ -51,7 +53,7 @@ int main(int argc, char **argv) {
             break;
         } while (true);
 
-        list.push_front(value);
+        l -> agregarInicio(value);
         std::cout << "[elemento agregado]" << std::endl;
     }));
 
