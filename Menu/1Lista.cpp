@@ -161,22 +161,30 @@ int* ListaEnlazada::convertiraArray(){
 }
 
 void ListaEnlazada::revertir(){
-
+    
+    //cout << "\nEntre a la funcion\n"; 
+    
     if (estaVacio()) return;
+    
     
     Nodo *previo = primero;
     Nodo *actual = primero -> getNodo();
-
+   
     while(actual != nullptr){
         Nodo *siguiente  = actual ->getNodo();
         actual -> setNodo(previo);
         previo = actual;
-        actual = actual ->getNodo();
+        actual = siguiente; 
     }
 
     ultimo = primero;
     ultimo -> setNodo(nullptr);
     primero = previo;
+    
+    //imprimirCabeza();
+
+    //cout << "\nSali de la funcion\n"; 
+    
 }
 
 int ListaEnlazada::obtenerValorIndiceRevertido(int k){

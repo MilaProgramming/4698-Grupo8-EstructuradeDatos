@@ -160,6 +160,19 @@ int main(int argc, char **argv) {
             }
         }));
 
+        
+        menuInterno.add_option(MenuOption("Revertir", [&](MenuOptionArguments args) {
+            if (l->estaVacio()) {
+            cout << "\n[lista vacia]" <<endl <<endl;
+            return;
+            }
+
+            l -> revertir();
+            cout<<"\nSu lista revertida es "<<endl;
+            l -> imprimirCabeza();
+        }));
+        
+
         menuInterno.add_option(MenuOption("\nRegresar a menu principal", [&](MenuOptionArguments args) {
             menuInterno.stop();
         }, false));

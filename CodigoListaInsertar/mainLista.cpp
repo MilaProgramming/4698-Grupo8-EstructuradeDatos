@@ -43,11 +43,12 @@ int main(){
     l -> imprimirCabeza();
 
     cout << "\n";
+ 
+    l -> revertir();
 
-    l -> imprimirCola();
+    cout << "\n";
 
-    cout<< l ->obtenerValorIndiceRevertido(1) <<endl;
-    cout<< l ->obtenerValorIndiceRevertido(3) <<endl;
+    l -> imprimirCabeza();
 
     return 0;
 }
