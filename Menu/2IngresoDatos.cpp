@@ -30,17 +30,19 @@ char* IngresoDatos::leerDatos(){
 	int j = 0; //Iterador para la verifiacion del unico punto
 	int i = 0; //Iterador para terminar el bucle, y asignar el valor final como nulo
 
-    for(i; c != 13; i++){ //Bucle hasta que se presion la tecla ENTER
+    while(c != 13){ //Bucle hasta que se presion la tecla ENTER
         c=getch(); //Recibo el dato por teclado
 
         if(c >= '0' && c <= '9' ){
             printf("%c", c);
             dato[i] = c;
+            ++i;
 
         }else if(c == 8){ //Si el input es un back space
-
 			backspace(&i, &j,  &c); //Funcion para la tecla backspace
-        }    			     
+            ++i;
+
+        }   			     
     }
 
     dato[i]='\0';
@@ -54,17 +56,19 @@ char* IngresoDatos::leerDatos(string mensaje){
 	int j = 0; //Iterador para la verifiacion del unico punto
 	int i = 0; //Iterador para terminar el bucle, y asignar el valor final como nulo
 
-    for(i; c != 13; i++){ //Bucle hasta que se presion la tecla ENTER
+    while(c != 13){ //Bucle hasta que se presion la tecla ENTER
         c=getch(); //Recibo el dato por teclado
 
         if(c >= '0' && c <= '9' ){
             printf("%c", c);
             dato[i] = c;
+            i++;
 
         }else if(c == 8){ //Si el input es un back space
 
 			backspace(&i, &j,  &c, mensaje); //Funcion para la tecla backspace
-        }    			     
+            i++;
+        }       			     
     }
 
     dato[i]='\0';
@@ -73,29 +77,38 @@ char* IngresoDatos::leerDatos(string mensaje){
 
 
 void IngresoDatos::backspace(int* i, int* j, char* c, string mensaje){
-    system("CLS"); //Limpio pantalla
-    imprimirMensaje(mensaje);
-    for(int p = 0; p < *i-1; p++){
-        printf("%c", dato[p]); //Imprimo de nuevo hasta el penultimo
-    }
+    
+    if(*c >= '0' && *c <= '9'){
+        if(*i != 0) --*i;
+    }else{
+        system("CLS"); //Limpio pantalla
+        imprimirMensaje(mensaje);
+        for(int p = 0; p < *i-1; p++){
+            printf("%c", dato[p]); //Imprimo de nuevo hasta el penultimo
+        }
 
-    if(*i != 0){ //Verifico que hay valores
-        dato[--*i]='\0'; //Borro valor
-        --*i; //Disminuto iterador
+        if(*i != 0){ //Verifico que hay valores
+            dato[--*i]='\0'; //Borro valor
+            --*i; //Disminuto iterador
+        }
     }
 }
 
 //Metodo sobrecargado sin mensaje
  void IngresoDatos::backspace(int* i, int* j, char* c){
+    
+    if(*c >= '0' && *c <= '9'){
+        if(*i != 0) --*i;
+    }else{ 
+        system("CLS"); //Limpio pantalla
+        for(int p = 0; p < *i-1; p++){
+            printf("%c", dato[p]); //Imprimo de nuevo hasta el penultimo
+        }
 
-    system("CLS"); //Limpio pantalla
-    for(int p = 0; p < *i-1; p++){
-        printf("%c", dato[p]); //Imprimo de nuevo hasta el penultimo
-    }
-
-    if(*i != 0){ //Verifico que hay valores
-        dato[--*i]='\0'; //Borro valor
-        --*i; //Disminuto iterador
+        if(*i != 0){ //Verifico que hay valores
+            dato[--*i]='\0'; //Borro valor
+            --*i; //Disminuto iterador
+        }
     }
  }
 
