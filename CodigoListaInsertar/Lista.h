@@ -6,6 +6,7 @@ class ListaEnlazada{
     private:
         Nodo *primero = nullptr;
         Nodo *ultimo = nullptr;
+        int longitud;
         bool estaVacio();
         Nodo* obtenerPrevio(Nodo*);
     public:

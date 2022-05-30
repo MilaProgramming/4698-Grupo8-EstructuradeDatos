@@ -28,6 +28,8 @@ void ListaEnlazada::agregarFinal(int nuevo){
         ultimo -> setNodo(n);
         ultimo = n;
     }
+
+    longitud++;
 }
 
 //!2
@@ -40,6 +42,8 @@ void ListaEnlazada::agregarInicio(int nuevo){
         n -> setNodo(primero);
         primero = n;
     }
+
+    longitud++;
 }
 
 //!3
@@ -57,6 +61,8 @@ void ListaEnlazada::eliminarCabeza(){
         primero = nullptr; //Elimino referencia
         primero = segundo;
     }
+
+    longitud--;
 }
 
 //!4 
@@ -72,6 +78,8 @@ void ListaEnlazada::eliminarCola(){
         ultimo = previo;
         ultimo -> setNodo(nullptr);   
     }
+
+    longitud--;
 }
 
 //!5
@@ -133,5 +141,5 @@ bool ListaEnlazada::contiene(int contenido){
 }   
 
 int ListaEnlazada::longitudLista(){
-    
+    return longitud;
 }
