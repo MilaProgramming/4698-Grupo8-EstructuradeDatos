@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
-
 #include "Conversion.cpp"
 #include "IngresoDatos.h"
 

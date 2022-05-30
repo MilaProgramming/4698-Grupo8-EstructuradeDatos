@@ -92,9 +92,11 @@ void ListaEnlazada::imprimirCabeza(){
     nimpreso = primero;
 
     while( nimpreso != nullptr){
-        cout<< nimpreso -> getValor() << " ";
+        cout<< nimpreso -> getValor() << " -> ";
         nimpreso = nimpreso->getNodo();
     }
+
+    cout << " NULL";
 }
 
 //!7
@@ -105,8 +107,10 @@ void ListaEnlazada::imprimirCola(){
 
     while(obtenerPrevio(nimpreso) != nullptr){
         nimpreso = obtenerPrevio(nimpreso);
-        cout << nimpreso ->getValor() << " ";
+        cout << nimpreso ->getValor() << " -> ";
     }
+
+    cout << " NULL";
 }
 
 int ListaEnlazada::buscarIndice(int buscado){
