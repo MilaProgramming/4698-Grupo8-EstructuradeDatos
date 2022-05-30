@@ -88,20 +88,16 @@ int main(int argc, char **argv) {
         items_menu.display();
     }, false));*/
     menu.add_option(MenuOption("Eliminar Cabeza", [&](MenuOptionArguments args) {
-        do {
-            l ->eliminarCabeza();
-
-        } while (true);
-        std::cout << "[elemento eliminado]" << std::endl; 
+        
+        l ->eliminarCabeza();
+        std::cout << "[elemento eliminado por la cabeza]" << std::endl; 
 
     }));
 
     menu.add_option(MenuOption("Eliminar Cola", [&](MenuOptionArguments args) {
-        do {
-            l ->eliminarCola();
-
-        } while (true);
-        std::cout << "[elemento eliminado]" << std::endl; 
+        
+        l ->eliminarCola();
+        std::cout << "[elemento eliminado por la cola]" << std::endl; 
 
     }));    
 
