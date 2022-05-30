@@ -110,14 +110,14 @@ void ListaEnlazada::imprimirCabeza(){
 void ListaEnlazada::imprimirCola(){
     Nodo *nimpreso;
     nimpreso = ultimo;
-    cout << ultimo -> getValor() << " ";
+
+    cout << " NULL ";
+    cout << " <- " << ultimo -> getValor();
 
     while(obtenerPrevio(nimpreso) != nullptr){
         nimpreso = obtenerPrevio(nimpreso);
-        cout << nimpreso ->getValor() << " -> ";
+        cout << " <- " << nimpreso ->getValor();
     }
-    
-    cout << " NULL";
 }
 
 //?Funciones extra

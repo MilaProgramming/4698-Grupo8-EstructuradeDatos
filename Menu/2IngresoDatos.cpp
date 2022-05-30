@@ -74,7 +74,6 @@ char* IngresoDatos::leerDatos(string mensaje){
 
 void IngresoDatos::backspace(int* i, int* j, char* c, string mensaje){
     system("CLS"); //Limpio pantalla
-    cout<< *i <<endl;
     imprimirMensaje(mensaje);
     for(int p = 0; p < *i-1; p++){
         printf("%c", dato[p]); //Imprimo de nuevo hasta el penultimo
@@ -88,8 +87,8 @@ void IngresoDatos::backspace(int* i, int* j, char* c, string mensaje){
 
 //Metodo sobrecargado sin mensaje
  void IngresoDatos::backspace(int* i, int* j, char* c){
+
     system("CLS"); //Limpio pantalla
-    cout<< *i <<endl;
     for(int p = 0; p < *i-1; p++){
         printf("%c", dato[p]); //Imprimo de nuevo hasta el penultimo
     }
