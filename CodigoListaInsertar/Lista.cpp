@@ -143,3 +143,8 @@ bool ListaEnlazada::contiene(int contenido){
 int ListaEnlazada::longitudLista(){
     return longitud;
 }
+
+int* ListaEnlazada::convertiraArray(){
+    int *array = new int[longitud];
+
+}

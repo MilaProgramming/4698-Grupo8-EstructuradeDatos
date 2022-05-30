@@ -7,12 +7,15 @@ class ListaEnlazada{
         Nodo *primero = nullptr;
         Nodo *ultimo = nullptr;
         int longitud;
-        bool estaVacio();
+        
         Nodo* obtenerPrevio(Nodo*);
     public:
 
         ListaEnlazada();
         ~ListaEnlazada();
+        
+        bool estaVacio();
+
         //!1
         void agregarFinal(int);
         //!2
@@ -33,5 +36,6 @@ class ListaEnlazada{
         int buscarIndice(int);
         bool contiene(int);
         int longitudLista();
+        int* convertiraArray();
 
 };
