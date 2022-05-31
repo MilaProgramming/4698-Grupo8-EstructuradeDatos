@@ -1,3 +1,6 @@
+//!Funcion ingresar datos. Incluye Conversion.hpp e IngresoDatos.hpp
+//!El tipo esta hecho para ser <int, float>
+
 #include <iostream>
 #include <stdio.h>
 #include <conio.h>
