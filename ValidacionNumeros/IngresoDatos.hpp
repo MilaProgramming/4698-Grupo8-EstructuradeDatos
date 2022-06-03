@@ -34,7 +34,6 @@ template <typename T, typename N>
                     }else if(c == 8){ //Si el input es un back space
 
                         backspaceEnteros(&i, &j,  &c, mensaje); //Funcion para la tecla backspace
-                        i++;
                     }       			     
                 }
 
@@ -57,7 +56,6 @@ template <typename T, typename N>
 
                     }else if(c == 8){ //Si el input es un back space
                         backspaceEnteros(&i, &j,  &c); //Funcion para la tecla backspace
-                        ++i;
 
                     }   			     
                 }
@@ -78,7 +76,6 @@ template <typename T, typename N>
 
                         if(*i != 0){ //Verifico que hay valores
                             dato[--*i]='\0'; //Borro valor
-                            --*i; //Disminuto iterador
                         }
                     }
             }
@@ -95,7 +92,6 @@ template <typename T, typename N>
 
                     if(*i != 0){ //Verifico que hay valores
                         dato[--*i]='\0'; //Borro valor
-                        --*i; //Disminuto iterador
                     }
                 }     
             }
@@ -121,7 +117,7 @@ template <typename T, typename N>
                     }else if(c == 8){ //Si el input es un back space
 
                         backspace(&i, &j,  &c, mensaje); //Funcion para la tecla backspace
-                        i++;
+             
                     }       			     
                 }
 
@@ -146,8 +142,6 @@ template <typename T, typename N>
 
                     }else if(c == 8){ //Si el input es un back space
                         backspace(&i, &j,  &c); //Funcion para la tecla backspace
-                        ++i;
-
                     }   			     
                 }
 
@@ -168,7 +162,6 @@ template <typename T, typename N>
                         i++;
                     }else if(c == 8){ //Si el input es un back space
                         backspace(&i, &c); //Funcion para la tecla backspace
-                        ++i;
 
                     }   			     
                 }
@@ -191,8 +184,6 @@ template <typename T, typename N>
                         i++;
                     }else if(c == 8){ //Si el input es un back space
                         backspace(&i, &c, mensaje); //Funcion para la tecla backspace
-                        ++i;
-
                     }   			     
                 }
 
@@ -217,7 +208,6 @@ template <typename T, typename N>
                             *j = 0;
                         } //Verifico que hay valores
                         dato[--*i]='\0'; //Borro valor
-                        --*i; //Disminuto iterador
                     }
                 }
             }
@@ -235,7 +225,6 @@ template <typename T, typename N>
                             *j = 0;
                         }//Verifico que hay valores
                         dato[--*i]='\0'; //Borro valor
-                        --*i; //Disminuto iterador
                     }
                 
             }
@@ -250,7 +239,6 @@ template <typename T, typename N>
 
                     if(*i != 0){ 
                         dato[--*i]='\0'; //Borro valor
-                        --*i; //Disminuto iterador
                     }
                 
             }
