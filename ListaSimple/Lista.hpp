@@ -14,7 +14,10 @@ template <typename T>
             Nodo<T>* obtenerPrevio(Nodo<T>*);
         public:
 
-        ListaEnlazada(){} //Constructor
+        ListaEnlazada(){ //Constructor
+            longitud = 0;
+        } 
+        
         ~ListaEnlazada(){} // Destructor
         
         bool estaVacio(){

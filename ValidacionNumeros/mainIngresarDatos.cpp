@@ -13,7 +13,10 @@ using namespace std;
 int main(){
     IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
 
-    i -> funcionPrincipal("Ingrese sus datos: ");
-
+    //i -> funcionPrincipal("Ingrese sus datos: ");
+    i -> funcionPrincipalLetras("Ingrese letritas: ");
+    i ->funcionPrincipalEnteros("Ingrese numeritos enteros: ");
+    i->funcionPrincipalFlotantes("Ingrese numeritos flotantes: ");
+    
     return 0;
 }

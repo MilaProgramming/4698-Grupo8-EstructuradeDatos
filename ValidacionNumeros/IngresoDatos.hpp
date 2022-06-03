@@ -130,7 +130,7 @@ template <typename T, typename N>
             }
 
             char* leerDatos(){
-                 char c;  //Creo un caracter, con el que voy a recibir el cada input
+                char c;  //Creo un caracter, con el que voy a recibir el cada input
                 int j = 0; //Iterador para la verifiacion del unico punto
                 int i = 0; //Iterador para terminar el bucle, y asignar el valor final como nulo
 
@@ -146,6 +146,51 @@ template <typename T, typename N>
 
                     }else if(c == 8){ //Si el input es un back space
                         backspace(&i, &j,  &c); //Funcion para la tecla backspace
+                        ++i;
+
+                    }   			     
+                }
+
+                dato[i]='\0';
+                return dato;
+            }
+
+            char* leerLetras(){
+                char c;  //Creo un caracter, con el que voy a recibir el cada input
+                int i = 0; //Iterador para terminar el bucle, y asignar el valor final como nulo
+
+                while(c != 13){ //Bucle hasta que se presion la tecla ENTER
+                    c=getch(); //Recibo el dato por teclado
+
+                    if(c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'){
+                        printf("%c", c); //Imprimo el valor
+                        dato[i] = c;
+                        i++;
+                    }else if(c == 8){ //Si el input es un back space
+                        backspace(&i, &c); //Funcion para la tecla backspace
+                        ++i;
+
+                    }   			     
+                }
+
+                dato[i]='\0';
+                return dato;
+            }
+
+            char* leerLetras(string mensaje){
+                imprimirMensaje(mensaje);
+                char c;  //Creo un caracter, con el que voy a recibir el cada input
+                int i = 0; //Iterador para terminar el bucle, y asignar el valor final como nulo
+
+                while(c != 13){ //Bucle hasta que se presion la tecla ENTER
+                    c=getch(); //Recibo el dato por teclado
+
+                    if(c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'){
+                        printf("%c", c); //Imprimo el valor
+                        dato[i] = c;
+                        i++;
+                    }else if(c == 8){ //Si el input es un back space
+                        backspace(&i, &c, mensaje); //Funcion para la tecla backspace
                         ++i;
 
                     }   			     
@@ -179,9 +224,6 @@ template <typename T, typename N>
 
             void backspace(int* i, int* j, char* c){
 
-                if(*c >= '0' && *c <= '9'){
-                if(*i != 0) --*i;
-                }else{ 
                     system("CLS"); //Limpio pantalla
                     for(int p = 0; p < *i-1; p++){
                         printf("%c", dato[p]); //Imprimo de nuevo hasta el penultimo
@@ -192,6 +234,38 @@ template <typename T, typename N>
                             conversion.setVerificador(0);
                             *j = 0;
                         }//Verifico que hay valores
+                        dato[--*i]='\0'; //Borro valor
+                        --*i; //Disminuto iterador
+                    }
+                
+            }
+
+            void backspace(int* i, char* c, string mensaje){
+
+                    system("CLS"); //Limpio pantalla
+                    imprimirMensaje(mensaje);
+                    for(int p = 0; p < *i-1; p++){
+                        printf("%c", dato[p]); //Imprimo de nuevo hasta el penultimo
+                    }
+
+                    if(*i != 0){ 
+                        dato[--*i]='\0'; //Borro valor
+                        --*i; //Disminuto iterador
+                    }
+                
+            }
+          
+            void backspace(int* i, char* c){
+
+                if(*c >= 'a' && *c <= 'z' || *c >= 'A' && *c <= 'Z'){
+                if(*i != 0) --*i;
+                }else{ 
+                    system("CLS"); //Limpio pantalla
+                    for(int p = 0; p < *i-1; p++){
+                        printf("%c", dato[p]); //Imprimo de nuevo hasta el penultimo
+                    }
+
+                    if(*i != 0){ 
                         dato[--*i]='\0'; //Borro valor
                         --*i; //Disminuto iterador
                     }
@@ -266,9 +340,24 @@ template <typename T, typename N>
             }
 
             T funcionPrincipalEnteros(string mensaje){
-                 return this -> conversion.numInt(leerDatos(mensaje));
+                return this -> conversion.numInt(leerDatos(mensaje));
             }
 
+            char* funcionLetras(string mensaje){
+                return leerLetras(mensaje);
+            }
+
+            char* funcionLetras(){
+                return leerLetras();
+            }
+
+            void funcionPrincipalLetras(string mensaje){
+                cout << leerLetras(mensaje)<<endl;
+            }
+
+            void funcionPrincipalLetras(){
+                cout << leerLetras()<<endl;
+            }
             
 };
 
