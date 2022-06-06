@@ -16,10 +16,6 @@ template <typename T>
             NodoDC<T> *ultimo = nullptr;
             int longitud;
 
-            bool estaVacio(){
-                return primero == nullptr;
-            }
-
             bool indiceOFL(int indice){
                 return indice >= longitud  || indice < 0;
             }
@@ -33,10 +29,28 @@ template <typename T>
                 primero-> ~NodoDC();
                 ultimo-> ~NodoDC();
             }
+            
+            bool estaVacio(){
+                return primero == nullptr;
+            }
+
+
+            NodoDC<T>* getPrimero(){
+                return this->primero;
+            }
+
+            
+            NodoDC<T>* getUltimo(){
+                return this->ultimo;
+            }
 
             void insertarInicio(T v){
 
-                if(estaVacio()){
+                if(longitud == 0){
+                    NodoDC<T> *nuevo = new NodoDC<T>(v);
+                    primero = ultimo = nuevo;
+                    longitud++;
+                }else if(estaVacio()){
                     cout<< "Lista vacia. Utiliza la funcion insertar para comenzar"<<endl;
                     return;
                 }else{
@@ -56,7 +70,11 @@ template <typename T>
 
             void insertarFinal(T v){
 
-                if (estaVacio()){
+                if(longitud == 0){
+                    NodoDC<T> *nuevo = new NodoDC<T>(v);
+                    primero = ultimo = nuevo;
+                    longitud++;
+                }else if (estaVacio()){
                     cout<< "Lista vacia. Utiliza la funcion insertar para comenzar"<<endl;
                     return;
                 }else{
@@ -76,7 +94,11 @@ template <typename T>
 
             void insertar(T v, int indice){
 
-                if(indiceOFL(indice)){
+                if(longitud == 0){
+                    NodoDC<T> *nuevo = new NodoDC<T>(v);
+                    primero = ultimo = nuevo;
+                    longitud++;
+                }else if(indiceOFL(indice)){
                     cout <<"La lista no posee tantos elementos, o no es de longitud negativa" <<endl;
                     return;
                 }else{
@@ -107,13 +129,6 @@ template <typename T>
                 }
             }
 
-            void insertar(T v){
-                if(longitud == 0){
-                    NodoDC<T> *nuevo = new NodoDC<T>(v);
-                    primero = ultimo = nuevo;
-                    longitud++;
-                }else cout<<"Cuidado. Su lista ya posee nodos" <<endl;
-            }
 
             void eliminarInicio(){
 
@@ -287,7 +302,6 @@ template <typename T>
                     nimpreso = primero;
 
                     while( nimpreso != ultimo){
-
                         cout<< nimpreso -> getValor();
                         nimpreso = nimpreso->getSiguiente();
                     }
