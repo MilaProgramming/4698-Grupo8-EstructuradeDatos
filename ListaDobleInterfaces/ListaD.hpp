@@ -283,4 +283,27 @@ template <typename T>
                     revertida = nullptr;
                 }
             }
+
+            void insertar1(T d){
+                NodoD<T> *aux = new NodoD<T>();
+                aux->setValor(d);
+
+                aux->setAnterior(primero);
+                aux->setSiguiente(primero->getSiguiente());
+
+                primero->getSiguiente()->setAnterior(aux);
+                primero->setSiguiente(aux);
+            }    
+
+            void insertar2(T d){
+                NodoD<T> *aux = new NodoD<T>();
+                aux->setValor(d);
+
+                aux->setAnterior(nullptr);
+                aux->setSiguiente(primero);
+
+                primero->setSiguiente(primero->getSiguiente());
+                primero->setAnterior(aux);
+                primero = aux;
+            } 
     };

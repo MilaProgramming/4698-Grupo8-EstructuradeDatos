@@ -8,13 +8,14 @@ template <typename T>
             NodoDC* anterior;
             NodoDC* siguiente;
         public:
-            NodoD(T v){
+        
+            NodoDC(T v){
                 this->valor = v;
             }
 
-            NodoD(){}
+            NodoDC(){}
 
-            ~NodoD(){
+            ~NodoDC(){
                 delete anterior;
                 delete siguiente;
             }

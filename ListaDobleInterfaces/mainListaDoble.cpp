@@ -12,11 +12,17 @@ int main(){
     lista->insertarInicio(0);
     lista->insertarFinal(15);
     lista->insertarFinal(20);
-    lista->insertar(2, 4);
+    lista->imprimirInicio();
+
+    lista->insertar1(2);
 
     lista->imprimirInicio();
-    lista->revertir();
+    
+    lista->insertar2(3);
+
     lista->imprimirInicio();
+
+
     
     return 0;
 }

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include "NodoDC.hpp"
 #include "IInsertar.hpp"
@@ -8,7 +9,7 @@
 using namespace std;
 
 template <typename T>
-    class ListaDoble: public Insertar<T>, public Eliminar<T>, public Buscar<T>{
+    class ListaDobleC: public Insertar<T>, public Eliminar<T>, public Buscar<T>{
 
         private:
             NodoDC<T> *primero = nullptr;
@@ -24,11 +25,11 @@ template <typename T>
             }
 
         public:
-            ListaDoble(){
+            ListaDobleC(){
                 longitud = 0;
             }
 
-            ~ListaDoble(){
+            ~ListaDobleC(){
                 primero-> ~NodoDC();
                 ultimo-> ~NodoDC();
             }
@@ -203,14 +204,10 @@ template <typename T>
 
                         cout<< nimpreso -> getValor();
                         nimpreso = nimpreso->getSiguiente();
-
-                        if(nimpreso != ultimo){
-                            cout<< " <-> ";
-                        }else{
-                            cout<< " -> "; 
-                        }
+                        cout<< " <-> ";
+                       
                     }
-                    cout << " ..." <<endl;
+                    cout << ultimo->getValor() << "  -> ..." <<endl;
                 }
             }
 
@@ -219,22 +216,18 @@ template <typename T>
                 if (estaVacio()) cout<< "Lista vacia. No existe nada imprimir"<<endl;
                 else{
                     
-                    NodoDC<T> *nimpreso;
-                    nimpreso = ultimo;
+                        NodoDC<T> *nimpreso;
+                        nimpreso = ultimo;
 
-                    cout << "\nNULL <- ";
-                    while( nimpreso != nullptr){
+                        cout << "\n... <- ";
+                        while( nimpreso != primero){
 
-                        cout<< nimpreso -> getValor();
-                        nimpreso = nimpreso->getAnterior();
-
-                        if(nimpreso != nullptr){
+                            cout<< nimpreso -> getValor();
+                            nimpreso = nimpreso->getAnterior();
                             cout<< " <-> ";
-                        }else{
-                            cout<< " -> "; 
+                        
                         }
-                    }
-                    cout << " NULL" <<endl;
+                        cout << primero->getValor() << "  -> ..." <<endl;
                 }
             }
 
@@ -243,8 +236,9 @@ template <typename T>
                 else{
                     NodoDC<T> *iterador = primero;
                     int indice = 0;
-                    while( iterador != nullptr){
+                    while( iterador != ultimo){
                         if(iterador->getValor() == buscado) return indice;
+                        if(iterador->getSiguiente()->getValor() == buscado) return indice+1;
                         iterador = iterador->getSiguiente();
                         indice++;   
                     }
@@ -267,20 +261,20 @@ template <typename T>
             void revertir(){
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que revertir"<<endl;
                 else{
-                    ListaDoble<T> *revertida = new ListaDoble<T>();
+                    ListaDobleC<T> *revertida = new ListaDobleC<T>();
                     NodoDC<T> *iterador = ultimo;
 
                     revertida->insertar(iterador->getValor());
                     iterador = iterador->getAnterior();
 
-                    while(iterador != nullptr){
+                    while(iterador != primero){
                         revertida->insertarFinal(iterador->getValor());
                         iterador = iterador->getAnterior();
                     }
-
+                    revertida->insertarFinal(primero->getValor());
                     this->primero = revertida->primero;
                     this->ultimo = revertida->ultimo;
-                    revertida = nullptr;
+                    free(revertida);
                 }
             }
     };
