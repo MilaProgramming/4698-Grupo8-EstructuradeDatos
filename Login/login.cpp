@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
 #define USER "admin"
 #define PASSWORD "admin"
 
@@ -11,6 +12,7 @@ int main (){
     bool ingreso = false;
 
     do{
+        system("cls");
         cout<<"\t\t\tLOGIN DE USUARIO"<<endl;
         cout<<"\t\t\t----------------"<<endl;
         cout<< "\n\tUsuario: "; 
@@ -19,18 +21,21 @@ int main (){
         getline(cin, password);
 
         if( usuario ==USER && password == PASSWORD){
-            cout<<"\n\tBienvenido al Sistema";
+            ingreso=true;
 
         } else{
             cout<<"\n\tEl usuario y/o password son incorrectos"<<endl;
+            cin.get();
             contador++;
         }
     }while (ingreso == false && contador<3);
 
     if(ingreso == false){
-        cout <<"\n\tNo se pudo ingresar al sistema";
+        cout <<"\n\tNo se pudo ingresar al sistema"<<endl;
     }else{
         cout<<"\n\tBienvenido al sistema"<<endl;
+
+        //Operaciones
     }
     
     cin.get();
