@@ -10,5 +10,6 @@ class Tienda{
         Stock *stock;
         ListaDobleC<Persona> *clientes = new ListaDobleC<Persona>();  
     public:    
-
+        Celular* recomendarCelular(Persona*);
+        ListaDobleC<Celular>* celularesPorPresupuesto(double);
 };

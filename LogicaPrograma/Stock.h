@@ -10,8 +10,12 @@ class Stock{
     public:
 
         Stock();
-        Celular* recomendarCelular(Persona*);
-        void disminuirStock(string);
+        ~Stock();
+
+        void verCelulares();
+        void verStock();
+        void verStock(Celular);
+        void agregarAlStock(Celular);
 
 
 };

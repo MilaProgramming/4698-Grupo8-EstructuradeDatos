@@ -13,8 +13,12 @@ using namespace std;
         free(this);
     }
 
-    void Persona::comprarCelular(){
-        
+    void Persona::comprarCelular(Celular celu){
+        this->comprados->insertarInicio(celu);
+    }
+
+    void Persona::verComprados(){
+        this->comprados->imprimirInicio();
     }
 
     //Metodos

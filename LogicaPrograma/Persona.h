@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Celular.h"
+#include "Celular.cpp"
 #include "ListaDC.hpp"
 
 using namespace std;
@@ -15,7 +15,7 @@ class Persona{
 
         Persona(string, double);
         ~Persona();
-        void comprarCelular();
+        void comprarCelular(Celular);
         void verComprados();
 
         //Getter y setters
