@@ -7,9 +7,9 @@ class Celular{
         string marca;
         double precio;
         int stock;
-        bool existe;
+
     public:
-        Celular();
+        Celular(string, double, int);
         ~Celular();
 
         //Getters y setters
@@ -17,12 +17,12 @@ class Celular{
         string getMarca();
         double getPrecio();
         int getStock();
-        bool getExistencia();
+   
 
         void setMarca(string);
         void setPrecio(double);
         void setStock(int);
-        void setExistencia(bool);
+      
         
 
 };
