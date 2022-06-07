@@ -1,8 +1,9 @@
 #pragma once
+#include "ItoString.h"
 
 template <typename T>
 
-    class NodoDC{
+    class NodoDC: public ToString{
         private:
             T valor;
             NodoDC* anterior;
@@ -42,6 +43,10 @@ template <typename T>
 
             NodoDC* getSiguiente(){
                 return this -> siguiente;
+            }
+
+            string toString(){
+                return valor->toString();
             }
 
     };

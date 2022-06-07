@@ -10,6 +10,10 @@ using namespace std;
         this->stock = s;
     }
 
+    Celular::Celular(){
+
+    }
+
     Celular::~Celular(){
         free(this);
     }
@@ -41,4 +45,9 @@ using namespace std;
 
     void Celular ::setStock(int _stock){
         stock = _stock;
+    }
+
+    string Celular::toString(){
+        string t = "El celular es de la marca " + this->getMarca() + ", cuesta " + to_string(this->getPrecio());
+        return t;
     }

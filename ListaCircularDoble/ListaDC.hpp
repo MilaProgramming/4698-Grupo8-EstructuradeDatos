@@ -393,4 +393,12 @@ template <typename T>
                 this->ultimo = ordenada->ultimo;
                 free(ordenada);
             }
+
+            int obtenerLongitud(){
+                return this->longitud;
+            }
+
+            NodoDC<T>* obtenerPrimero(){
+                return this->primero;
+            }
     };

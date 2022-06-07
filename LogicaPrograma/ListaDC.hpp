@@ -5,11 +5,12 @@
 #include "IInsertar.hpp"
 #include "IEliminar.hpp"
 #include "IBuscar.hpp"
+#include "ItoString.h"
 
 using namespace std;
 
 template <typename T>
-    class ListaDobleC: public Insertar<T>, public Eliminar<T>, public Buscar<T>{
+    class ListaDobleC: public Insertar<T>, public Eliminar<T>, public Buscar<T>, public ToString{
 
         private:
             NodoDC<T> *primero = nullptr;
@@ -237,6 +238,44 @@ template <typename T>
                 }
             }
 
+            void imprimirObjetoInicio(){
+                if (estaVacio()){ 
+                    cout<< "Lista vacia. No existe nada imprimir"<<endl;
+                    return;
+                }else{
+
+                    NodoDC<T> *nimpreso;
+                    nimpreso = primero;
+
+                    while( nimpreso != ultimo){
+
+                        cout<< nimpreso -> toString() <<endl;
+                        nimpreso = nimpreso->getSiguiente();
+                        
+                       
+                    }
+                    cout << ultimo->toString()<<endl;
+                }
+            }
+
+            void imprimirObjetoFinal(){
+
+                if (estaVacio()) cout<< "Lista vacia. No existe nada imprimir"<<endl;
+                else{
+                    
+                        NodoDC<T> *nimpreso;
+                        nimpreso = ultimo;
+
+                        while( nimpreso != primero){
+
+                            cout<< nimpreso -> toString()<<endl;
+                            nimpreso = nimpreso->getAnterior();
+                        
+                        }
+                        cout << primero->toString() <<endl;
+                }
+            }
+
             T obtenerValorIndice(int indice){
                 if (estaVacio()){
                 cout<< "Lista vacia. No existe nada que buscar"<<endl;
@@ -282,6 +321,7 @@ template <typename T>
                 }
             }
 
+            
             int buscar(T buscado){
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que buscar"<<endl;
                 else{
@@ -296,7 +336,7 @@ template <typename T>
                 }
                 return -1;
             }
-
+           
             void imprimirBuscar(T buscado){
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que buscar"<<endl;
                 else{
@@ -304,10 +344,12 @@ template <typename T>
                     if(buscar(buscado) == -1){
                         cout<< "No se encontro su instancia en la lista"<<endl;
                     }else{
-                        cout<< "La primera instancia de valor "<< buscado << " se encuentra en el indice "<< buscar(buscado)<<endl;
+                        cout<< "La primera instancia de valor se encuentra en el indice "<< buscar(buscado)<<endl;
                     }    
                 }
             }
+
+         
 
             void revertir(){
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que revertir"<<endl;
@@ -392,5 +434,18 @@ template <typename T>
                 this->primero = ordenada->primero;
                 this->ultimo = ordenada->ultimo;
                 free(ordenada);
+                delete [] array;
+            }
+
+            int obtenerLongitud(){
+                return this->longitud;
+            }
+
+            NodoDC<T>* obtenerPrimero(){
+                return this->primero;
+            }
+
+            string toString(){
+                return "Cosillas";
             }
     };

@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
+#include "ItoString.h"
 
-
-class Celular{
+class Celular: public ToString {
     private:
         string marca;
         double precio;
@@ -10,6 +10,7 @@ class Celular{
 
     public:
         Celular(string, double, int);
+        Celular();
         ~Celular();
 
         //Getters y setters
@@ -22,6 +23,7 @@ class Celular{
         void setMarca(string);
         void setPrecio(double);
         void setStock(int);
+        string toString();
       
         
 

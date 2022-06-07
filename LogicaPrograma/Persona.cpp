@@ -13,12 +13,12 @@ using namespace std;
         free(this);
     }
 
-    void Persona::comprarCelular(Celular celu){
+    void Persona::comprarCelular(Celular* celu){
         this->comprados->insertarInicio(celu);
     }
 
     void Persona::verComprados(){
-        this->comprados->imprimirInicio();
+        this->comprados->imprimirObjetoFinal();
     }
 
     //Metodos
@@ -31,7 +31,7 @@ using namespace std;
         return presupuesto;
     }
 
-    ListaDobleC<Celular>*  Persona ::getComprados(){
+    ListaDobleC<Celular*>*  Persona ::getComprados(){
         return comprados;
     }
 
@@ -45,8 +45,13 @@ using namespace std;
         presupuesto = _presupuesto;
 
     }
-    void Persona :: setComprados(ListaDobleC<Celular>*list){
+    void Persona :: setComprados(ListaDobleC<Celular*>*list){
         comprados = list;
 
+    }
+
+    string Persona::toString(){
+        string s =  this->getNombre() + ", tiene un presupuesto de " + to_string(this->getPresupuesto());
+        return s;
     }
 
