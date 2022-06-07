@@ -4,13 +4,19 @@
 #include <string>
 using namespace std;
 
-    Persona::Persona(){}
+    Persona::Persona(string n, double p){
+        this->nombre = n;
+        this->presupuesto = p;
+    }
 
-    Persona::~Persona(){}
+    Persona::~Persona(){
+        free(this);
+    }
 
     void Persona::comprarCelular(){
         
     }
+
     //Metodos
     //Gests
     string Persona::getNombre(){
@@ -21,8 +27,8 @@ using namespace std;
         return presupuesto;
     }
 
-    ListaDobleC<Celular>*  Persona ::getCelulares(){
-        return lista;
+    ListaDobleC<Celular>*  Persona ::getComprados(){
+        return comprados;
     }
 
     //Setter
@@ -35,8 +41,8 @@ using namespace std;
         presupuesto = _presupuesto;
 
     }
-    void Persona :: setCelulares(ListaDobleC<Celular>*list){
-        lista = list;
+    void Persona :: setComprados(ListaDobleC<Celular>*list){
+        comprados = list;
 
     }
 

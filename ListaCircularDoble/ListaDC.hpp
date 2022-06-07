@@ -30,17 +30,19 @@ template <typename T>
             }
 
             ~ListaDobleC(){
-                primero-> ~NodoDC();
-                ultimo-> ~NodoDC();
+                free(primero);
+                free(ultimo);
             }
 
             void insertarInicio(T v){
 
-                if(estaVacio()){
-                    cout<< "Lista vacia. Utiliza la funcion insertar para comenzar"<<endl;
-                    return;
-                }else{
-                    NodoDC<T> *nuevo = new NodoDC<T>(v);
+                    if(longitud == 0){
+                        NodoDC<T> *nuevo = new NodoDC<T>(v);
+                        primero = ultimo = nuevo;
+                        longitud++;
+                    }else{
+
+                        NodoDC<T> *nuevo = new NodoDC<T>(v);
 
                         //Conecto direcciones del nuevo nodo
                         nuevo->setAnterior(ultimo);
@@ -50,16 +52,20 @@ template <typename T>
                         //Asigno nuevos iteradores
                         primero = nuevo;
 
-                    longitud++;
-                }
+                        longitud++;
+                    }
+                
             }
 
             void insertarFinal(T v){
 
-                if (estaVacio()){
-                    cout<< "Lista vacia. Utiliza la funcion insertar para comenzar"<<endl;
-                    return;
-                }else{
+               
+                 if(longitud == 0){
+                        NodoDC<T> *nuevo = new NodoDC<T>(v);
+                        primero = ultimo = nuevo;
+                        longitud++;
+                    }else{
+
                     NodoDC<T> *nuevo = new NodoDC<T>(v);
 
                         //Conecto direcciones del nuevo nodo
@@ -71,7 +77,7 @@ template <typename T>
                         ultimo = nuevo;
 
                     longitud++;
-                }               
+                    }              
             }
 
             void insertar(T v, int indice){
@@ -231,6 +237,51 @@ template <typename T>
                 }
             }
 
+            T obtenerValorIndice(int indice){
+                if (estaVacio()){
+                cout<< "Lista vacia. No existe nada que buscar"<<endl;
+                return -1;
+                }else{
+                    
+                    if(indice == 0){
+                        return primero->getValor();
+                    }else if(indice == longitud-1){
+                        return ultimo->getValor();
+                    }else{
+                        NodoDC<T> *iterador = primero;
+
+                        while(indice != 0){
+                            iterador = iterador->getSiguiente();
+                            indice--;
+                        }
+
+                        return iterador->getValor();
+                    } 
+                    return -1;  
+                }
+            }
+
+            void setValorIndice(int indice, T v){
+                if (estaVacio()) cout<< "Lista vacia. No existe nada que buscar"<<endl;
+                else{
+                    
+                    if(indice == 0){
+                        primero->setValor(v);
+                    }else if(indice == longitud-1){
+                        ultimo->setValor(v);
+                    }else{
+                        NodoDC<T> *iterador = primero;
+
+                        while(indice != 0){
+                            iterador = iterador->getSiguiente();
+                            indice--;
+                        }
+
+                        iterador->setValor(v);
+                    } 
+                }
+            }
+
             int buscar(T buscado){
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que buscar"<<endl;
                 else{
@@ -261,16 +312,15 @@ template <typename T>
             void revertir(){
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que revertir"<<endl;
                 else{
+
                     ListaDobleC<T> *revertida = new ListaDobleC<T>();
                     NodoDC<T> *iterador = ultimo;
-
-                    revertida->insertar(iterador->getValor());
-                    iterador = iterador->getAnterior();
 
                     while(iterador != primero){
                         revertida->insertarFinal(iterador->getValor());
                         iterador = iterador->getAnterior();
                     }
+
                     revertida->insertarFinal(primero->getValor());
                     this->primero = revertida->primero;
                     this->ultimo = revertida->ultimo;
@@ -293,5 +343,54 @@ template <typename T>
                     }
                     cout << ultimo->getValor();
                 }
+            }
+
+            T* obtenerArray(){
+
+                T* array = new T[longitud];
+                NodoDC<T> *actual = primero;
+
+                int indice=0;
+                while (actual != ultimo){
+                    array[indice++] = actual -> getValor();
+                    actual = actual ->getSiguiente();
+
+                    if(actual->getSiguiente() == ultimo){
+                        array[indice+1] = actual->getSiguiente() -> getValor();
+                    }
+                }
+
+                return array;
+            }
+
+            void ordenar(){
+                ListaDobleC<T> *ordenada = new ListaDobleC<T>(); 
+
+                T* array = obtenerArray();
+
+                for (int i = 0; i < longitud-1; i++) {
+                    int min = i;
+
+                    for (int j = i + 1; j < longitud; j++) {
+                        if (array[j] < array[min]) {
+                            min = j;
+                        }
+                    }
+
+                    if (min != i) {
+                        int temp = array[min];
+                        array[min] = array[i];
+                        array[i] = temp;
+                    }
+                }
+
+                
+                for(int u = 0; u < longitud; u++){
+                   ordenada->insertarFinal(array[u]);
+                }   
+                
+                this->primero = ordenada->primero;
+                this->ultimo = ordenada->ultimo;
+                free(ordenada);
             }
     };

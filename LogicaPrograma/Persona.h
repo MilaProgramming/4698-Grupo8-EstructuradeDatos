@@ -9,21 +9,22 @@ class Persona{
     private:
         string nombre;
         double presupuesto;
-        ListaDobleC<Celular> *lista = new ListaDobleC<Celular>();     
+        ListaDobleC<Celular> *comprados = new ListaDobleC<Celular>();     
 
     public:
 
-        Persona();
+        Persona(string, double);
         ~Persona();
         void comprarCelular();
+        void verComprados();
 
         //Getter y setters
         string getNombre();
         double getPresupuesto();
-        ListaDobleC<Celular>* getCelulares();
+        ListaDobleC<Celular>* getComprados();
 
         void setNombre(string);
         void setPresupuesto(double);
-        void setCelulares(ListaDobleC<Celular>*);
+        void setComprados(ListaDobleC<Celular>*);
 
 };

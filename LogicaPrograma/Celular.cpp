@@ -4,12 +4,14 @@
 #include <string>
 using namespace std;
 
-    Celular::Celular(){
-
+    Celular::Celular(string m, double p, int s){
+        this->marca = m;
+        this->precio = p;
+        this->stock = s;
     }
 
     Celular::~Celular(){
-        
+        free(this);
     }
 
     //Gests
