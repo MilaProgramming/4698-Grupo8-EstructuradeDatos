@@ -7,6 +7,7 @@ class Celular: public ToString {
         string marca;
         double precio;
         int stock;
+        int cantidad =0;
 
     public:
         Celular(string, double, int);
@@ -18,13 +19,18 @@ class Celular: public ToString {
         string getMarca();
         double getPrecio();
         int getStock();
-   
+        int getCantidad();
 
         void setMarca(string);
         void setPrecio(double);
         void setStock(int);
-        void disminuirStock();
+        void setCantidad(int);
+        void aumentarCantidad(int);
+
+        bool disminuirStock();
+        bool disminuirStock(int);
         string toString();
+        bool operator ==(Celular*);
       
         
 

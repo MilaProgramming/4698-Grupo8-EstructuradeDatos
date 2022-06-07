@@ -16,6 +16,9 @@ class Persona: public ToString{
         Persona(string, double);
         ~Persona();
         void comprarCelular(Celular*); //Comprar un celular a su nombre
+        bool verificarCelular(Celular*);
+        void comprarCelular(Celular*, int); 
+        bool disminuirPresupuesto();
         void verComprados(); //Ver que celulares ha comprado la persona en cuestion
 
         //Getter y setters

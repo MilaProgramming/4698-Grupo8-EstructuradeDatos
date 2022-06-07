@@ -17,15 +17,15 @@ template <typename T>
             NodoDC<T> *ultimo = nullptr;
             int longitud;
 
-            bool estaVacio(){
-                return primero == nullptr;
-            }
-
             bool indiceOFL(int indice){
                 return indice >= longitud  || indice < 0;
             }
 
         public:
+
+            bool estaVacio(){
+                return primero == nullptr;
+            }
             ListaDobleC(){
                 longitud = 0;
             }
@@ -420,7 +420,7 @@ template <typename T>
                     }
 
                     if (min != i) {
-                        int temp = array[min];
+                        T temp = array[min];
                         array[min] = array[i];
                         array[i] = temp;
                     }
@@ -445,6 +445,18 @@ template <typename T>
                 return this->primero;
             }
 
+            NodoDC<T>* obtenerUltimo(){
+                return this->ultimo;
+            }
+
+            void setPrimero(NodoDC<T>* p){
+                this->primero = p;
+            }
+
+            void setUltimo(NodoDC<T>* u){
+                this->ultimo = u;
+            }
+            
             string toString(){
                 return "Cosillas";
             }

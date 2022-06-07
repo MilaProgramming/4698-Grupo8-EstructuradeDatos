@@ -20,6 +20,10 @@
         this->lista = l;
     }
 
+    ListaDobleC<Celular*>* Stock::getCelulares(){
+        return this->lista;
+    }
+    
     void Stock::verCelulares(){
 
         int indice = 0;
@@ -65,6 +69,7 @@
         int indice = 0;
         NodoDC<Persona*> *it = personas->obtenerPrimero();
 
+        
         while(indice < personas->obtenerLongitud()){
 
             cout << (it->getValor())->getNombre() << " ha comprado" <<endl;
@@ -74,3 +79,58 @@
         }
 
     } //Ver usuario y la compra de celulares que ha hecho
+
+
+    void Stock::ordenarPorPrecio(){
+        
+
+        Celular** array = new Celular*[lista->obtenerLongitud()];
+        NodoDC<Celular*> *it = lista->obtenerPrimero();
+
+        int indice=0;
+
+        while (indice < lista->obtenerLongitud()){
+            array[indice++] = it->getValor();
+            it = it ->getSiguiente();
+        }
+
+
+        ListaDobleC<Celular*> *ordenada = new ListaDobleC<Celular*>(); 
+
+        for (int i = 0; i < lista->obtenerLongitud()-1; i++) {
+            int min = i;
+
+            for (int j = i + 1; j < lista->obtenerLongitud(); j++) {
+                if (array[j]->getPrecio() < array[min]->getPrecio()) {
+                    min = j;
+                }
+            }
+
+            if (min != i) {
+                Celular* temp = array[min];
+                array[min] = array[i];
+                array[i] = temp;
+            }
+        }
+
+        /*
+        for(int y = 0; y < lista->obtenerLongitud(); y++){
+            cout<< array[y]->getPrecio() << " ";
+        }
+        */
+
+        for(int u = 0; u < lista->obtenerLongitud(); u++){
+            ordenada->insertarFinal(array[u]);
+            //ordenada->imprimirObjetoInicio();
+        }   
+        
+        //cout<< ordenada->obtenerPrimero()->getValor()->getMarca() <<endl;
+        //cout<< ordenada->obtenerUltimo()->getValor()->getMarca() <<endl;
+
+        lista->setPrimero(ordenada->obtenerPrimero());
+        lista->setUltimo(ordenada->obtenerUltimo());
+
+        free(ordenada);
+        delete [] array;
+
+    }
