@@ -15,6 +15,7 @@ using namespace std;
 
     void Persona::comprarCelular(Celular* celu){
         this->comprados->insertarInicio(celu);
+        celu->disminuirStock();
     }
 
     void Persona::verComprados(){

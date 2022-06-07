@@ -23,6 +23,7 @@ class Celular: public ToString {
         void setMarca(string);
         void setPrecio(double);
         void setStock(int);
+        void disminuirStock();
         string toString();
       
         

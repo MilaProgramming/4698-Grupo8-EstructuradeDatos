@@ -47,6 +47,10 @@ using namespace std;
         stock = _stock;
     }
 
+    void Celular ::disminuirStock(){
+        --stock; 
+    }
+
     string Celular::toString(){
         string t = "El celular es de la marca " + this->getMarca() + ", cuesta " + to_string(this->getPrecio());
         return t;
