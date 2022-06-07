@@ -5,10 +5,9 @@
 using namespace std;
 
 Celular::Celular(){
-     
+
 }
- 
- //Metodos
+
  //Gests
 string Celular :: getMarca(){
     return marca;
@@ -38,5 +37,3 @@ void Celular ::setStock(int _stock){
 void Celular ::setExistencia(bool _existe){
     existe = _existe;
 }
-
-

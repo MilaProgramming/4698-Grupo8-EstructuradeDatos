@@ -24,6 +24,7 @@ double Persona ::getPresupuesto(){
 ListaDobleC<Celular>*  Persona ::getCelulares(){
     return lista;
 }
+
 //Sets
 void Persona ::setNombre(string _nombre){
     nombre = _nombre;
