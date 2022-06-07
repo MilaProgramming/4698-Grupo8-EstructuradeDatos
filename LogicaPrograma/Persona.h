@@ -8,6 +8,22 @@ using namespace std;
 class Persona{
     private:
         string nombre;
-        ListaDobleC<Celular> *lista = new ListaDobleC<Celular>();        
+        double presupuesto;
+        ListaDobleC<Celular> *lista = new ListaDobleC<Celular>();     
+
     public:
+
+        Persona();
+        ~Persona();
+        void comprarCelular();
+
+        //Getter y setters
+        string getNombre();
+        double getPresupuesto();
+        ListaDobleC<Celular>* getCelulares();
+
+        void setNombre(string);
+        void setPresupuesto(double);
+        void setCelulares(ListaDobleC<Celular>*);
+
 };

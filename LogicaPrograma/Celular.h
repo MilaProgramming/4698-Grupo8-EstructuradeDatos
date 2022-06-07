@@ -1,7 +1,6 @@
-#include <iostream>
+#pragma once
 #include <string>
 
-using namespace std;
 
 class Celular{
     private:
@@ -11,4 +10,19 @@ class Celular{
         bool existe;
     public:
         Celular();
+        ~Celular();
+
+        //Getters y setters
+
+        string getMarca();
+        double getPrecio();
+        int getStock();
+        bool getExistencia();
+
+        void setMarca(string);
+        void setPrecio(double);
+        void setStock(int);
+        void setExistencia(bool);
+        
+
 };
