@@ -1,28 +1,22 @@
-#include <stdio.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
-int main(){
+int main() {
 
-    char* a = new char[50];
+   ofstream file_out("archivo.txt", ios::app);
+   int num = 1;
 
-    cout<<"Nombre del archivo que desea leer: ";
-    cin>>a; //Se arrastra el txt que se requiere
-    ofstream myfile;
-    myfile.open (a, ios::app);
+   for (int fila = 0; fila < 3; ++fila) {
+      for (int columna = 0; columna < 3; ++columna) {
+          file_out << num << " ";
+          num++;
+      }
+      file_out << "\n";
+   }
 
-    
-    if (myfile.is_open())
-    {
-        myfile << "Titulo\n";
-        myfile << "1\n";
-        myfile << "2\n";
-        myfile << "3\n";
-        myfile.close();
-    }
-    else cout << "Unable to open file";
-    return 0;
+   file_out.close();
+   return 0;
 }
-

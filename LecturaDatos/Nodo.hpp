@@ -12,7 +12,9 @@ template <typename T>
                 this -> nodo = nullptr;
             } 
 
-            Nodo();
+            Nodo(){
+                
+            };
 
             ~Nodo(){
                 delete &nodo;
