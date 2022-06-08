@@ -7,6 +7,7 @@
 class Stock{
 
     private:
+    
         ListaDobleC<Celular*> *lista = new ListaDobleC<Celular*>();
         ListaDobleC<Persona*> *personas = new ListaDobleC<Persona*>();  
         
@@ -16,12 +17,12 @@ class Stock{
         ~Stock();
 
         void setPersonas(ListaDobleC<Persona*>*);
+        ListaDobleC<Persona*>* getPersonas();
 
         void setCelulares(ListaDobleC<Celular*>*); //Agregar una lista de celulares
         ListaDobleC<Celular*>* getCelulares();
 
-        ListaDobleC<Persona*>* getPersonas();
-
+        void eliminarCelularNombre(string);
         bool compararCelulares(Celular*);
         void verCelulares(); //Celulares disponibles
         void verStock(); // ver que celulares estan a la venta y su cantidad
@@ -31,5 +32,7 @@ class Stock{
         void ordenarPorPrecio();
         void agregarStockRepetido(Celular*);
         void agregarStockRepetido(Celular*,int);
+        Celular* retornarCelularporNombre(string);
+        Persona* retornarPersonaporNombre(string);
 
 };

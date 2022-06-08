@@ -63,12 +63,13 @@ int main(int argc, char **argv) {
 
 
                 if(tienda->getStock()->compararCelulares(nuevo)){
-
+                    cout<< "\n \n \n";
                     tienda->getStock()->agregarStockRepetido(nuevo, nuevo->getStock());
                     tienda->getStock()->verCelulares();
                     cout << "\nEl celular que desea agregar ya existe. Se ha aumentado el stock" <<endl;
 
                 }else{
+                    cout<< "\n \n \n";
                     tienda->getStock()->getCelulares()->insertarFinal(nuevo);
                     tienda->getStock()->verCelulares();
                 }
@@ -89,10 +90,11 @@ int main(int argc, char **argv) {
                         nombre = i->funcionMixta("\nIngrese el nombre del celular que desea eliminar: ");    
 
                         break;
-                } while (true);
+                    } while (true);
 
+                    tienda->getStock()->eliminarCelularNombre(nombre);
+                    tienda->getStock()->verCelulares();
 
-                    
                 }
             }));
         
@@ -125,7 +127,7 @@ int main(int argc, char **argv) {
         Menu menuUsuarios("Usuarios");
 
             menuUsuarios.add_option(MenuOption("Ver Usuarios", [&](MenuOptionArguments args) {
-                tienda->getStock()
+                tienda->getStock()->getPersonas()->imprimirObjetoFinal();
             }));
 
             menuUsuarios.add_option(MenuOption("Buscar Usuarios", [&](MenuOptionArguments args) {
@@ -134,9 +136,40 @@ int main(int argc, char **argv) {
                 Menu menuBusquedaUsuarios("Busqueda");
 
                     menuBusquedaUsuarios.add_option(MenuOption("Por Nombre", [&](MenuOptionArguments args) {
+                        IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                        char* nombre;
+
+                        do{
+
+                        nombre = i->funcionMixta("\nIngrese el nombre de la persona que desea buscar: ");    
+
+                        break;
+                    } while (true);
+
+                        Stock *porNombre = new Stock();
+                        porNombre->setPersonas(tienda->personasPorNombreIgual(nombre));
+                        porNombre->informeCompraCelulares();
+                        
                     }));
+                    
                     menuBusquedaUsuarios.add_option(MenuOption("Por Presupuesto", [&](MenuOptionArguments args) {
+                       
+                        IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                        double presupuesto;
+
+                        do{
+
+                        presupuesto = i->funcionPrincipalFlotantes("\nIngrese el nombre de la persona que desea buscar: ");    
+
+                        break;
+                    } while (true);
+
+                        Stock *porNombre = new Stock();
+                        porNombre->setPersonas(tienda->personasPorPresupuestoIgual(presupuesto));
+                        porNombre -> informeCompraCelulares();
+
                     }));
+                    
 
                     
                     menuBusquedaUsuarios.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
@@ -159,7 +192,8 @@ int main(int argc, char **argv) {
     //!Submenus
     menu.add_option(MenuOption("Comprar", [&](MenuOptionArguments args) {
         system("CLS");
-        Menu menuComprar("Comprar");        
+        Menu menuComprar("Comprar");  
+
             menuComprar.add_option(MenuOption("Recomendar compra", [&](MenuOptionArguments args) {
                 system("CLS");
                 //Submenu Recomendaciones 
@@ -189,12 +223,47 @@ int main(int argc, char **argv) {
 
                     menuReCelulares.display();            
                 }));
+
                 menuRecomendaciones.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
                 menuRecomendaciones.stop();
                 }, false));
 
-            menuRecomendaciones.display();
+                menuRecomendaciones.display();
             }));
+
+
+            menuComprar.add_option(MenuOption("Comprar celular", [&](MenuOptionArguments args) {
+                    
+                IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                tienda->getStock()->verStock();
+                char* nombre;
+
+                    do{
+
+                        nombre = i->funcionMixta("\nIngrese el nombre del celular que desea comprar ");    
+
+                        break;
+                    } while (true);
+
+                IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
+                cout<< "\n \n" <<endl;
+                tienda->getStock()->getPersonas()->imprimirObjetoFinal();
+                char* nombre1;
+
+                    do{
+
+                        nombre1 = j->funcionMixta("\nIngrese el nombre de la persona que comprara: ");    
+
+                        break;
+                    } while (true);
+
+                Celular *c = tienda->getStock()->retornarCelularporNombre(nombre);
+                Persona *p = tienda->getStock()->retornarPersonaporNombre(nombre1);
+
+                p -> comprarCelular(c);
+                 
+            }));
+
 
             menuComprar.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
             menuComprar.stop();

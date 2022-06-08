@@ -48,11 +48,14 @@
 
     void Stock::verStock(){
         int indice = 0;
+        int cont =1;
         NodoDC<Celular*> *it = lista->obtenerPrimero();
         while(indice < lista->obtenerLongitud()){
+            cout<< cont << ")" << endl;
             cout<< it->toString();
             cout<< " con un stock de " << (it->getValor())->getStock() <<endl;
             indice++;
+            cont++;
             it = it->getSiguiente();    
         }
 
@@ -77,7 +80,7 @@
         
         while(indice < personas->obtenerLongitud()){
 
-            cout << (it->getValor())->getNombre() << " ha comprado" <<endl;
+            cout << (it->getValor())->getNombre() << ", de presupuesto actual " << (it->getValor())->getPresupuesto() << " ha comprado " <<endl;
             (it->getValor())->verComprados();
             it = it->getSiguiente();
             indice++;
@@ -141,16 +144,27 @@
     }
 
     bool Stock::compararCelulares(Celular* c){
+
+        //cout<<"Ingrese el metodo"<<endl;
         int indice = 0;
         NodoDC<Celular*> *it = lista->obtenerPrimero();
+        //cout<< lista->obtenerLongitud() <<endl;
+        //cout << (*(it -> getValor()) == *c) <<endl;
+
         while(indice < lista->obtenerLongitud()){
-            if (it->getValor() == c){
+
+            //cout<<"Entre al while"<<endl;
+
+            if ((*(it -> getValor()) == *c)){
+                //cout<<"Es verdadero"<<endl;
                 return true;
             }
             indice++;
+            //cout<< lista->obtenerLongitud() <<endl;
             it = it->getSiguiente();
         }
 
+        cout<<"sali sin mucha novedad"<<endl;
         return false;
     }
 
@@ -158,8 +172,9 @@
 
         int indice = 0;
         NodoDC<Celular*> *it = lista->obtenerPrimero();
+
         while(indice < lista->obtenerLongitud()){
-            if (it->getValor() == c){
+            if (*(it -> getValor()) == *c){
                 it->getValor()->aumentarCantidad(1);
                 indice = lista->obtenerLongitud();
             }
@@ -173,11 +188,90 @@
         int indice = 0;
         NodoDC<Celular*> *it = lista->obtenerPrimero();
         while(indice < lista->obtenerLongitud()){
-            if (it->getValor() == c){
+            if (*(it -> getValor()) == *c){
                 it->getValor()->aumentarCantidad(cantidad);
                 indice = lista->obtenerLongitud();
             }
             indice++;
             it = it->getSiguiente();
         }
+    }
+
+    void Stock::eliminarCelularNombre(string nombre){
+        int cont = 0;
+        int indice = -1;
+
+        NodoDC<Celular*> *it = lista->obtenerPrimero();
+        
+        //cout << nombre<<endl;
+        while(cont < lista->obtenerLongitud()){
+            //cout<< it->getValor()->getMarca() <<endl;
+ 
+            if((it->getValor()->getMarca() == nombre)){
+                //cout<< "eNTRO"<<endl;
+                indice = cont;
+                cont = lista->obtenerLongitud();
+            }else{
+                cont++;
+                it = it->getSiguiente();
+            }
+        }
+
+        //cout<<"Estoy afuera";
+
+        if(indice != -1){
+            lista->eliminar(indice);
+        }else{
+            cout<<"No se ha encontrado el criterio"<<endl;    
+        }
+    }
+
+
+    Celular* Stock::retornarCelularporNombre(string nombre){
+
+        Celular *c = nullptr;
+		NodoDC<Celular*> *it = lista->obtenerPrimero();
+		int cont = 0;
+		
+        cout << nombre <<endl;
+        cout << lista-> obtenerLongitud() <<endl;
+        
+		while (cont < lista-> obtenerLongitud()) {
+        cout<< it->getValor()->getMarca() <<endl;
+			if (it->getValor()->getMarca() == nombre){
+                c = it->getValor();
+                return c;
+            }
+				
+			it = it->getSiguiente();
+			cont++;
+		}
+		
+        cout << "llegue al final" <<endl;
+        cout << c -> toString();
+        if(c == nullptr){
+            cout<< "No se encontro la instancia";
+        }
+		return c;
+    }
+
+    Persona* Stock::retornarPersonaporNombre(string nombre){
+        Persona *c = new Persona();
+		NodoDC<Persona*> *it = personas->obtenerPrimero();
+		int cont = 0;
+		
+        //cout << valor <<endl;
+		while (cont < personas-> obtenerLongitud()) {
+            //cout<< it->getValor()->getNombre() <<endl;
+			if (it->getValor()->getNombre() == nombre)
+                return it->getValor();
+				
+			it = it->getSiguiente();
+			cont++;
+		}
+		
+        cout << "llegue al final" <<endl;
+        cout<< c->toString();
+        //l->imprimirObjetoFinal();
+		return nullptr;
     }
