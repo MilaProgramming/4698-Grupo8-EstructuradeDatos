@@ -14,6 +14,7 @@ class Persona: public ToString{
     public:
 
         Persona(string, double);
+        Persona();
         ~Persona();
         void comprarCelular(Celular*); //Comprar un celular a su nombre
         bool verificarCelular(Celular*);

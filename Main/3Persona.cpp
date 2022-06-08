@@ -13,82 +13,109 @@ using namespace std;
         free(this);
     }
 
+    Persona::Persona(){
+    }
+
     void Persona::comprarCelular(Celular* celu){
 
         if(verificarCelular(celu)){
+            //out<< "1 if" <<endl;
             if(disminuirPresupuesto()){
-                if(this->presupuesto - celu->getPrecio() > 0 || celu->disminuirStock()){
-                    this->presupuesto -= celu->getPrecio();
-                    celu->aumentarCantidad(1);
-                    this->comprados->insertarFinal(celu);
+                //cout<< "2 if" <<endl;
+                if(this->presupuesto - celu->getPrecio() > 0){
+                    //cout<< "3 if" <<endl;
+                    if(celu->disminuirStock()){
+                        //cout<< "4 if" <<endl;
+                        this->presupuesto -= celu->getPrecio();
+                        celu->aumentarCantidad(1);
+                        this->comprados->insertarFinal(celu);
+                        cout<< "\n-- Compra realizada con exito --" <<endl;
+                    }else{
+                        //cout<< "3 if" <<endl;
+                        celu->disminuirStock(); 
+                    }
                 }else{
-                    celu->disminuirStock();                
-                }    
+                    //cout<< "5 if" <<endl;
+                    cout<< "No posee el suficiente dinero para comprar esto" <<endl;   
+                } 
+
             }else{
                 cout<< "No posee el suficiente dinero para comprar esto" <<endl;   
-            }
+            } 
+
         }else{
 
             if(disminuirPresupuesto()){
-                if(this->presupuesto - celu->getPrecio() > 0 || celu->disminuirStock()){
-                    this->presupuesto -= celu->getPrecio();
-                    NodoDC<Celular*> *it =comprados->obtenerUltimo();
-                    int cont = 0;
-                    while(cont < comprados->obtenerLongitud()){
-                        if((it->getValor()) == celu){
+                if(this->presupuesto - celu->getPrecio() > 0){
+
+                    if(celu->disminuirStock()){
+                        this->presupuesto -= celu->getPrecio();
+                        NodoDC<Celular*> *it =comprados->obtenerUltimo();
+                        int cont = 0;
+                        while(cont < comprados->obtenerLongitud()){
+                        if(*(it -> getValor()) == *celu){
                             (it->getValor())->aumentarCantidad(1);
                         }
                         it = it->getAnterior();
                         cont++;
-                    }
+                        }
+                    }else{
+                        celu->disminuirStock();                
+                    }    
                 }else{
-                    celu->disminuirStock();                
-                }    
+                cout<< "No posee el suficiente dinero para comprar esto" <<endl;   
+                }
             }else{
                 cout<< "No posee el suficiente dinero para comprar esto" <<endl;   
-            }
-        }    
+            }   
+        }
     }
     
     void Persona::comprarCelular(Celular* celu, int cantidad){
 
         if(verificarCelular(celu)){
             if(disminuirPresupuesto()){
-                if(this->presupuesto - celu->getPrecio()*cantidad > 0 || celu->disminuirStock(cantidad)){
-                    this->presupuesto -= celu->getPrecio()*cantidad;
-                    celu->aumentarCantidad(cantidad);
-                    this->comprados->insertarFinal(celu);
-                }else{
+                if(this->presupuesto - celu->getPrecio()*cantidad > 0 ){
+                    if(celu->disminuirStock(cantidad)){
+                        this->presupuesto -= celu->getPrecio()*cantidad;
+                        celu->aumentarCantidad(cantidad);
+                        this->comprados->insertarFinal(celu);
+                    }else{
                     celu->disminuirStock(cantidad);                
-                }    
+                    }    
+                }else{
+                    cout<< "No posee el suficiente dinero para comprar esto" <<endl; 
+                }  
             }else{
                 cout<< "No posee el suficiente dinero para comprar esto" <<endl;   
             }
         }else{
 
                 if(disminuirPresupuesto()){
-                    if(this->presupuesto - celu->getPrecio()*cantidad > 0 || celu->disminuirStock(cantidad)){
-                        this->presupuesto -= celu->getPrecio()*cantidad;
+                    if(this->presupuesto - celu->getPrecio()*cantidad > 0){
+                        if(celu->disminuirStock(cantidad)){
+                            this->presupuesto -= celu->getPrecio()*cantidad;
                         
-                        NodoDC<Celular*> *it =comprados->obtenerUltimo();
+                            NodoDC<Celular*> *it =comprados->obtenerUltimo();
 
-                        int cont = 0;
-                        while(cont < comprados->obtenerLongitud()){
-                            if((it->getValor()) == celu){
-                                (it->getValor())->aumentarCantidad(cantidad);
+                            int cont = 0;
+                            while(cont < comprados->obtenerLongitud()){
+                                if(*(it -> getValor()) == *celu){
+                                    (it->getValor())->aumentarCantidad(cantidad);
+                                }
+                                it = it->getAnterior();
+                                cont++;
                             }
-                            it = it->getAnterior();
-                            cont++;
+                        }else{
+                        celu->disminuirStock(cantidad);  
                         }
-
-
                     }else{
-                        celu->disminuirStock(cantidad);                
+                        cout<< "No posee el suficiente dinero para comprar esto" <<endl;                
                     }
-
                 }else{
                     cout<< "No posee el suficiente dinero para comprar esto" <<endl;   
                 }
+                    
         }    
     }
 
@@ -97,7 +124,7 @@ using namespace std;
         NodoDC<Celular*> *it =comprados->obtenerUltimo();
         int cont = 0;
         while(cont < comprados->obtenerLongitud()){ 
-            if((it->getValor()) == celu){
+            if(*(it -> getValor()) == *celu){
                 return false;
             }
             cont++;
@@ -116,7 +143,7 @@ using namespace std;
 
     void Persona::verComprados(){
 
-        if (comprados->estaVacio()) cout<< "Lista vacia. No existe nada imprimir"<<endl;
+        if (comprados->estaVacio()) cout<< " ningun celular todavia"<<endl;
             else{
                     
                 NodoDC<Celular*> *nimpreso;

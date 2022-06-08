@@ -156,7 +156,7 @@ template <typename T>
                 }
             }
 
-            void eliminar(int indice){
+            void  eliminar(int indice){
 
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que borrar"<<endl;
                 else{
@@ -175,7 +175,7 @@ template <typename T>
                                 indice--;
                             } 
 
-                            if(iterador->getSiguiente() ==  nullptr){
+                            if(iterador->getSiguiente() ==  primero){
                                 eliminarFinal();
                             }else{
                                 NodoDC<T> *previo;

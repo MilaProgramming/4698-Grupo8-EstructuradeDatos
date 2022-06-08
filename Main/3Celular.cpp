@@ -88,7 +88,31 @@ using namespace std;
         return t;
     }
 
+    bool Celular::operator ==(Celular c){
+        double delta = 0.001;
+        
+        /*
+        cout<< this->getMarca() <<endl;
+        cout<< c.getMarca() <<endl;
+        cout<< abs(this->getPrecio() - c.getPrecio()) <<endl;
+        */
+
+        return this->getMarca() == c.getMarca() && abs(this->getPrecio() - c.getPrecio()) < delta;
+    }
+
     bool Celular::operator ==(Celular* c){
         double delta = 0.001;
+        
+        /*
+        cout<< this->getMarca() <<endl;
+        cout<< c.getMarca() <<endl;
+        cout<< abs(this->getPrecio() - c.getPrecio()) <<endl;
+        */
+
         return this->getMarca() == c->getMarca() && abs(this->getPrecio() - c->getPrecio()) < delta;
+    }
+
+    
+    bool Celular::iguales (double num1, double num2, double deltaMax) {
+        return (abs(num1 - num2) < deltaMax);
     }
