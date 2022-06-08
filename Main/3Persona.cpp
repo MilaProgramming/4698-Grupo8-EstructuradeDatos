@@ -101,6 +101,7 @@ using namespace std;
                 return false;
             }
             cont++;
+            it = it->getAnterior();
         }
 
         return true;

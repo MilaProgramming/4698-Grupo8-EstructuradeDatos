@@ -7,13 +7,14 @@
 class Tienda{
 
     private: 
-        Stock *stock = new Stock();
+        Stock *stock = nullptr;
  
     public:    
 
         Tienda();
         ~Tienda();
 
+        bool estaVacio();
         void setStock( Stock *);
         Stock* getStock();
         ListaDobleC<Celular*>* recomendarCelulares(Persona*); //Recomendar automaticamente a la persona un celular por presupuesto

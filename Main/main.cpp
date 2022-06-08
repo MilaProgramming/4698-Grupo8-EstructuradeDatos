@@ -10,30 +10,82 @@
 #include "4OpcionMenu.cpp"
 #include "3Tienda.cpp"
 #include "3Stock.cpp"
+#include "5IngresoDatos.hpp"
 
 #include <iostream>
 
 using namespace std;
 
+Tienda* datosDefecto();
+
 int main(int argc, char **argv) {
-   
+    
+    Tienda *tienda = datosDefecto();
+    Tienda *tiendaVacia = new Tienda();
+
     //!Creo objeto menu. Este manejara las opciones
-    Menu menu("---Bienvenidos---");
+    Menu menu("------- Bienvenidos al programa de compra de Celulares -------");
 
    
-    menu.add_option(MenuOption("1. Stock", [&](MenuOptionArguments args) {
+    menu.add_option(MenuOption("Stock", [&](MenuOptionArguments args) {
         system("CLS");
         //Submenu Stock
-        Menu menuStock("Submenu Stock");
+        Menu menuStock("Stock");
 
-            menuStock.add_option(MenuOption("1. Ver Stock", [&](MenuOptionArguments args) {
+            menuStock.add_option(MenuOption("Ver Stock", [&](MenuOptionArguments args) {
+                tienda->getStock()->verCelulares();
             }));
-            menuStock.add_option(MenuOption("2. Agregar Stock", [&](MenuOptionArguments args) {
+
+            menuStock.add_option(MenuOption("Agregar a Stock", [&](MenuOptionArguments args){
+
+                IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
+                IngresoDatos<int, float> *k = new IngresoDatos<int, float>();
+
+                char* marca;
+                double precio;
+                int stock;
+
+                do{
+
+                        marca = i->funcionMixta("\nIngrese la marca del celular: ");
+
+                        precio = j->funcionPrincipalFlotantes("\nIngrese el precio del celular: ");
+
+                        stock = k->funcionPrincipalEnteros("\nIngrese la cantidad de ejemplares de este celular que existen: ");
+                    
+
+                        break;
+                } while (true);
+
+                    
+                Celular *nuevo = new Celular(marca, precio, stock);
+
+
+                if(tienda->getStock()->compararCelulares(nuevo)){
+
+                    tienda->getStock()->agregarStockRepetido(nuevo, nuevo->getStock());
+                    tienda->getStock()->verCelulares();
+                    cout << "\nEl celular que desea agregar ya existe. Se ha aumentado el stock" <<endl;
+
+                }else{
+                    tienda->getStock()->getCelulares()->insertarFinal(nuevo);
+                    tienda->getStock()->verCelulares();
+                }
+
+
             }));
-            menuStock.add_option(MenuOption("3. Eliminar Stock", [&](MenuOptionArguments args) {
+
+            menuStock.add_option(MenuOption("Eliminar elemento del Stock", [&](MenuOptionArguments args) {
+
+                if(tienda->estaVacio()){
+                    cout<< "Tienda vacia. No hay nada que borrar" <<endl;
+                }else{
+                    
+                }
             }));
         
-            menuStock.add_option(MenuOption("\n4. Regresar a menu principal", [&](MenuOptionArguments args) {
+            menuStock.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
             menuStock.stop();
             }, false));
 
@@ -55,25 +107,34 @@ int main(int argc, char **argv) {
     }));
 
 
-    menu.add_option(MenuOption("2. Usuarios ", [&](MenuOptionArguments args) {
-        //!realizo una accion que no requiere input manual.
+    menu.add_option(MenuOption("Usuarios ", [&](MenuOptionArguments args) {
+    
         system("CLS");
         //Submenu Usuarios
-        Menu menuUsuarios("Submenu Usuarios ");
+        Menu menuUsuarios("Usuarios");
 
-            menuUsuarios.add_option(MenuOption("1. Ver Usuarios", [&](MenuOptionArguments args) {
+            menuUsuarios.add_option(MenuOption("Ver Usuarios", [&](MenuOptionArguments args) {
             }));
-            menuUsuarios.add_option(MenuOption("2. Buscar Usuarios", [&](MenuOptionArguments args) {
+            menuUsuarios.add_option(MenuOption("Buscar Usuarios", [&](MenuOptionArguments args) {
                 system("CLS");
                 //Submenu Busqueda de Usuarios
-                Menu menuBusquedaUsuarios("Submenu Busqueda ");
+                Menu menuBusquedaUsuarios("Busqueda");
 
-                    menuBusquedaUsuarios.add_option(MenuOption("1. Por Nombre", [&](MenuOptionArguments args) {
+                    menuBusquedaUsuarios.add_option(MenuOption("Por Nombre", [&](MenuOptionArguments args) {
                     }));
-                    menuBusquedaUsuarios.add_option(MenuOption("2. Por Presupuesto", [&](MenuOptionArguments args) {
+                    menuBusquedaUsuarios.add_option(MenuOption("Por Presupuesto", [&](MenuOptionArguments args) {
                     }));
-            }));        
-            menuUsuarios.add_option(MenuOption("\n3. Regresar a menu principal", [&](MenuOptionArguments args) {
+
+                    
+                    menuBusquedaUsuarios.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
+                    menuBusquedaUsuarios.stop();
+                    }, false));
+
+                    //Mostrar menu
+                    menuBusquedaUsuarios.display();
+            }));
+
+            menuUsuarios.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
             menuUsuarios.stop();
             }, false));
 
@@ -83,48 +144,55 @@ int main(int argc, char **argv) {
 
 
     //!Submenus
-    menu.add_option(MenuOption("3. Comprar", [&](MenuOptionArguments args) {
+    menu.add_option(MenuOption("Comprar", [&](MenuOptionArguments args) {
         system("CLS");
-        Menu menuComprar("Submenu Comprar");        
-            menuComprar.add_option(MenuOption("1...", [&](MenuOptionArguments args) {
+        Menu menuComprar("Comprar");        
+            menuComprar.add_option(MenuOption("Recomendar compra", [&](MenuOptionArguments args) {
+                system("CLS");
+                //Submenu Recomendaciones 
+                Menu menuRecomendaciones("Recomendaciones");
+
+                menuRecomendaciones.add_option(MenuOption("Recomendar celulares para comprar", [&](MenuOptionArguments args) {
+                    system("CLS");
+                    //Submenu Recomendar celulares 
+                    Menu menuReCelulares("Submenu Recomendar Celulares");
+
+                    menuReCelulares.add_option(MenuOption("Recomendar automaticamente", [&](MenuOptionArguments args) {
+                    
+                    }));
+                    
+                    menuReCelulares.add_option(MenuOption("Recomendar por presupuesto a mayor", [&](MenuOptionArguments args) {
+                    
+                    }));
+                    
+                    
+                    menuReCelulares.add_option(MenuOption("Recomendar por presupuesto a menor", [&](MenuOptionArguments args) {
+                    
+                    }));
+
+                    menuReCelulares.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
+                        menuReCelulares.stop();
+                    }, false));
+
+                    menuReCelulares.display();            
+                }));
+                menuRecomendaciones.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
+                menuRecomendaciones.stop();
+                }, false));
+
+            menuRecomendaciones.display();
             }));
 
-            menuComprar.add_option(MenuOption("\n2. Regresar a menu principal", [&](MenuOptionArguments args) {
+            menuComprar.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
             menuComprar.stop();
             }, false));
 
         menuComprar.display();
     }));
 
-    menu.add_option(MenuOption("4. Recomendaciones", [&](MenuOptionArguments args) {
-        system("CLS");
-        //Submenu Recomendaciones 
-        Menu menuRecomendaciones("Submenu Recomendaciones");
-
-            menuRecomendaciones.add_option(MenuOption("1. Recomendar celulares para comprar", [&](MenuOptionArguments args) {
-                system("CLS");
-                //Submenu Recomendar celulares 
-                Menu menuReCelulares("Submenu Recomendar Celulares");
-
-                menuReCelulares.add_option(MenuOption("1. Recomendar automaticamente", [&](MenuOptionArguments args) {
-                }));
-                menuReCelulares.add_option(MenuOption("2. Recomendar por presupuesto", [&](MenuOptionArguments args) {
-                }));
-                menuReCelulares.add_option(MenuOption("\n3. Regresar a menu principal", [&](MenuOptionArguments args) {
-                menuReCelulares.stop();
-                }, false));
-
-                menuReCelulares.display();            
-            }));
-            menuRecomendaciones.add_option(MenuOption("\n2. Regresar a menu principal", [&](MenuOptionArguments args) {
-            menuRecomendaciones.stop();
-            }, false));
-
-        menuRecomendaciones.display();
-    }));
 
     //!Funcion salida del menu
-    menu.add_option(MenuOption("5. salir", [&](MenuOptionArguments args) {
+    menu.add_option(MenuOption("Salir", [&](MenuOptionArguments args) {
         cout << "\nGracias por usar el programa!" <<endl;
         menu.stop();
     }, false));
@@ -135,3 +203,34 @@ int main(int argc, char **argv) {
     return 0; 
 }
 
+Tienda* datosDefecto(){
+
+    Persona *p1 = new Persona("Matias Manzin", 100);
+    Persona *p2 = new Persona("Lionel Messi", 5000);
+    Persona *p3 = new Persona("Edward Tech", 1500);
+
+    Celular *c1 = new Celular("Alcatel TCL A3", 40, 100);
+    Celular *c2 = new Celular("Samsung Galaxy S22", 1000, 30);
+    Celular *c3 = new Celular("Motorola One 5G Ace", 250, 50);
+    Celular *c4 = new Celular("Iphone 12", 2000, 3);
+
+    ListaDobleC<Persona*> *personas = new ListaDobleC<Persona*>();
+    personas->insertarFinal(p1);
+    personas->insertarFinal(p2);
+    personas->insertarFinal(p3);
+
+    ListaDobleC<Celular*> *celulares = new ListaDobleC<Celular*>();
+    celulares->insertarFinal(c1);
+    celulares->insertarFinal(c2);
+    celulares->insertarFinal(c3);
+    celulares->insertarFinal(c4);
+
+    Stock *stock = new Stock();
+    stock->setCelulares(celulares);
+    stock->setPersonas(personas);
+
+    Tienda *tienda = new Tienda();
+    tienda->setStock(stock);
+
+    return tienda;
+}

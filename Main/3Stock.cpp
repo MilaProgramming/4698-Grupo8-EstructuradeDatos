@@ -29,6 +29,7 @@
         int indice = 0;
         NodoDC<Celular*> *it = lista->obtenerPrimero();
 
+        cout<< "Celulares en venta\n" <<endl;
         while(indice < lista->obtenerLongitud()){
             if((it->getValor())->getStock() == 0){
                 lista->eliminar(indice);
@@ -133,4 +134,46 @@
         free(ordenada);
         delete [] array;
 
+    }
+
+    bool Stock::compararCelulares(Celular* c){
+        int indice = 0;
+        NodoDC<Celular*> *it = lista->obtenerPrimero();
+        while(indice < lista->obtenerLongitud()){
+            if (it->getValor() == c){
+                return true;
+            }
+            indice++;
+            it = it->getSiguiente();
+        }
+
+        return false;
+    }
+
+    void Stock::agregarStockRepetido(Celular* c){
+
+        int indice = 0;
+        NodoDC<Celular*> *it = lista->obtenerPrimero();
+        while(indice < lista->obtenerLongitud()){
+            if (it->getValor() == c){
+                it->getValor()->aumentarCantidad(1);
+                indice = lista->obtenerLongitud();
+            }
+            indice++;
+            it = it->getSiguiente();
+        }
+
+    }
+
+    void Stock::agregarStockRepetido(Celular* c, int cantidad){
+        int indice = 0;
+        NodoDC<Celular*> *it = lista->obtenerPrimero();
+        while(indice < lista->obtenerLongitud()){
+            if (it->getValor() == c){
+                it->getValor()->aumentarCantidad(cantidad);
+                indice = lista->obtenerLongitud();
+            }
+            indice++;
+            it = it->getSiguiente();
+        }
     }

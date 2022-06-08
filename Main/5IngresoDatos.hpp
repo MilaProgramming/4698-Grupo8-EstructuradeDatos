@@ -163,7 +163,11 @@ template <typename T, typename N>
                     }else if(c == 8){ //Si el input es un back space
                         backspace(&i, &c); //Funcion para la tecla backspace
 
-                    }   			     
+                    }else if(c == ' '){
+                        printf(" ");
+                        dato[i] = c;
+                        i++;
+                    }    			     
                 }
 
                 dato[i]='\0';
@@ -171,6 +175,7 @@ template <typename T, typename N>
             }
 
             char* leerLetras(string mensaje){
+
                 imprimirMensaje(mensaje);
                 char c;  //Creo un caracter, con el que voy a recibir el cada input
                 int i = 0; //Iterador para terminar el bucle, y asignar el valor final como nulo
@@ -184,7 +189,74 @@ template <typename T, typename N>
                         i++;
                     }else if(c == 8){ //Si el input es un back space
                         backspace(&i, &c, mensaje); //Funcion para la tecla backspace
-                    }   			     
+                    }else if(c == ' '){
+                        printf(" ");
+                        dato[i] = c;
+                        i++;
+                    }       			     
+                }
+
+                dato[i]='\0';
+                return dato;
+            }
+
+            char* leerMixto(string mensaje){
+                imprimirMensaje(mensaje);
+                char c;  //Creo un caracter, con el que voy a recibir el cada input
+                int j = 0; //Iterador para la verifiacion del unico punto
+                int i = 0; //Iterador para terminar el bucle, y asignar el valor final como nulo
+
+                while(c != 13){ //Bucle hasta que se presion la tecla ENTER
+                    c=getch(); //Recibo el dato por teclado
+
+                    if(c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'){
+                        printf("%c", c); //Imprimo el valor
+                        dato[i] = c;
+                        i++;
+                    }else if(c == 8){ //Si el input es un back space
+                        backspace(&i, &c, mensaje); //Funcion para la tecla backspace
+                    }else if(c == ' '){
+                        printf(" ");
+                        dato[i] = c;
+                        i++;
+                    }else if(c >= '0' && c <= '9' || c == 46 ){
+                        
+                        conversion.verificar(c); //Verifico por puntos ingresados
+                    
+                        unicoPunto( &j , &i, mensaje, &c); //Funcion de unico punto
+                        i++;
+                    }       			     
+                }
+
+                dato[i]='\0';
+                return dato;
+            }
+
+            char* leerMixto(){
+                char c;  //Creo un caracter, con el que voy a recibir el cada input
+                int j = 0; //Iterador para la verifiacion del unico punto
+                int i = 0; //Iterador para terminar el bucle, y asignar el valor final como nulo
+
+                while(c != 13){ //Bucle hasta que se presion la tecla ENTER
+                    c=getch(); //Recibo el dato por teclado
+
+                    if(c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'){
+                        printf("%c", c); //Imprimo el valor
+                        dato[i] = c;
+                        i++;
+                    }else if(c == 8){ //Si el input es un back space
+                        backspace(&i, &c); //Funcion para la tecla backspace
+                    }else if(c == ' '){
+                        printf(" ");
+                        dato[i] = c;
+                        i++;
+                    }else if(c >= '0' && c <= '9' || c == 46 ){
+                        
+                        conversion.verificar(c); //Verifico por puntos ingresados
+                    
+                        unicoPunto( &j , &i, &c); //Funcion de unico punto
+                        i++;
+                    }       			     
                 }
 
                 dato[i]='\0';
@@ -337,6 +409,14 @@ template <typename T, typename N>
 
             char* funcionLetras(){
                 return leerLetras();
+            }
+
+            char* funcionMixta(){
+                return leerMixto();
+            }
+
+            char* funcionMixta(string mensaje){
+                return leerMixto(mensaje);
             }
 
             void funcionPrincipalLetras(string mensaje){

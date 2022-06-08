@@ -32,6 +32,8 @@
     "iostream": "cpp",
     "ostream": "cpp",
     "*.tcc": "cpp",
-    "new": "cpp"
+    "new": "cpp",
+    "1listadc.hpp": "c",
+    "3celular.h": "c"
   }
 }

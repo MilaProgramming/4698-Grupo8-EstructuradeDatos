@@ -2,6 +2,8 @@
 #include "3Celular.h"
 #include <iostream>
 #include <string>
+#include <cstdlib>
+
 using namespace std;
 
     Celular::Celular(string m, double p, int s){
@@ -82,10 +84,11 @@ using namespace std;
     }
 
     string Celular::toString(){
-        string t = "El celular, de la marca " + this->getMarca() + ", y de precio " + to_string(this->getPrecio());
+        string t = "Marca = " + this->getMarca() + "\nPrecio = " + to_string(this->getPrecio()) + "\n";
         return t;
     }
 
     bool Celular::operator ==(Celular* c){
-        return this->getCantidad() == c->getCantidad() && this->getMarca() == c->getMarca() && this->getPrecio() == c->getPrecio() && this->getStock() == c->getStock();
+        double delta = 0.001;
+        return this->getMarca() == c->getMarca() && abs(this->getPrecio() - c->getPrecio()) < delta;
     }

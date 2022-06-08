@@ -11,6 +11,14 @@
         free(this);
     }
 
+    bool Tienda::estaVacio(){
+        if(this->stock == nullptr){
+            return true;
+        }
+
+        else return false;
+    }
+
     void Tienda::setStock( Stock * s){
         this->stock = s;
     }
