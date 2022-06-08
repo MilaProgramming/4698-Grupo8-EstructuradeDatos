@@ -37,44 +37,37 @@ int main(int argc, char **argv) {
                 tienda->getStock()->verCelulares();
             }));
 
+
+            //!Funciona
             menuStock.add_option(MenuOption("Agregar a Stock", [&](MenuOptionArguments args){
 
                 IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
                 IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
                 IngresoDatos<int, float> *k = new IngresoDatos<int, float>();
 
-                char* marca;
+                char* marca = new char[50];
+                marca[0] = '\0';
                 double precio;
                 int stock;
 
-                do{
+                marca = i->funcionMixta("\nIngrese la marca del celular: ");
 
-                        marca = i->funcionMixta("\nIngrese la marca del celular: ");
+                    if(marca[0] != '\0'){
 
                         precio = j->funcionPrincipalFlotantes("\nIngrese el precio del celular: ");
 
                         stock = k->funcionPrincipalEnteros("\nIngrese la cantidad de ejemplares de este celular que existen: ");
-                    
 
-                        break;
-                } while (true);
+                        Celular *nuevo = new Celular(marca, precio, stock);
 
-                    
-                Celular *nuevo = new Celular(marca, precio, stock);
+                        tienda->agregarCelularTienda(nuevo);
 
-                if(tienda->getStock()->compararCelulares(nuevo)){
-                    cout<< "\n \n \n";
-                    tienda->getStock()->agregarStockRepetido(nuevo, nuevo->getStock());
-                    tienda->getStock()->verCelulares();
-                    cout << "\nEl celular que desea agregar ya existe. Se ha aumentado el stock" <<endl;
+                    }else{
 
-                }else{
-                    cout<< "\n \n \n";
-                    tienda->getStock()->getCelulares()->insertarFinal(nuevo);
-                    tienda->getStock()->verCelulares();
-                }
+                        cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                    }
 
-
+                delete [] marca;
             }));
 
             menuStock.add_option(MenuOption("Eliminar elemento del Stock", [&](MenuOptionArguments args) {
@@ -82,18 +75,31 @@ int main(int argc, char **argv) {
                 if(tienda->estaVacio()){
                     cout<< "Tienda vacia. No hay nada que borrar" <<endl;
                 }else{
+
                     IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
-                    char* nombre;
+                    IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
+
+                    char* nombre = new char[50];
+                    nombre[0] = '\0';
+                    double precio;
                     tienda->getStock()->verCelulares();
-                    do{
+                    
 
-                        nombre = i->funcionMixta("\nIngrese el nombre del celular que desea eliminar: ");    
 
-                        break;
-                    } while (true);
+                    nombre = i->funcionMixta("\nIngrese el nombre del celular que desea eliminar: ");    
 
-                    tienda->getStock()->eliminarCelularNombre(nombre);
-                    tienda->getStock()->verCelulares();
+                    if(nombre[0] != '\0'){
+                        
+                        precio = j->funcionPrincipalFlotantes("\nIngrese el precio del celular que desea eliminar: ");
+
+                        Celular* celu = new Celular(nombre, precio, 0);
+                        tienda->eliminarCelularTienda(celu);
+
+                    }else{
+                        cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                    }
+
+                    delete [] nombre;
 
                 }
             }));

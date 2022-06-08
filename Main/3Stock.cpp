@@ -35,6 +35,7 @@
 
         cout<< "Celulares en venta\n" <<endl;
         while(indice < lista->obtenerLongitud()){
+
             if((it->getValor())->getStock() == 0){
                 lista->eliminar(indice);
             }
@@ -145,7 +146,8 @@
 
     bool Stock::compararCelulares(Celular* c){
 
-        cout<<"Ingrese el metodo"<<endl;
+        //cout<<"Ingrese el metodo"<<endl;
+
         int indice = 0;
         NodoDC<Celular*> *it = lista->obtenerPrimero();
         //cout<< lista->obtenerLongitud() <<endl;
@@ -153,20 +155,27 @@
 
         while(indice < lista->obtenerLongitud()){
 
-            cout<<"Entre al while"<<endl;
-            cout << (it -> getValor() == c) <<endl;
+            //cout<<"Entre al while"<<endl;
+    
+            //cout << (*(it -> getValor()) == *c) << " condicion"<<endl;
+            //cout << it -> getValor() ->getMarca() <<endl;
 
-            if ((it -> getValor()) == c){
+            //cout<<"Voy a entrar al if"<<endl;
+            //!if(**Celular == **Celular)
+            if ( (*(it -> getValor()) == *c) ){
                 //cout<<"Es verdadero"<<endl;
                 return true;
             }
 
             indice++;
             //cout<< lista->obtenerLongitud() <<endl;
+            //cout << it -> getValor() ->getMarca() <<endl;
+            //cout<< c->getMarca() <<endl;
+
             it = it->getSiguiente();
         }
 
-        cout<<"sali sin mucha novedad"<<endl;
+        //cout<<"sali sin mucha novedad"<<endl;
         return false;
     }
 
@@ -187,10 +196,11 @@
     }
 
     void Stock::agregarStockRepetido(Celular* c, int cantidad){
+
         int indice = 0;
         NodoDC<Celular*> *it = lista->obtenerPrimero();
         while(indice < lista->obtenerLongitud()){
-            if (*(it -> getValor()) == *c){
+            if (it -> getValor() == c){
                 it->getValor()->aumentarCantidad(cantidad);
                 indice = lista->obtenerLongitud();
             }
@@ -199,9 +209,8 @@
         }
     }
 
-    void Stock::eliminarCelularNombre(string nombre){
+    bool Stock::eliminarCelular(Celular* c){
         
-        Celular *c = retornarCelularporNombre(nombre);
         //cout <<"Funcion eleiminar" <<endl;
         //cout << c->toString();
         NodoDC<Celular*> *it = lista->obtenerPrimero();
@@ -212,22 +221,25 @@
             
             //cout<< it->getValor()->getMarca() <<endl;
  
-            if((it->getValor() == c)){
-                cout<<"Entre al if" <<endl;
+            if((*(it->getValor()) == *c)){
+                //cout<<"Entre al if" <<endl;
                 indice = cont;
-                this->lista->eliminar(cont);
+                //cout<< indice <<endl;
+                this->lista->eliminar(indice);
                 cont = lista->obtenerLongitud();
+                //cout<<"Termine el if"<<endl;
+                return true;
             }else{
                 cont++;
                 it = it->getSiguiente();
             }
+
         }
 
         //cout<<"Estoy afuera";
         //cout<< "Sali del while" <<endl;
-        if(indice == -1){
-            cout<<"No se ha encontrado el criterio"<<endl; 
-        }
+        
+        return false;
     }
 
 
@@ -237,16 +249,16 @@
 		NodoDC<Celular*> *it = lista->obtenerPrimero();
 		int cont = 0;
 		
-        //cout << "\n" << nombre <<endl;
-        //cout << "\n" << lista-> obtenerLongitud() <<endl;
+        cout << "\n" << nombre <<endl;
+        cout << "\n" << lista-> obtenerLongitud() <<endl;
         
 		while (cont < lista-> obtenerLongitud()) {
-        //cout<< it->getValor()->getMarca() <<endl;
+        cout<< it->getValor()->getMarca() <<endl;
 
 			if (it->getValor()->getMarca() == nombre){
-                //cout<< "Entre el if"<<endl;
+                cout<< "Entre el if"<<endl;
                 c = it->getValor();
-                //cout << c->toString();
+                cout << c->toString();
                 return c;
             }
 				

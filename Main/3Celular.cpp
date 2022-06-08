@@ -88,20 +88,20 @@ using namespace std;
         return t;
     }
 
-    bool Celular::operator ==(Celular c){
-        double delta = 0.001;
+    bool Celular::operator ==(Celular &c){
+        double delta = 0.01;
         
-        /*
-        cout<< this->getMarca() <<endl;
-        cout<< c.getMarca() <<endl;
-        cout<< abs(this->getPrecio() - c.getPrecio()) <<endl;
-        */
+        
+        //cout<< this->getMarca() <<endl;
+        //cout<< c.getMarca() <<endl;
+        //cout<< abs(this->getPrecio() - c.getPrecio()) <<endl;
+        
 
         return this->getMarca() == c.getMarca() && abs(this->getPrecio() - c.getPrecio()) < delta;
     }
 
     bool Celular::operator ==(Celular* c){
-        double delta = 0.001;
+        double delta = 0.01;
         
         /*
         cout<< this->getMarca() <<endl;

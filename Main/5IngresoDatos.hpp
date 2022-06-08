@@ -96,7 +96,7 @@ template <typename T, typename N>
                 }     
             }
 
-            char* leerDatos(string mensaje){
+            char* leerDatos(string mensaje, void(*funcion)){
 
                 imprimirMensaje(mensaje);
                 char c;  //Creo un caracter, con el que voy a recibir el cada input
@@ -116,7 +116,7 @@ template <typename T, typename N>
 
                     }else if(c == 8){ //Si el input es un back space
 
-                        backspace(&i, &j,  &c, mensaje); //Funcion para la tecla backspace
+                        backspace(&i, &j,  &c, mensaje, funcion); //Funcion para la tecla backspace
              
                     }       			     
                 }
@@ -263,12 +263,13 @@ template <typename T, typename N>
                 return dato;
             }
 
-            void backspace(int* i, int* j, char* c, string mensaje){
+            void backspace(int* i, int* j, char* c, string mensaje, void(*funcion)){
 
                 if(*c >= '0' && *c <= '9'){
                 if(*i != 0) --*i;
                 }else{
                     system("CLS"); //Limpio pantalla
+                    funcion();
                     imprimirMensaje(mensaje);
                     for(int p = 0; p < *i-1; p++){
                         printf("%c", dato[p]); //Imprimo de nuevo hasta el penultimo
@@ -387,8 +388,8 @@ template <typename T, typename N>
                 }
             }   
             
-            N funcionPrincipalFlotantes(string mensaje){
-                return this -> conversion.numFloat(leerDatos(mensaje));
+            N funcionPrincipalFlotantes(string mensaje, void(*funcion)){
+                return this -> conversion.numFloat(leerDatos(mensaje), void(*funcion));
             }
 
             N funcionPrincipalFlotantes(){
@@ -396,11 +397,11 @@ template <typename T, typename N>
             } 
 
             T funcionPrincipalEnteros(){
-                return this -> conversion.numInt(leerDatos());
+                return this -> conversion.numInt(leerSoloEnteros());
             }
 
             T funcionPrincipalEnteros(string mensaje){
-                return this -> conversion.numInt(leerDatos(mensaje));
+                return this -> conversion.numInt(leerSoloEnteros(mensaje));
             }
 
             char* funcionLetras(string mensaje){

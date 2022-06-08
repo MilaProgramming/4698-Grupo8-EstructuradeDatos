@@ -30,7 +30,7 @@ class Celular: public ToString {
         bool disminuirStock();
         bool disminuirStock(int);
         string toString();
-        bool operator ==(Celular);
+        bool operator ==(Celular&);
         bool operator ==(Celular*);
         bool iguales (double num1, double num2, double deltaMax);
 

@@ -3,6 +3,7 @@
 #include "3Celular.cpp"
 #include "1NodoDC.hpp"
 
+    //Constructor y destructor
     Tienda::Tienda(){
 
     }
@@ -10,6 +11,8 @@
     Tienda::~Tienda(){
         free(this);
     }
+
+    //Funciones de excepciones, getter y setter
 
     bool Tienda::estaVacio(){
         if(this->stock == nullptr){
@@ -26,6 +29,8 @@
     Stock*  Tienda::getStock(){
         return this->stock;
     }
+
+    //Recomendaciones de compra   
 
     //!debe estar ordenada
     ListaDobleC<Celular*>* Tienda::recomendarCelulares(Persona* persona){
@@ -119,20 +124,28 @@
         return presupuesto;
     } //Devolver celulares mayores o iguales que el presupuesto
 
+    //Devuelven listas de objetos que cumplan con ciertos requisitos
+
     ListaDobleC<Persona*>* Tienda::personasPorPresupuestoIgual(double valor) {
+
 		ListaDobleC<Persona*>* l = new ListaDobleC<Persona*>();
 		NodoDC<Persona*> *it = stock->getPersonas()->obtenerPrimero();
         Celular *c = new Celular();
 		int cont = 0;
 		
 		while (cont < stock->getPersonas()->obtenerLongitud()) {
-			if (c->iguales(it->getValor()->getPresupuesto(), valor, 1e-3))
+
+			if (c->iguales(it->getValor()->getPresupuesto(), valor, 1e-3)){
 				l->insertarFinal(it->getValor());
+                cout<<"Entro al if"<<endl;
+                cont = stock->getPersonas()->obtenerLongitud();
+            }   
 				
 			it = it->getAnterior();
 			cont++;
 		}
 		
+        cout<<"Salgo de la funcion"<<endl;
 		return l;
 	}
 	
@@ -205,4 +218,42 @@
 		return l;
     }
 
+
+    void Tienda::agregarCelularTienda(Celular* nuevo){
+
+        if(stock->compararCelulares(nuevo)){
+
+            cout<< "\n \n \n";
+            stock->agregarStockRepetido(nuevo, nuevo->getStock());
+            stock->verCelulares();
+
+            cout << "\nEl celular que desea agregar ya existe. Se ha aumentado el stock" <<endl;
+
+        }else{
+
+            cout<< "\n \n \n";
+            stock->getCelulares()->insertarFinal(nuevo);
+            stock->verCelulares();
+            cout << "\nEl celular se ha agregado con exito \n" <<endl;
+        }
+
+    }
+
+    void Tienda::eliminarCelularTienda(Celular* c){
+
+        if(stock->eliminarCelular(c)){
+            cout<<"\n";
+            stock->verCelulares();
+
+            cout<< "\n ~~ Celular eliminado con exito ~~\n";
+        }else{
+            cout<< "\n ~~ Ningun celular corresponde a estos datos. ~~\n";
+        }
+
+    }
+
+    const string Tienda::obtenerStockEstatico(){
+        const string str;
+        NodoDC<Celular*> *it = stock->getCelulares()->obtenerPrimero();
+    }
    
