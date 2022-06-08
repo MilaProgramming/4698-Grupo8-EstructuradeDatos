@@ -187,6 +187,7 @@
 
 		while (cont < stock->getCelulares()->obtenerLongitud()) {
             cout<< it->getValor()->getMarca() <<endl;
+
 			if (it->getValor()->getMarca() == nombre)
 				l->insertarFinal(it->getValor());
 				

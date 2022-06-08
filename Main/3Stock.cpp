@@ -202,16 +202,20 @@
     void Stock::eliminarCelularNombre(string nombre){
         
         Celular *c = retornarCelularporNombre(nombre);
+        //cout <<"Funcion eleiminar" <<endl;
+        //cout << c->toString();
         NodoDC<Celular*> *it = lista->obtenerPrimero();
         int cont = 0;
         int indice = -1;
 
         while(cont < lista->obtenerLongitud()){
+            
             //cout<< it->getValor()->getMarca() <<endl;
  
-            if((*(it->getValor()) == *c)){
+            if((it->getValor() == c)){
+                cout<<"Entre al if" <<endl;
                 indice = cont;
-                this->lista->eliminar(indice);
+                this->lista->eliminar(cont);
                 cont = lista->obtenerLongitud();
             }else{
                 cont++;
@@ -220,7 +224,7 @@
         }
 
         //cout<<"Estoy afuera";
-
+        //cout<< "Sali del while" <<endl;
         if(indice == -1){
             cout<<"No se ha encontrado el criterio"<<endl; 
         }
@@ -229,17 +233,20 @@
 
     Celular* Stock::retornarCelularporNombre(string nombre){
 
-        Celular *c = nullptr;
+        Celular *c = new Celular();
 		NodoDC<Celular*> *it = lista->obtenerPrimero();
 		int cont = 0;
 		
-        cout << nombre <<endl;
-        cout << lista-> obtenerLongitud() <<endl;
+        //cout << "\n" << nombre <<endl;
+        //cout << "\n" << lista-> obtenerLongitud() <<endl;
         
 		while (cont < lista-> obtenerLongitud()) {
-        cout<< it->getValor()->getMarca() <<endl;
+        //cout<< it->getValor()->getMarca() <<endl;
+
 			if (it->getValor()->getMarca() == nombre){
+                //cout<< "Entre el if"<<endl;
                 c = it->getValor();
+                //cout << c->toString();
                 return c;
             }
 				
@@ -247,7 +254,8 @@
 			cont++;
 		}
 		
-        cout << "llegue al final" <<endl;
+        //cout << "llegue al final" <<endl;
+        c = nullptr;
         cout << c -> toString();
         if(c == nullptr){
             cout<< "No se encontro la instancia";
