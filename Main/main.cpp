@@ -347,11 +347,11 @@ int main(int argc, char **argv) {
 
                             //tienda->getStock()->getPersonas()->imprimirObjetoFinal();
 
-                            nombre = i->funcionLetras("\n   Ingrese solo el nombre que desea buscar: ");    
+                            nombre = i->funcionLetras("\n  Ingrese solo el nombre que desea buscar: ");    
                             
                             if(nombre[0] != '\0'){
 
-                                apellido = j->funcionLetras("\n Ingrese solo el nombre que desea buscar: ");
+                                apellido = j->funcionLetras("\n Ingrese el apellido que desea buscar: ");
 
                                 if(nombre[0] != '\0'){
                                     tienda ->buscarPorNombrePersona(nombre, apellido);
