@@ -10,7 +10,7 @@ class Persona: public ToString{
         string nombre;
         string apellido;
         double presupuesto;
-        string correo;
+        string correo = " ";
         ListaDobleC<Celular*> *comprados = new ListaDobleC<Celular*>();     
         int* cantidad = new int[50]; 
 
@@ -33,6 +33,7 @@ class Persona: public ToString{
         ListaDobleC<Celular*>* getComprados();
         string getCorreo();
         void setCorreo(string);
+        bool tieneCorreo();
 
         //Operadores
         bool operator ==(Persona&);

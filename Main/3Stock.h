@@ -35,7 +35,7 @@ class Stock{
         bool eliminarCelular(Celular*);
         bool eliminarPersona(Persona*);
         Celular* retornarCelularporNombre(string);
-        Persona* retornarPersonaporNombre(string, string);
+        Persona* retornarPersonaporNombre(string, string, double);
 
         //Funciones impresion
         void verCelulares(); //Celulares disponibles
@@ -48,5 +48,9 @@ class Stock{
         void agregarAlStock(Celular*); //Agregar un celular a la venta
         void agregarStockRepetido(Celular*);
         void agregarStockRepetido(Celular*,int);
+
+        //Funcion de correo
+        string generarCorreo(string, string);
+        string generarCorreo(string, string, int);
        
 };

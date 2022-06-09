@@ -34,6 +34,7 @@
     "*.tcc": "cpp",
     "new": "cpp",
     "1listadc.hpp": "c",
-    "3celular.h": "c"
+    "3celular.h": "c",
+    "string": "cpp"
   }
 }

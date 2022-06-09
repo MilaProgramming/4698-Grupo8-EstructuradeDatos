@@ -26,6 +26,7 @@
 
     void Tienda::setStock( Stock * s){
         this->stock = s;
+        establecerCorreos();
     }
 
     Stock*  Tienda::getStock(){
@@ -175,6 +176,31 @@
 		return l;
 	}
 
+    ListaDobleC<Persona*>* Tienda::personasIgual(string nombre, string apellido, double presupuesto){
+         
+        Persona *p = new Persona(nombre, apellido, presupuesto); 
+        //cout<< "Entre a la funcion encontrar" <<endl;
+		ListaDobleC<Persona*>* l = new ListaDobleC<Persona*>();
+		NodoDC<Persona*> *it = stock->getPersonas()->obtenerPrimero();
+		int cont = 0;
+		
+        //cout << valor <<endl;
+		while (cont < stock->getPersonas()->obtenerLongitud()) {
+            //cout<< it->getValor()->getNombre() <<endl;
+
+			if ((*(it->getValor()) == *p)){
+				l->insertarFinal(it->getValor());
+                //cout<< "Entre al if y agregue" <<endl;
+            }
+			it = it->getSiguiente();
+			cont++;
+		}
+		
+        //cout << "llegue al final" <<endl;
+        //l->imprimirObjetoFinal();
+		return l;
+    }
+
     ListaDobleC<Celular*>* Tienda::celularesPorPrecioIgual(double pres){
 
         //cout<< "stock->getCelulares()->obtenerLongitud()" <<endl;
@@ -265,13 +291,30 @@
         //cout<<stock->getCelulares()->obtenerLongitud()<<endl;
     }
 
-    void Tienda::comprarCelular(string celular, string persona, string apersona){
+    void Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto){
 
         Celular* c = stock->retornarCelularporNombre(celular);
-        Persona* p = stock->retornarPersonaporNombre(persona, apersona);
+        Persona* p = stock->retornarPersonaporNombre(persona, apersona, presupuesto);
 
         if(c != nullptr && p!= nullptr){
+            //cout<< "Compro celu" <<endl;
             p -> comprarCelular(c);
+        }else if(c == nullptr && p== nullptr){
+            cout<< "\n~~~ No existe un celular ni una persona que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else if(c == nullptr){
+            cout<< "\n~~~ No existe un celular que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else{
+            cout<< "\n~~~ Probablemente no se tiene suficiente presupuesto ~~~\n" <<endl;
+        }
+    }
+
+    void  Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto, int cantidad){
+
+        Celular* c = stock->retornarCelularporNombre(celular);
+        Persona* p = stock->retornarPersonaporNombre(persona, apersona, presupuesto);
+
+        if(c != nullptr && p!= nullptr){
+            p -> comprarCelular(c, cantidad);
         }else if(c == nullptr && p== nullptr){
             cout<< "\n~~~ No existe un celular ni una persona que cumpla con los datos ingresados ~~~\n" <<endl;
         }else if(c == nullptr){
@@ -319,12 +362,14 @@
 
             cout<< "\n \n \n";
             stock->getPersonas()->insertarFinal(p);
+            establecerCorreos();
             stock->verPersonas();
             cout << "\n\n~~~ La persona ha agregado con exito ~~~\n" <<endl;
         }
     }
 
     void Tienda::eliminarPersonaTienda(Persona* p){
+
         if(stock->eliminarPersona(p)){
             cout<<"\n";
             stock->verPersonas();
@@ -365,11 +410,11 @@
         }
     }
 
-    bool Tienda::recomendarAutomatico(string nombre, string apellido){
+    bool Tienda::recomendarAutomatico(string nombre, string apellido, double presupuesto){
         this->stock->ordenarPorPrecio();
         Stock *por = new Stock();
 
-        por -> setPersonas(personasPorNombreIgual(nombre, apellido));
+        por -> setPersonas(personasIgual(nombre, apellido, presupuesto));
 
         if(por->getPersonas()->obtenerPrimero() != nullptr){
             por -> setCelulares(recomendarCelulares(por->getPersonas()->obtenerPrimero()->getValor()));
@@ -416,4 +461,59 @@
         }
         
         free(por);
+    }
+
+     void Tienda::establecerCorreos(){
+
+        //cout<< "Establezco correos"<<endl;
+        NodoDC<Persona*> *it = stock->getPersonas()->obtenerPrimero();
+        string nombre;
+        string apellido;
+        int cont = 0;
+
+        //cout<< stock->getPersonas()->obtenerLongitud() <<endl;
+
+        while(cont < stock->getPersonas()->obtenerLongitud()){
+
+            int cuenta = 0;
+
+            nombre = it->getValor()->getNombre();
+            apellido = it->getValor()->getApellido();
+
+            ListaDobleC<Persona*>* repetidos = personasPorNombreIgual(nombre, apellido);
+            NodoDC<Persona*> *itRepetidos = repetidos->obtenerPrimero();
+            //cout<< itRepetidos->toString()<<endl;
+
+            if(repetidos->obtenerLongitud() == 1){
+
+                itRepetidos->getValor()->setCorreo(stock->generarCorreo(nombre, apellido));
+                //cout<< stock->generarCorreo(nombre, apellido) << " correo a asignar"<<endl;
+                //cout<< itRepetidos ->getValor()->getCorreo() << " correo asignado" <<endl;
+                //cout<< "Unico nombre"<<endl;
+
+            }else if(repetidos->estaVacio()){
+                cout << "~~~ Ocurrio un percance ~~~" <<endl;
+                cont = stock->getPersonas()->obtenerLongitud();
+            }else{
+                
+                //cout<< "Varios"<<endl;
+                if(repetidos->obtenerPrimero()->getValor()->tieneCorreo()){
+                    //cout<< "NO he establecido correos"<<endl;
+                int cant;
+                while(cant < repetidos->obtenerLongitud()){
+                    itRepetidos->getValor()->setCorreo(stock->generarCorreo(nombre, apellido, cuenta));
+                    //cout<< itRepetidos ->getValor()->getCorreo() << " correo asignado" <<endl;
+                    itRepetidos = itRepetidos ->getSiguiente();
+                    cuenta++;
+                    cant++;
+                }
+
+                }
+
+            }
+
+            cont++;
+            it = it->getSiguiente();
+        }
+
     }

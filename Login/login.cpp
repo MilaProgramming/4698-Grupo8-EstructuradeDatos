@@ -16,15 +16,15 @@ int main (){
     do{
         system("cls");
 
-        cout<<"\t\t\tLOGIN DE USUARIO"<<endl;
-        cout<<"\t\t\t----------------"<<endl;
+        cout<<"\t\t\t~~ LOGIN DE USUARIO ~~"<<endl;
+        cout<<"\t\t\t  ----------------  "<<endl;
 
         //Usuario
         cout<< "\n\tUsuario: "; 
         getline(cin, usuario);
 
         //Contraseña
-        cout<< "\n\tPassword: "; 
+        cout<< "\n\tClave: "; 
         //getline(cin, password);
         char caracter;
         caracter= getch();
@@ -45,7 +45,7 @@ int main (){
         }
 
         //Condicion
-        if( usuario ==USER && password == PASSWORD){
+        if( usuario == USER && password == PASSWORD){
             ingreso=true;
 
         } else{
@@ -66,11 +66,6 @@ int main (){
     
     cin.get();
     cin.get();
-
-
-
-
-
 
     return 0;
 }

@@ -3,6 +3,7 @@
 #include "3Celular.cpp"
 #include "3Persona.cpp"
 #include "3Stock.h"
+#include <cstring>
 
     Stock::Stock(){
     }
@@ -284,6 +285,7 @@
     }
 
     bool Stock::eliminarPersona(Persona* c){
+    
         NodoDC<Persona*> *it = personas->obtenerPrimero();
         int cont = 0;
 
@@ -304,7 +306,6 @@
 
     Celular* Stock::retornarCelularporNombre(string nombre){
 
-        Celular *c = new Celular();
 		NodoDC<Celular*> *it = lista->obtenerPrimero();
 		int cont = 0;
 		
@@ -330,15 +331,16 @@
     }
 
     
-    Persona* Stock::retornarPersonaporNombre(string nombre, string apellido){
+    Persona* Stock::retornarPersonaporNombre(string nombre, string apellido, double presupuesto){
    
-		NodoDC<Persona*> *it = personas->obtenerPrimero();
+		Persona *p = new Persona(nombre, apellido, presupuesto);
+        NodoDC<Persona*> *it = personas->obtenerPrimero();
 		int cont = 0;
 		
         //cout << valor <<endl;
 		while (cont < personas-> obtenerLongitud()) {
             //cout<< it->getValor()->getNombre() <<endl;
-			if (it->getValor()->getNombre() == nombre && it->getValor()->getApellido() == apellido)
+			if ((*(it->getValor()) == *p))
                 return it->getValor();
 				
 			it = it->getSiguiente();
@@ -350,4 +352,35 @@
         //l->imprimirObjetoFinal();
 		return nullptr;
     }
-    
+
+    string Stock::generarCorreo(string nombre, string apellido){
+
+        int l = nombre.length();
+        char *n = new char[l+1];
+
+        strcpy(n, nombre.c_str());
+
+        string correo = n[0] + apellido + "@tiendaCelus.com";
+
+        return correo;
+    }
+
+    string Stock::generarCorreo(string nombre, string apellido, int lugar){
+
+        int l = nombre.length();
+        char *n = new char[l+1];
+
+        strcpy(n, nombre.c_str());
+
+        string correo;
+        
+        if(lugar == 0){
+            correo = generarCorreo(nombre, apellido);
+        }else{
+            correo = n[0] + apellido + to_string(lugar) + "@tiendaCelus.com";
+        }
+
+        return correo;
+    }
+
+
