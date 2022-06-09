@@ -66,6 +66,7 @@ using namespace std;
     }
 
     bool Celular::disminuirStock(){
+        
         if(stock > 0){
             --stock; 
             return true;

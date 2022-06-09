@@ -1,6 +1,5 @@
 
 //!FUNCION MENU. IMPLEMENTA MENU.H Y OPCIONMENU.H
-//!EJEMPLO DE CREACION DE MENU
 
 #define NOMINMAX 1
 
@@ -64,9 +63,14 @@ int main(int argc, char **argv) {
                             stock = k->funcionPrincipalEnteros("\n  Ingrese la cantidad de ejemplares de este celular que existen: ");    
                             
                             if(stock != -1){
+
+                                if(tienda->stockCorrecto(stock)){
                                 Celular *nuevo = new Celular(marca, precio, stock);
 
                                 tienda->agregarCelularTienda(nuevo);
+                                }else{
+                                    cout << "\n\n ~~~ El stock no puede ser 0 ~~~" <<endl;
+                                }
                             }
                         }
 
@@ -204,12 +208,14 @@ int main(int argc, char **argv) {
                 IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
                 IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
                 IngresoDatos<int, float> *k = new IngresoDatos<int, float>();
+                IngresoDatos<int, float> *l = new IngresoDatos<int, float>();
 
                 char* nombre = new char[50];
                 nombre[0] = '\0';
                 char* apellido = new char[50];
                 apellido[0] = '\0';
                 double presupuesto;
+                long cedula;
 
                 nombre = i->funcionLetras("\n   Ingrese el nombre de la persona: ");
 
@@ -222,9 +228,25 @@ int main(int argc, char **argv) {
 
                             if(presupuesto!= -1){
 
-                                Persona *nueva = new Persona(nombre, apellido, presupuesto);  
-                                
-                                tienda->agregarPersonaTienda(nueva);
+                                cedula = l->funcionPrincipalLong("\n Ingrese la cedula de la persona: ");
+
+                                if(cedula!= -1){
+
+                                    if(tienda->presupuestoCorrecto(presupuesto)){
+
+                                        if(tienda->cedulaCorrecta(cedula)){
+
+                                            Persona *nueva = new Persona(nombre, apellido, presupuesto, cedula);  
+                                            tienda->agregarPersonaTienda(nueva);
+                                        }else{
+                                            cout<<"\n~~ La cedula es incorrecta. Recuerde que son 10 digitos ~~\n"<<endl;
+                                        }
+
+                                    }else{
+                                        cout<<"\n~~ La persona posee un presupuesto demasiado bajo ~~\n"<<endl;
+                                    }
+                                }
+
                             }
 
                         }else{
@@ -250,6 +272,7 @@ int main(int argc, char **argv) {
                     IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
                     IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
                     IngresoDatos<int, float> *k = new IngresoDatos<int, float>();
+                    IngresoDatos<int, float> *l = new IngresoDatos<int, float>();
 
                     char* nombre = new char[50];
                     nombre[0] = '\0';
@@ -257,13 +280,14 @@ int main(int argc, char **argv) {
                     apellido[0] = '\0';
                     tienda->getStock()->verPersonas();
                     double presupuesto;
+                    long cedula;
 
 
-                    nombre = i->funcionLetras("\n   Ingrese solo el nombre de la persona que desea eliminar: ");    
+                    nombre = i->funcionLetras("\n Ingrese solo el nombre de la persona que desea eliminar: ");    
 
                     if(nombre[0] != '\0'){
                         
-                        apellido = j ->funcionLetras("\n    Ingrese el apellido de la persona que desea eliminar: ");
+                        apellido = j ->funcionLetras("\n Ingrese el apellido de la persona que desea eliminar: ");
 
                         if(apellido[0] != '\0'){
 
@@ -272,12 +296,17 @@ int main(int argc, char **argv) {
 
                             if(presupuesto!= -1){
 
-                                Persona* per = new Persona(nombre, apellido, presupuesto);
-                                tienda->eliminarPersonaTienda(per);
+                                
+                                cedula = l->funcionPrincipalLong("\n Ingrese la cedula de la persona: ");
 
-                            }else{
-                                cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                                if(cedula!= -1){
+
+                                    Persona* per = new Persona(nombre, apellido, presupuesto, cedula);
+                                    tienda->eliminarPersonaTienda(per);
+                                }
+
                             }
+
                         }else{
                             cout<<"\n~~ Datos vacios ~~\n"<<endl;
                         }
@@ -316,7 +345,8 @@ int main(int argc, char **argv) {
                             char* apellido = new char[50];
                             apellido[0] = '\0';
 
-                            
+                            tienda->getStock()->getPersonas()->imprimirObjetoFinal();
+
                             nombre = i->funcionLetras("\n   Ingrese solo el nombre que desea buscar: ");    
                             
                             if(nombre[0] != '\0'){
@@ -402,10 +432,12 @@ int main(int argc, char **argv) {
         nombre[0] = '\0';
         
         double presupuesto;
+        int cedula;
 
         IngresoDatos<int, float> *a = new IngresoDatos<int, float>();
         IngresoDatos<int, float> *b = new IngresoDatos<int, float>();
         IngresoDatos<int, float> *c = new IngresoDatos<int, float>();
+        IngresoDatos<int, float> *l = new IngresoDatos<int, float>();
         
         int ver = 0;
         while(ver == 0){
@@ -414,28 +446,35 @@ int main(int argc, char **argv) {
 
             menuIngreso.add_option(MenuOption("Ingresar Datos", [&](MenuOptionArguments args) {
 
-                nombre = a->funcionLetras("\nIngrese solo nombre de la persona con la que relizaremos la compra: ");    
+                tienda->getStock()->getPersonas()->imprimirObjetoFinal();
+
+                nombre = a->funcionLetras("\n Ingrese solo nombre de la persona con la que relizaremos la compra: ");    
 
                 if(nombre[0] != '\0'){
                     
-                    apellido = b->funcionLetras("\nIngrese el apellido de la persona: ");
+                    apellido = b->funcionLetras("\n Ingrese el apellido de la persona: ");
 
                     if(apellido[0] != '\0'){
 
-                        presupuesto = c->funcionPrincipalFlotantes("\n  Ingrese el presupuesto de la persona: ");
+                        presupuesto = c->funcionPrincipalFlotantes("\n Ingrese el presupuesto de la persona: ");
 
                         if(presupuesto!= -1){
 
-                            Persona* c = tienda->getStock()->retornarPersonaporNombre(nombre, apellido, presupuesto);
+                             cedula = l->funcionPrincipalEnteros("\n Ingrese la cedula de la persona: ");
 
-                            if(c != nullptr){
-                                cout<<"\n~~ Persona leida con exito ~~\n"<<endl;
-                                ++ver;
-                                menuIngreso.stop();
-                            }else{
-                                cout<<"\n~~ No existen coincidencias de esos datos ~~\n"<<endl;
-                            }
-                            
+                                if(cedula!= -1){
+
+                                     Persona* c = tienda->getStock()->retornarPersonaporNombre(nombre, apellido, presupuesto, cedula);
+
+                                    if(c != nullptr){
+                                        cout<<"\n~~ Persona leida con exito ~~\n"<<endl;
+                                        ++ver;
+                                        menuIngreso.stop();
+                                    }else{
+                                        cout<<"\n~~ No existen coincidencias de esos datos ~~\n"<<endl;
+                                    }
+                                }
+     
                         }else{
                             cout<<"\n~~ Datos vacios ~~\n"<<endl;
                         }
@@ -449,7 +488,7 @@ int main(int argc, char **argv) {
                 }
 
             }));
-            
+
             
             menuIngreso.add_option(MenuOption("Cancelar", [&](MenuOptionArguments args) {
                 ver = 100;
@@ -460,7 +499,8 @@ int main(int argc, char **argv) {
         }
 
         //!Fin del recibo de datos datos para trabajar
-
+        Persona *p = tienda->getStock()->retornarPersonaporNombre(nombre, apellido, presupuesto, cedula);
+        
         if (ver != 100){
 
             Menu menuComprar("~~~ Menu de compra ~~~");
@@ -480,17 +520,17 @@ int main(int argc, char **argv) {
                         menuReCelulares.add_option(MenuOption(" - Recomendar automaticamente", [&](MenuOptionArguments args) {
                             
                                 
-                            if(tienda->recomendarAutomatico(nombre, apellido, presupuesto)){
+                            if(tienda->recomendarAutomatico(nombre, apellido, presupuesto, cedula)){
 
                                 system("pause");
             
                                 system("CLS");
 
-                                Menu menuInterno("~~~ ¿Desea comprar alguno? ~~~");
+                                Menu menuInterno("~~~ Desea comprar alguno? ~~~");
                                 
                                 menuInterno.add_option(MenuOption("Si", [&](MenuOptionArguments args) {
 
-                                        tienda->recomendarAutomatico(nombre, apellido, presupuesto);
+                                        tienda->recomendarAutomatico(nombre, apellido, presupuesto, cedula);
 
                                         IngresoDatos<int, float> *o = new IngresoDatos<int, float>();
                                         IngresoDatos<int, float> *w = new IngresoDatos<int, float>();
@@ -500,14 +540,16 @@ int main(int argc, char **argv) {
 
                                         celular = o->funcionMixta("\nIngrese el nombre del celular que desea comprar ");   
 
+                                        Celular* c = tienda->getStock()->retornarCelularporNombre(celular);
+
                                         if(celular[0] != '\0'){
                                         
                                             cantidad = w->funcionPrincipalEnteros("\nIngrese cuantos items de este tipo desea comprar (si desea comprar solo 1, presione enter): ");
 
                                             if (cantidad == -1){
-                                                tienda->comprarCelular(celular, nombre, apellido, presupuesto);
+                                                tienda->comprarCelular(p,c);
                                             }else{
-                                                tienda->comprarCelular(celular, nombre, apellido, presupuesto, cantidad);
+                                                tienda->comprarCelular(p,c,cantidad);
                                             }
 
                                         }else{
@@ -604,9 +646,10 @@ int main(int argc, char **argv) {
                             cantidad = q->funcionPrincipalEnteros("\nIngrese cuantos items de este tipo desea comprar (si desea comprar solo 1, presione enter): ");
 
                             if (cantidad == -1){
-                                tienda->comprarCelular(celular, nombre, apellido, presupuesto);
+
+                                tienda->comprarCelular(celular, nombre, apellido, cedula);
                             }else{
-                                tienda->comprarCelular(celular, nombre, apellido, presupuesto, cantidad);
+                                tienda->comprarCelular(celular, nombre, apellido, cantidad, cedula);
                             }
 
                         } else{
@@ -618,11 +661,13 @@ int main(int argc, char **argv) {
 
                 menuComprar.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
                 menuComprar.stop();
+                
+                delete [] nombre;
+                delete [] apellido;
                 }, false));
 
             menuComprar.display();
         }
-
     }));
 
    
@@ -647,9 +692,9 @@ int main(int argc, char **argv) {
 
 Tienda* datosDefecto(){
 
-    Persona *p1 = new Persona("Matias", "Manzin", 100);
-    Persona *p2 = new Persona("Lionel", "Messi", 5000);
-    Persona *p3 = new Persona("Edward", "Tech", 1500);
+    Persona *p1 = new Persona("Matias", "Manzin", 100,  1111111111);
+    Persona *p2 = new Persona("Lionel", "Messi", 5000, 2222222222);
+    Persona *p3 = new Persona("Edward", "Tech", 1500, 3333333333);
 
     Celular *c1 = new Celular("Alcatel", 40, 100);
     Celular *c2 = new Celular("Samsung", 1000, 30);

@@ -6,10 +6,17 @@
 #include <cmath>
 using namespace std;
 
-    Persona::Persona(string n, string m, double p){
+    Persona::Persona(string n, string m, double p, long c){
         this->nombre = n;
         this ->apellido = m;
         this->presupuesto = p;
+        this->cedula = c;
+    }
+
+    Persona::Persona(string n, string m, long c){
+        this->nombre = n;
+        this ->apellido = m;
+        this->cedula = c;
     }
 
     Persona::~Persona(){
@@ -29,12 +36,14 @@ using namespace std;
             //!verifico si mi presupuesto es mayor que 0
             if(disminuirPresupuesto()){
                 //cout<< "2 if" <<endl;
+                cout<< this->presupuesto - celu->getPrecio() <<endl;
                 if(this->presupuesto - celu->getPrecio() > 0){
-                    cout<< "3 if" <<endl;
+                    //cout<< "3 if" <<endl;
                     if(celu->disminuirStock()){
                        //cout<< "4 if" <<endl;
                         this->presupuesto -= celu->getPrecio();
-
+                        //cout<< "\n" <<endl;
+                        //cout<< this->presupuesto << "presupuesto luego de la compra" <<endl;
                         this->comprados->insertarFinal(celu);
                         cantidad[comprados->obtenerLongitud()-1] = 1;
 
@@ -52,7 +61,7 @@ using namespace std;
                 } 
 
             }else{
-                //cout<< "No posee el suficiente dinero para comprar esto" <<endl;   
+                cout<< "No posee el suficiente dinero para comprar esto" <<endl;   
             } 
 
         }else{
@@ -61,9 +70,13 @@ using namespace std;
 
             //!verifico si mi presupuesto es mayor que 0
             if(disminuirPresupuesto()){
+                
+                //cout<< "\n" <<endl;
+                //cout<< this->presupuesto - celu->getPrecio() <<endl;
 
                 if(this->presupuesto - celu->getPrecio() > 0){
 
+                    //cout << "Entre al if de presupuesto "<<endl;
                     if(celu->disminuirStock()){
 
                         this->presupuesto -= celu->getPrecio();
@@ -84,7 +97,12 @@ using namespace std;
                         }
 
                         cantidad[aux] += 1;
-                        cout<< cantidad[aux] <<endl;
+
+                        //cout<< "\n" <<endl;
+                        //cout<< this->presupuesto << "presupuesto luego de la compra"<<endl;
+
+                        cout<< "\n-- Compra realizada con exito --" <<endl;
+                        //cout<< cantidad[aux] <<endl;
                     }else{
                         celu->disminuirStock();                
                     }    
@@ -101,19 +119,24 @@ using namespace std;
 
       //!verifico si he comprado el celu antes
         if(verificarCelular(celu)){
-            //out<< "1 if" <<endl;
+            //cout<< "1 if" <<endl;
             //!verifico si mi presupuesto es mayor que 0
             if(disminuirPresupuesto()){
                 //cout<< "2 if" <<endl;
+                //cout<< this->presupuesto - celu->getPrecio() <<endl;
                 if(this->presupuesto - ((celu->getPrecio())*cant) > 0){
 
                     if(celu->disminuirStock()){
                         //cout<< "4 if" <<endl;
-                        this->presupuesto -= celu->getPrecio();
-
+                        this->presupuesto -= (celu->getPrecio())*cant;
+                        //cout<< "\n" <<endl;
+                             //cout<< this->presupuesto << "presupuesto luego de la compra"<<endl;
                         this->comprados->insertarFinal(celu);
-                        cantidad[comprados->obtenerLongitud()-1] += cant;
+                        cantidad[comprados->obtenerLongitud()-1] = cant;
 
+                        //cout<< "\n" <<endl;
+                        //cout<< cant << " cantidad"<<endl;
+                       // cout<< cantidad[comprados->obtenerLongitud()-1] <<endl;
                         cout<< "\n-- Compra realizada con exito --" <<endl;
 
                     }else{
@@ -136,13 +159,17 @@ using namespace std;
 
             //!verifico si mi presupuesto es mayor que 0
             if(disminuirPresupuesto()){
-
-                if(this->presupuesto - celu->getPrecio() > 0){
+                //cout<< "1 if" <<endl;
+                //cout<< "\n" <<endl;
+                //cout<< this->presupuesto - (celu->getPrecio())*cant <<endl;
+                if(this->presupuesto - (celu->getPrecio())*cant > 0){
 
                     if(celu->disminuirStock()){
 
-                        this->presupuesto -= celu->getPrecio();
-
+                        //cout<< "3 if" <<endl;
+                        this->presupuesto -= (celu->getPrecio())*cant;
+                        //cout<< "\n" <<endl;
+                         //cout<< this->presupuesto << "presupuesto luego de la compra"<<endl;
                         //!recorro
                         NodoDC<Celular*> *it =comprados->obtenerUltimo();
                         int cont = 0;
@@ -158,6 +185,8 @@ using namespace std;
                             cont++;
                         }
 
+                        //cout<< cant << " cantidad"<<endl;
+                        //cout<< cantidad[aux] <<endl;
                         cantidad[aux] += cant;
                         
                     }else{
@@ -206,6 +235,14 @@ using namespace std;
         this -> correo = c;
     }
 
+    unsigned long Persona::getCedula(){
+        return this->cedula;
+    }
+
+    void Persona::setCedula(unsigned long c){
+        this->cedula = c;
+    }
+
     void Persona::verComprados(){
 
         if (comprados->estaVacio()) cout<< " ningun celular todavia"<<endl;
@@ -218,9 +255,11 @@ using namespace std;
 
                     cout<< nimpreso -> toString()<< " con ";
 
+                    /*
                     for(int i = 0; i < 10; i++){
                         cout<< cantidad[i] << " "<<endl;
                     }
+                    */
 
                     cout<< cantidad[cont] << " items de este tipo\n" <<endl;
 
@@ -266,7 +305,7 @@ using namespace std;
     }
 
     string Persona::toString(){
-        string s =  this->getNombre() + " " + this->getApellido() + ", tiene un presupuesto de " + to_string(this->getPresupuesto()) + " y su correo es " + this->getCorreo() + "\n";
+        string s =  this->getNombre() + " " + this->getApellido() + ", tiene un presupuesto de " + to_string(this->getPresupuesto()) + ", de cedula " + to_string(this->getCedula()) + " y su correo es " + this->getCorreo() + "\n";
         return s;
     }
 
@@ -274,7 +313,7 @@ using namespace std;
 
         double delta = 0.01;
         //cout<< abs(this->getPresupuesto()-c.getPresupuesto()) <<endl;
-        return (this->getNombre() == c.getNombre()) && (this->getApellido() == c.getApellido()) && (abs(this->getPresupuesto()-c.getPresupuesto()) < delta);
+        return (this->getNombre() == c.getNombre()) && (this->getApellido() == c.getApellido()) && (abs(this->getPresupuesto()-c.getPresupuesto()) < delta && (this->cedula) == c.getCedula());
     }
 
     bool Persona::tieneCorreo(){

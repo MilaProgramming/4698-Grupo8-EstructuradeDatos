@@ -15,6 +15,10 @@ template <typename T, typename N>
                 return atoi(dato); //String a int
             } 
 
+            unsigned long numLong(char* dato){
+                return atol(dato);
+            }
+
             N numFloat(char* dato){ //Convertir a flotante 
                 return std::stof(dato);
             }

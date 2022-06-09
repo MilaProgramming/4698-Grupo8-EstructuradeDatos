@@ -98,7 +98,9 @@
         
         while(indice < personas->obtenerLongitud()){
 
-            cout << (it->getValor())->getNombre() << ", de presupuesto actual " << (it->getValor())->getPresupuesto() << " ha comprado " <<endl;
+            cout << (it->getValor())->getNombre() << ", de presupuesto actual " << (it->getValor())->getPresupuesto() << ", y de cedula ";
+            cout<< to_string(it->getValor()->getCedula()); 
+            cout<< " ha comprado " <<endl;
             (it->getValor())->verComprados();
             it = it->getSiguiente();
             indice++;
@@ -159,6 +161,14 @@
         //free(ordenada);
         //delete [] array;
 
+    }
+
+    double Stock::menorPrecioCelular(){
+
+        ordenarPorPrecio();
+        NodoDC<Celular*> *it = lista->obtenerPrimero();
+
+        return it->getValor()->getPrecio();
     }
 
     bool Stock::compararCelulares(Celular* c){
@@ -331,9 +341,9 @@
     }
 
     
-    Persona* Stock::retornarPersonaporNombre(string nombre, string apellido, double presupuesto){
+    Persona* Stock::retornarPersonaporNombre(string nombre, string apellido, double presupuesto, unsigned long cedula){
    
-		Persona *p = new Persona(nombre, apellido, presupuesto);
+		Persona *p = new Persona(nombre, apellido, presupuesto, cedula);
         NodoDC<Persona*> *it = personas->obtenerPrimero();
 		int cont = 0;
 		
@@ -341,6 +351,28 @@
 		while (cont < personas-> obtenerLongitud()) {
             //cout<< it->getValor()->getNombre() <<endl;
 			if ((*(it->getValor()) == *p))
+                return it->getValor();
+				
+			it = it->getSiguiente();
+			cont++;
+		}
+		
+        //cout << "llegue al final" <<endl;
+        //cout<< c->toString();
+        //l->imprimirObjetoFinal();
+		return nullptr;
+    }
+
+    Persona* Stock::retornarPersonaporNombre(string nombre, string apellido, unsigned long cedula){
+   
+		//Persona *p = new Persona(nombre, apellido, cedula);
+        NodoDC<Persona*> *it = personas->obtenerPrimero();
+		int cont = 0;
+		
+        //cout << valor <<endl;
+		while (cont < personas-> obtenerLongitud()) {
+            //cout<< it->getValor()->getNombre() <<endl;
+			if (it->getValor()->getNombre() == nombre && it->getValor()->getApellido() == apellido && it->getValor()->getCedula() == cedula)
                 return it->getValor();
 				
 			it = it->getSiguiente();

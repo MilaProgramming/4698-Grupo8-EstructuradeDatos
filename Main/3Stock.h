@@ -29,13 +29,15 @@ class Stock{
         bool compararCelulares(Celular*);
         bool compararPersona(Persona*);
         void ordenarPorPrecio();
+        double menorPrecioCelular();
 
 
         //Metodos
         bool eliminarCelular(Celular*);
         bool eliminarPersona(Persona*);
         Celular* retornarCelularporNombre(string);
-        Persona* retornarPersonaporNombre(string, string, double);
+        Persona* retornarPersonaporNombre(string, string, double, unsigned long);
+        Persona* retornarPersonaporNombre(string, string, unsigned long);
 
         //Funciones impresion
         void verCelulares(); //Celulares disponibles

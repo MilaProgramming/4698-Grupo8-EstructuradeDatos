@@ -10,13 +10,15 @@ class Persona: public ToString{
         string nombre;
         string apellido;
         double presupuesto;
+        unsigned long cedula;
         string correo = " ";
         ListaDobleC<Celular*> *comprados = new ListaDobleC<Celular*>();     
         int* cantidad = new int[50]; 
 
     public:
 
-        Persona(string, string, double);
+        Persona(string, string, double, long);
+        Persona(string, string, long);
         Persona();
         ~Persona();
 
@@ -32,6 +34,8 @@ class Persona: public ToString{
         double getPresupuesto();
         ListaDobleC<Celular*>* getComprados();
         string getCorreo();
+        unsigned long getCedula();
+        void setCedula(unsigned long);
         void setCorreo(string);
         bool tieneCorreo();
 

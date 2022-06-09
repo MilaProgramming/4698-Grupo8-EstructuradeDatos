@@ -17,6 +17,53 @@ template <typename T, typename N>
 
             //metodo pincipal
 
+            char* leerSoloLong(string mensaje){
+                imprimirMensaje(mensaje);
+                char c;  //Creo un caracter, con el que voy a recibir el cada input
+                int j = 0; //Iterador para la verifiacion del unico punto
+                int i = 0; //Iterador para terminar el bucle, y asignar el valor final como nulo
+
+                while(c != 13){ //Bucle hasta que se presion la tecla ENTER
+                    c=getch(); //Recibo el dato por teclado
+
+                    if(c >= '0' && c <= '9' ){
+                        printf("%c", c);
+                        dato[i] = c;
+                        i++;
+
+                    }else if(c == 8){ //Si el input es un back space
+
+                        backspaceEnteros(&i, &j,  &c, mensaje); //Funcion para la tecla backspace
+                    }       			     
+                }
+
+                dato[i]='\0';
+                return dato;
+            }
+
+            char* leerSoloLong(){
+                char c;  //Creo un caracter, con el que voy a recibir el cada input
+                int j = 0; //Iterador para la verifiacion del unico punto
+                int i = 0; //Iterador para terminar el bucle, y asignar el valor final como nulo
+
+                while(c != 13){ //Bucle hasta que se presion la tecla ENTER
+                    c=getch(); //Recibo el dato por teclado
+
+                    if(c >= '0' && c <= '9' ){
+                        printf("%c", c);
+                        dato[i] = c;
+                        ++i;
+
+                    }else if(c == 8){ //Si el input es un back space
+                        backspaceEnteros(&i, &j,  &c); //Funcion para la tecla backspace
+
+                    }   			     
+                }
+
+                dato[i]='\0';
+                return dato;
+            }
+
             char* leerSoloEnteros(string mensaje){
                 imprimirMensaje(mensaje);
                 char c;  //Creo un caracter, con el que voy a recibir el cada input
@@ -390,8 +437,11 @@ template <typename T, typename N>
             N funcionPrincipalFlotantes(string mensaje){
 
                 char *aux = leerDatos(mensaje);
-                if(aux[0] != '\0'){
+                if(aux[0] != '\0' && aux[0] != 46){
                     return this -> conversion.numFloat(aux);
+                }else if(aux[0] == 46){
+                    cout<<"\n~~ Un flotante no inicia con un punto solo ~~\n"<<endl;
+                    return -1;
                 }else{
                     cout<<"\n~~ Datos vacios ~~\n"<<endl;
                     return -1;
@@ -402,14 +452,39 @@ template <typename T, typename N>
             N funcionPrincipalFlotantes(){
 
                 char *aux = leerDatos();
-                if(aux[0] != '\0'){
+                if(aux[0] != '\0' && aux[0] != 46){
                     return this -> conversion.numFloat(aux);
+                }else if(aux[0] == 46){
+                    cout<<"\n~~ Un flotante no inicia con un punto solo ~~\n"<<endl;
+                    return -1;
                 }else{
                     cout<<"\n~~ Datos vacios ~~\n"<<endl;
                     return -1;
                 }
               
             } 
+
+            long funcionPrincipalLong(){
+
+                char *aux = leerSoloLong();
+                if(aux[0] != '\0'){
+                    return this -> conversion.numLong(aux);
+                }else{
+                    cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                    return -1;
+                }
+            }
+
+            long funcionPrincipalLong(string mensaje){
+
+                char *aux = leerSoloLong(mensaje);
+                if(aux[0] != '\0'){
+                    return this -> conversion.numLong(aux);
+                }else{
+                    cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                    return -1;
+                }
+            }
 
             T funcionPrincipalEnteros(){
 

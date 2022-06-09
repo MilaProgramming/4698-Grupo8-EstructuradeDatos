@@ -176,9 +176,9 @@
 		return l;
 	}
 
-    ListaDobleC<Persona*>* Tienda::personasIgual(string nombre, string apellido, double presupuesto){
+    ListaDobleC<Persona*>* Tienda::personasIgual(string nombre, string apellido, double presupuesto, int cedula){
          
-        Persona *p = new Persona(nombre, apellido, presupuesto); 
+        Persona *p = new Persona(nombre, apellido, presupuesto, cedula); 
         //cout<< "Entre a la funcion encontrar" <<endl;
 		ListaDobleC<Persona*>* l = new ListaDobleC<Persona*>();
 		NodoDC<Persona*> *it = stock->getPersonas()->obtenerPrimero();
@@ -200,6 +200,34 @@
         //l->imprimirObjetoFinal();
 		return l;
     }
+
+    ListaDobleC<Persona*>* Tienda::personasIgual(string nombre, string apellido, unsigned long cedula){
+         
+        //Persona *p = new Persona(nombre, apellido, cedula); 
+        //cout<< "Entre a la funcion encontrar" <<endl;
+		ListaDobleC<Persona*>* l = new ListaDobleC<Persona*>();
+		NodoDC<Persona*> *it = stock->getPersonas()->obtenerPrimero();
+		int cont = 0;
+		
+        //cout << valor <<endl;
+		while (cont < stock->getPersonas()->obtenerLongitud()) {
+            //cout<< it->getValor()->getNombre() <<endl;
+
+			if (it->getValor()->getNombre() == nombre && it->getValor()->getApellido() == apellido && it->getValor()->getCedula() == cedula){
+				l->insertarFinal(it->getValor());
+                //cout<< "Entre al if y agregue" <<endl;
+            }
+			it = it->getSiguiente();
+			cont++;
+		}
+		
+        //cout << "llegue al final" <<endl;
+        //l->imprimirObjetoFinal();
+		return l;
+    }
+
+
+
 
     ListaDobleC<Celular*>* Tienda::celularesPorPrecioIgual(double pres){
 
@@ -291,10 +319,10 @@
         //cout<<stock->getCelulares()->obtenerLongitud()<<endl;
     }
 
-    void Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto){
+    void Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto, long cedula){
 
         Celular* c = stock->retornarCelularporNombre(celular);
-        Persona* p = stock->retornarPersonaporNombre(persona, apersona, presupuesto);
+        Persona* p = stock->retornarPersonaporNombre(persona, apersona, presupuesto, cedula);
 
         if(c != nullptr && p!= nullptr){
             //cout<< "Compro celu" <<endl;
@@ -308,10 +336,47 @@
         }
     }
 
-    void  Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto, int cantidad){
+    void  Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto, int cantidad, long cedula){
 
         Celular* c = stock->retornarCelularporNombre(celular);
-        Persona* p = stock->retornarPersonaporNombre(persona, apersona, presupuesto);
+        Persona* p = stock->retornarPersonaporNombre(persona, apersona, presupuesto, cedula);
+
+        if(c != nullptr && p!= nullptr){
+            p -> comprarCelular(c, cantidad);
+        }else if(c == nullptr && p== nullptr){
+            cout<< "\n~~~ No existe un celular ni una persona que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else if(c == nullptr){
+            cout<< "\n~~~ No existe un celular que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else{
+            cout<< "\n~~~ No existe una persona que cumpla con los datos ingresados ~~~\n" <<endl;
+        }
+    }
+
+    void Tienda::comprarCelular(string celular, string persona, string apersona, long cedula){
+
+        //cout<< "Entro a comprar celular unico" <<endl;
+
+        Celular* c = stock->retornarCelularporNombre(celular);
+        Persona* p = stock->retornarPersonaporNombre(persona, apersona, cedula);
+
+        cout << p->getPresupuesto() <<endl;
+
+        if(c != nullptr && p!= nullptr){
+            //cout<< "Compro celu" <<endl;
+            p -> comprarCelular(c);
+        }else if(c == nullptr && p== nullptr){
+            cout<< "\n~~~ No existe un celular ni una persona que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else if(c == nullptr){
+            cout<< "\n~~~ No existe un celular que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else{
+            cout<< "\n~~~ Probablemente no se tiene suficiente presupuesto ~~~\n" <<endl;
+        }
+    }
+
+    void  Tienda::comprarCelular(string celular, string persona, string apersona, int cantidad, long cedula){
+
+        Celular* c = stock->retornarCelularporNombre(celular);
+        Persona* p = stock->retornarPersonaporNombre(persona, apersona, cedula);
 
         if(c != nullptr && p!= nullptr){
             p -> comprarCelular(c, cantidad);
@@ -324,6 +389,35 @@
         }
     }
    
+
+    void Tienda::comprarCelular(Persona* p, Celular* c, int cant){
+
+        if(c != nullptr && p!= nullptr){
+            p -> comprarCelular(c, cant);
+        }else if(c == nullptr && p== nullptr){
+            cout<< "\n~~~ No existe un celular ni una persona que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else if(c == nullptr){
+            cout<< "\n~~~ No existe un celular que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else{
+            cout<< "\n~~~ No existe una persona que cumpla con los datos ingresados ~~~\n" <<endl;
+        }
+    }
+
+    void Tienda::comprarCelular(Persona* p, Celular* c){
+
+        //cout<< p->getPresupuesto() <<endl;
+
+        if(c != nullptr && p!= nullptr){
+            p -> comprarCelular(c);
+        }else if(c == nullptr && p== nullptr){
+            cout<< "\n~~~ No existe un celular ni una persona que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else if(c == nullptr){
+            cout<< "\n~~~ No existe un celular que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else{
+            cout<< "\n~~~ No existe una persona que cumpla con los datos ingresados ~~~\n" <<endl;
+        }
+    }
+
     
     void Tienda::buscarPorNombreCelular(string nombre){
 
@@ -410,18 +504,18 @@
         }
     }
 
-    bool Tienda::recomendarAutomatico(string nombre, string apellido, double presupuesto){
+    bool Tienda::recomendarAutomatico(string nombre, string apellido, double presupuesto, int cedula){
         this->stock->ordenarPorPrecio();
         Stock *por = new Stock();
 
-        por -> setPersonas(personasIgual(nombre, apellido, presupuesto));
+        por -> setPersonas(personasIgual(nombre, apellido, cedula));
 
         if(por->getPersonas()->obtenerPrimero() != nullptr){
             por -> setCelulares(recomendarCelulares(por->getPersonas()->obtenerPrimero()->getValor()));
             por -> verCelulares();
             return true;
         }else{
-            cout<< "\n~~~ No se han encontrado coincdencias ~~~\n" <<endl;
+            cout<< "\n~~~ No se han encontrado coincidencias ~~~\n" <<endl;
             return false;
         }
 
@@ -438,7 +532,7 @@
             por -> verCelulares();
             return true;
         }else{
-            cout<< "\n~~~ No se han encontrado coincdencias ~~~\n" <<endl;
+            cout<< "\n~~~ No se han encontrado coincidencias ~~~\n" <<endl;
             return false;
         }
 
@@ -456,7 +550,7 @@
             por -> verCelulares();
             return true;
         }else{
-             cout<< "\n~~~ No se han encontrado coincdencias ~~~\n" <<endl;
+             cout<< "\n~~~ No se han encontrado coincidencias ~~~\n" <<endl;
              return true;
         }
         
@@ -516,4 +610,23 @@
             it = it->getSiguiente();
         }
 
+    }
+
+    bool Tienda::cedulaCorrecta(int c){
+        string ced = to_string(c);
+        int t = ced.length();
+
+        if(t < 10 || t > 10){
+            return false;
+        }
+        
+        return true;
+    }
+
+    bool Tienda::stockCorrecto(int s){
+        return (s > 0);
+    }
+
+    bool Tienda::presupuestoCorrecto(double p){
+        return (p > stock->menorPrecioCelular());
     }

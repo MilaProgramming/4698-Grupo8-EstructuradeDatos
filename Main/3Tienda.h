@@ -26,7 +26,8 @@ class Tienda{
         //Devuelven listas de objetos que cumplan con ciertos requisitos
         ListaDobleC<Persona*>* personasPorPresupuestoIgual(double);
 		ListaDobleC<Persona*>* personasPorNombreIgual(string, string);
-        ListaDobleC<Persona*>* personasIgual(string, string, double);
+        ListaDobleC<Persona*>* personasIgual(string, string, double, int);
+        ListaDobleC<Persona*>* personasIgual(string nombre, string apellido, unsigned long cedula);
 
         ListaDobleC<Celular*>* celularesPorPrecioIgual(double);
 		ListaDobleC<Celular*>* celularesPorMarcaIgual(string);
@@ -43,14 +44,22 @@ class Tienda{
         void buscarPorNombrePersona(string, string);
         void buscarPorPresupuestoPersona(double);
 
-        void comprarCelular(string, string, string, double);
-        void comprarCelular(string, string, string, double, int);
-        bool recomendarAutomatico(string, string, double);
+        void comprarCelular(string, string, string, double, long);
+        void comprarCelular(string, string, string, double, int, long);
+        void comprarCelular(string, string, string, long);
+        void comprarCelular(string, string, string, int, long);
+        void comprarCelular(Persona*, Celular*);
+        void comprarCelular(Persona*, Celular*, int);
+
+        bool recomendarAutomatico(string, string, double, int);
         bool recomendarMenores(double);
         bool recomendarMayores(double);
         void establecerCorreos();
 
-
+        //Validaciones
+        bool cedulaCorrecta(int);
+        bool stockCorrecto(int);
+        bool presupuestoCorrecto(double);
 
     
 };
