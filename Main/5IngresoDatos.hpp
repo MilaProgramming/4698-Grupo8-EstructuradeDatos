@@ -96,7 +96,7 @@ template <typename T, typename N>
                 }     
             }
 
-            char* leerDatos(string mensaje, void(*funcion)){
+            char* leerDatos(string mensaje){
 
                 imprimirMensaje(mensaje);
                 char c;  //Creo un caracter, con el que voy a recibir el cada input
@@ -116,7 +116,7 @@ template <typename T, typename N>
 
                     }else if(c == 8){ //Si el input es un back space
 
-                        backspace(&i, &j,  &c, mensaje, funcion); //Funcion para la tecla backspace
+                        backspace(&i, &j,  &c, mensaje); //Funcion para la tecla backspace
              
                     }       			     
                 }
@@ -263,13 +263,12 @@ template <typename T, typename N>
                 return dato;
             }
 
-            void backspace(int* i, int* j, char* c, string mensaje, void(*funcion)){
+            void backspace(int* i, int* j, char* c, string mensaje){
 
                 if(*c >= '0' && *c <= '9'){
                 if(*i != 0) --*i;
                 }else{
                     system("CLS"); //Limpio pantalla
-                    funcion();
                     imprimirMensaje(mensaje);
                     for(int p = 0; p < *i-1; p++){
                         printf("%c", dato[p]); //Imprimo de nuevo hasta el penultimo
@@ -388,20 +387,51 @@ template <typename T, typename N>
                 }
             }   
             
-            N funcionPrincipalFlotantes(string mensaje, void(*funcion)){
-                return this -> conversion.numFloat(leerDatos(mensaje), void(*funcion));
+            N funcionPrincipalFlotantes(string mensaje){
+
+                char *aux = leerDatos(mensaje);
+                if(aux[0] != '\0'){
+                    return this -> conversion.numFloat(aux);
+                }else{
+                    cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                    return -1;
+                }
+
             }
 
             N funcionPrincipalFlotantes(){
-                return this -> conversion.numFloat(leerDatos());
+
+                char *aux = leerDatos();
+                if(aux[0] != '\0'){
+                    return this -> conversion.numFloat(aux);
+                }else{
+                    cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                    return -1;
+                }
+              
             } 
 
             T funcionPrincipalEnteros(){
-                return this -> conversion.numInt(leerSoloEnteros());
+
+                char *aux = leerSoloEnteros();
+                if(aux[0] != '\0'){
+                    return this -> conversion.numInt(aux);
+                }else{
+                    cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                    return -1;
+                }
             }
 
             T funcionPrincipalEnteros(string mensaje){
-                return this -> conversion.numInt(leerSoloEnteros(mensaje));
+
+                char *aux = leerSoloEnteros(mensaje);
+                if(aux[0] != '\0'){
+                    return this -> conversion.numInt(aux);
+                }else{
+                    cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                    return -1;
+                }
+                
             }
 
             char* funcionLetras(string mensaje){

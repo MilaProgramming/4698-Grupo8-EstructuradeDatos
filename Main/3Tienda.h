@@ -34,6 +34,9 @@ class Tienda{
 
         void agregarCelularTienda(Celular*);
         void eliminarCelularTienda(Celular*);
+        void comprarCelular(string, string);
+        void buscarPorNombreCelular(string);
+        void buscarPorPrecioCelular(double);
 
     
 };

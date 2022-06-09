@@ -164,6 +164,7 @@ template <typename T>
                     if(indiceOFL(indice)) cout <<"La lista no posee tantos elementos, o es de longitud negativa" <<endl;
                     else{
                         if(indice == 0){
+                            //cout<<"Elimine inicio"<<endl;
                             eliminarInicio();
 
                         }else{   
@@ -176,8 +177,10 @@ template <typename T>
                             } 
 
                             if(iterador->getSiguiente() ==  primero){
+                                //cout<<"Elimine final"<<endl;
                                 eliminarFinal();
                             }else{
+                                //cout<<"Elimine otro"<<endl;
                                 NodoDC<T> *previo;
                                 NodoDC<T> *siguiente;
 
@@ -187,11 +190,10 @@ template <typename T>
                                 previo->setSiguiente(siguiente);
                                 siguiente->setAnterior(previo);
 
-                                delete &iterador;
+                                free(iterador);
+                                longitud--;
                             }   
                         }
-
-                        longitud--;
                     }
                 }
             }

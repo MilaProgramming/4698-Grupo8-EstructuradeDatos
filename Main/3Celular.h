@@ -26,6 +26,7 @@ class Celular: public ToString {
         void setStock(int);
         void setCantidad(int);
         void aumentarCantidad(int);
+        void aumentarStock(int);
 
         bool disminuirStock();
         bool disminuirStock(int);

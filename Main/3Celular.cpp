@@ -47,6 +47,10 @@ using namespace std;
         this->cantidad += c;
     }
 
+    void Celular ::aumentarStock(int c){
+        this->stock += c;
+    }
+
     void Celular :: setMarca(string _marca){
         marca = _marca;
 

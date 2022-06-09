@@ -19,6 +19,7 @@ using namespace std;
 
 Tienda* datosDefecto();
 
+
 int main(int argc, char **argv) {
     
     Tienda *tienda = datosDefecto();
@@ -35,6 +36,8 @@ int main(int argc, char **argv) {
 
             menuStock.add_option(MenuOption("Ver Stock", [&](MenuOptionArguments args) {
                 tienda->getStock()->verCelulares();
+                //tienda->getStock()->verStock();
+                //cout<<tienda->getStock()->getCelulares()->obtenerLongitud()<<endl;
             }));
 
 
@@ -110,26 +113,28 @@ int main(int argc, char **argv) {
                 Menu menuBusquedaUsuarios("Busqueda");
 
                     menuBusquedaUsuarios.add_option(MenuOption("Por Marca", [&](MenuOptionArguments args) {
-                        IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
-                        char* nombre;
+                        
+                        if(tienda->estaVacio()){
 
-                        do{
+                            cout<< "Tienda vacia. No hay nada que buscar" <<endl;
 
-                        nombre = i->funcionMixta("\nIngrese la marca del celular que desea buscar: ");    
-
-                        break;
-                    } while (true);
-
-                        tienda->celularesPorMarcaIgual(nombre)->imprimirObjetoFinal();
-
-                        /*
-                        if(porNombre->getCelulares()->obtenerPrimero() == nullptr){
-                            cout<< "No se encontro el criterio"<<endl;
-                            porNombre->verStock();
                         }else{
-                        porNombre->verStock();
+
+                            IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                            char* nombre = new char[50];
+                            nombre[0] = '\0';
+
+                            
+                            nombre = i->funcionMixta("\nIngrese la marca del celular que desea buscar: ");    
+
+                            if(nombre[0] != '\0'){
+                                tienda ->buscarPorNombreCelular(nombre);
+                            }else{
+                                cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                            }
+
+                            delete [] nombre;
                         }
-                        */
                         
                     }));
                     
@@ -138,16 +143,9 @@ int main(int argc, char **argv) {
                         IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
                         double presupuesto;
 
-                        do{
-
                         presupuesto = i->funcionPrincipalFlotantes("\nIngrese el nombre de la persona que desea buscar: ");    
 
-                        break;
-                    } while (true);
-
-                        Stock *porNombre = new Stock();
-                        porNombre->setCelulares(tienda->celularesPorPrecioIgual(presupuesto));
-                        porNombre -> verStock();
+                        tienda->buscarPorPrecioCelular(presupuesto);
 
                     }));
                     
@@ -350,38 +348,41 @@ int main(int argc, char **argv) {
             menuComprar.add_option(MenuOption("Comprar celular", [&](MenuOptionArguments args) {
                     
                 IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
-                tienda->getStock()->verStock();
-                char* nombre;
-
-                    do{
-
-                        nombre = i->funcionMixta("\nIngrese el nombre del celular que desea comprar ");    
-
-                        break;
-                    } while (true);
-
                 IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
-                cout<< "\n \n" <<endl;
-                tienda->getStock()->getPersonas()->imprimirObjetoFinal();
-                char* nombre1;
 
-                    do{
+                tienda->getStock()->verStock();
 
-                        nombre1 = j->funcionMixta("\nIngrese el nombre de la persona que comprara: ");    
+                char* celular = new char[50];
+                celular[0] = '\0';
+                char* persona = new char[50];
+                persona[0] = '\0';
 
-                        break;
-                    } while (true);
+                    celular = i->funcionMixta("\nIngrese el nombre del celular que desea comprar ");    
+                    if(celular[0] != '\0'){
+                    
+                        system("cls");
+                        cout<< "\n \n" <<endl;
+                        tienda->getStock()->getPersonas()->imprimirObjetoFinal();
 
-                Celular *c = tienda->getStock()->retornarCelularporNombre(nombre);
-                Persona *p = tienda->getStock()->retornarPersonaporNombre(nombre1);
 
-                p -> comprarCelular(c);
+                        persona = j->funcionMixta("\nIngrese el nombre de la persona que comprara: ");    
+
+                        if(persona[0] != '\0'){
+                            tienda->comprarCelular(celular, persona);
+                        }else{
+                            cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                        }
+
+                    } else{
+                        cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                    }
                  
             }));
 
 
             menuComprar.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
             menuComprar.stop();
+            tienda->~Tienda();
             }, false));
 
         menuComprar.display();
@@ -406,9 +407,9 @@ Tienda* datosDefecto(){
     Persona *p2 = new Persona("Lionel Messi", 5000);
     Persona *p3 = new Persona("Edward Tech", 1500);
 
-    Celular *c1 = new Celular("Alcatel TCL A3", 40, 100);
-    Celular *c2 = new Celular("Samsung Galaxy S22", 1000, 30);
-    Celular *c3 = new Celular("Motorola One 5G Ace", 250, 50);
+    Celular *c1 = new Celular("Alcatel", 40, 100);
+    Celular *c2 = new Celular("Samsung", 1000, 30);
+    Celular *c3 = new Celular("Motorola", 250, 50);
     Celular *c4 = new Celular("Iphone 12", 2000, 3);
 
     ListaDobleC<Persona*> *personas = new ListaDobleC<Persona*>();
@@ -431,3 +432,4 @@ Tienda* datosDefecto(){
 
     return tienda;
 }
+

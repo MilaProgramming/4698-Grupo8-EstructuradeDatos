@@ -9,6 +9,8 @@
 
     Stock::~Stock(){
         free(this);
+        lista->~ListaDobleC();
+        personas->~ListaDobleC();
     }
 
 
@@ -199,9 +201,15 @@
 
         int indice = 0;
         NodoDC<Celular*> *it = lista->obtenerPrimero();
+
         while(indice < lista->obtenerLongitud()){
-            if (it -> getValor() == c){
-                it->getValor()->aumentarCantidad(cantidad);
+
+            if (*(it -> getValor()) == *c){
+                //cout<< "Entro al if de stock repetido"<<endl;
+                //cout<< it->getValor()->getMarca()<<endl;
+                //cout<< it->getValor()->getStock()<<endl;
+                it->getValor()->aumentarStock(cantidad);
+                //cout<< it->getValor()->getCantidad()<<endl;
                 indice = lista->obtenerLongitud();
             }
             indice++;
@@ -212,21 +220,21 @@
     bool Stock::eliminarCelular(Celular* c){
         
         //cout <<"Funcion eleiminar" <<endl;
+        //cout<< this->lista->obtenerLongitud() <<endl;
         //cout << c->toString();
+
         NodoDC<Celular*> *it = lista->obtenerPrimero();
         int cont = 0;
-        int indice = -1;
-
+   
         while(cont < lista->obtenerLongitud()){
             
             //cout<< it->getValor()->getMarca() <<endl;
  
             if((*(it->getValor()) == *c)){
                 //cout<<"Entre al if" <<endl;
-                indice = cont;
-                //cout<< indice <<endl;
-                this->lista->eliminar(indice);
-                cont = lista->obtenerLongitud();
+                //cout<< cont <<endl;
+                this->lista->eliminar(cont);
+                //cout<< this->lista->obtenerLongitud() <<endl;
                 //cout<<"Termine el if"<<endl;
                 return true;
             }else{
@@ -236,6 +244,7 @@
 
         }
 
+        //cout<< this->lista->obtenerLongitud() <<endl;
         //cout<<"Estoy afuera";
         //cout<< "Sali del while" <<endl;
         
@@ -249,24 +258,24 @@
 		NodoDC<Celular*> *it = lista->obtenerPrimero();
 		int cont = 0;
 		
-        cout << "\n" << nombre <<endl;
-        cout << "\n" << lista-> obtenerLongitud() <<endl;
+        //cout << "\n" << nombre <<endl;
+        //cout << "\n" << lista-> obtenerLongitud() <<endl;
         
 		while (cont < lista-> obtenerLongitud()) {
         cout<< it->getValor()->getMarca() <<endl;
 
 			if (it->getValor()->getMarca() == nombre){
-                cout<< "Entre el if"<<endl;
-                c = it->getValor();
+                //cout<< "Entre el if"<<endl;
                 cout << c->toString();
-                return c;
+                return it->getValor();
+                cout << c->toString();
             }
 				
 			it = it->getSiguiente();
 			cont++;
 		}
 		
-        //cout << "llegue al final" <<endl;
+        cout << "llegue al final" <<endl;
         c = nullptr;
         cout << c -> toString();
         if(c == nullptr){

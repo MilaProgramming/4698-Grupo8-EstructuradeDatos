@@ -10,6 +10,7 @@
 
     Tienda::~Tienda(){
         free(this);
+        stock->~Stock();
     }
 
     //Funciones de excepciones, getter y setter
@@ -192,6 +193,7 @@
 
 	ListaDobleC<Celular*>* Tienda::celularesPorMarcaIgual(string nombre){
 
+        cout<< stock->getCelulares()->obtenerLongitud()<<endl;
         ListaDobleC<Celular*>* l = new ListaDobleC<Celular*>();
 		NodoDC<Celular*> *it = stock->getCelulares()->obtenerPrimero();
 		int cont = 0;
@@ -199,7 +201,7 @@
         //cout << nombre <<endl;
 
 		while (cont < stock->getCelulares()->obtenerLongitud()) {
-            cout<< it->getValor()->getMarca() <<endl;
+            // /cout<< it->getValor()->getMarca() <<endl;
 
 			if (it->getValor()->getMarca() == nombre)
 				l->insertarFinal(it->getValor());
@@ -237,6 +239,8 @@
             cout << "\nEl celular se ha agregado con exito \n" <<endl;
         }
 
+        //cout<<stock->getCelulares()->obtenerLongitud()<<endl;
+
     }
 
     void Tienda::eliminarCelularTienda(Celular* c){
@@ -250,10 +254,31 @@
             cout<< "\n ~~ Ningun celular corresponde a estos datos. ~~\n";
         }
 
+        //cout<<stock->getCelulares()->obtenerLongitud()<<endl;
     }
 
-    const string Tienda::obtenerStockEstatico(){
-        const string str;
-        NodoDC<Celular*> *it = stock->getCelulares()->obtenerPrimero();
+    void Tienda::comprarCelular(string celular, string persona){
+
+        Celular *c = stock->retornarCelularporNombre(celular);
+        Persona *p = stock->retornarPersonaporNombre(persona);
+
+        p -> comprarCelular(c);
     }
    
+    
+    void Tienda::buscarPorNombreCelular(string nombre){
+
+        Stock *s = new Stock();
+        s->setCelulares(celularesPorMarcaIgual(nombre));
+        s -> verStock();
+        free(s);
+
+    }
+
+    void Tienda::buscarPorPrecioCelular(double precio){
+
+        Stock *s = new Stock();
+        s -> setCelulares(celularesPorPrecioIgual(precio));
+        s ->verStock();
+        free(s);
+    }
