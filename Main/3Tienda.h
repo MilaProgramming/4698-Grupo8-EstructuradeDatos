@@ -42,7 +42,11 @@ class Tienda{
         void buscarPorNombrePersona(string, string);
         void buscarPorPresupuestoPersona(double);
 
-        void comprarCelular(string, string);
+        void comprarCelular(string, string, string);
+        void recomendarAutomatico(string, string);
+        void recomendarMenores(double);
+        void recomendarMayores(double);
+
 
 
     

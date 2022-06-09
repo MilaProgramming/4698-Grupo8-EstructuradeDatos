@@ -280,11 +280,13 @@ int main(int argc, char **argv) {
 
             }));
 
+            //!Funciona
             menuUsuarios.add_option(MenuOption("Buscar Usuarios", [&](MenuOptionArguments args) {
                 system("CLS");
                 //Submenu Busqueda de Usuarios
                 Menu menuBusquedaUsuarios("Busqueda");
 
+                    //!Funciona
                     menuBusquedaUsuarios.add_option(MenuOption("Por Nombre", [&](MenuOptionArguments args) {
                         
                         if(tienda->estaVacio()){
@@ -329,6 +331,7 @@ int main(int argc, char **argv) {
                         
                     }));
                     
+                    //!Funciona
                     menuBusquedaUsuarios.add_option(MenuOption("Por Presupuesto", [&](MenuOptionArguments args) {
                        
                         if(tienda->estaVacio()){
@@ -359,6 +362,7 @@ int main(int argc, char **argv) {
                     menuBusquedaUsuarios.display();
             }));
 
+            //!Funciona
             menuUsuarios.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
             menuUsuarios.stop();
             }, false));
@@ -368,81 +372,142 @@ int main(int argc, char **argv) {
     }));
 
 
-    //!Submenus
     menu.add_option(MenuOption("Comprar", [&](MenuOptionArguments args) {
         system("CLS");
         Menu menuComprar("Comprar");  
 
             menuComprar.add_option(MenuOption("Recomendar compra", [&](MenuOptionArguments args) {
                 system("CLS");
-                //Submenu Recomendaciones 
+
+                //?Submenu Recomendaciones 
+
                 Menu menuRecomendaciones("Recomendaciones");
 
-                menuRecomendaciones.add_option(MenuOption("Recomendar celulares para comprar", [&](MenuOptionArguments args) {
                     system("CLS");
                     //Submenu Recomendar celulares 
                     Menu menuReCelulares("Submenu Recomendar Celulares");
 
                     menuReCelulares.add_option(MenuOption("Recomendar automaticamente", [&](MenuOptionArguments args) {
                         
-                        //IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
-                        //tienda->getStock()->ordenarPorPrecio();
+                        if(tienda->estaVacio()){
+                                cout<< "Tienda vacia. No hay nada que recomendar" <<endl;
+                        }else{
 
-                        /*
-                        char* nombre;
-
-                        do{
-
-                        nombre = i->funcionMixta("\nIngrese el nombre de la persona a la que desea recomendar un celular: ");    
-
-                        break;
-                        } while (true);
-                        */
-
-                        //tienda->getStock()->ordenarPorPrecio();
-                        //Stock *por = new Stock();
-                        //por -> setPersonas(tienda->personasPorNombreIgual(nombre));
-                        //por -> setCelulares(tienda->recomendarCelulares(tienda->getStock()->getPersonas()->obtenerPrimero()->getValor()));
+                        IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                        IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
                         
-                        //por -> verStock();
+                        char* nombre = new char[50];
+                        nombre[0] = '\0';
+
+                        char* apellido = new char[50];
+                        nombre[0] = '\0';
+
+                        nombre = i->funcionLetras("\nIngrese el nombre de la persona a la que desea recomendar un celular: ");    
+
+                        if(nombre[0] != '\0'){
+                            
+                            apellido = j->funcionLetras("\nIngrese el apellido de la persona: ");
+
+                            if(apellido[0] != '\0'){
+                            
+                            tienda->recomendarAutomatico(nombre, apellido);
+
+                            system("pause");
+        
+                            system("CLS");
+                            Menu menuInterno("~~~ Desea comprar alguno? ~~~");
+                            
+                            menuInterno.add_option(MenuOption("Si", [&](MenuOptionArguments args) {
+
+                                    tienda->recomendarAutomatico(nombre, apellido);
+
+                                    IngresoDatos<int, float> *o = new IngresoDatos<int, float>();
+            
+                                    char* celular = new char[50];
+    
+                                    celular = o->funcionMixta("\nIngrese el nombre del celular que desea comprar ");   
+
+                                    if(celular[0] != '\0'){
+                                    
+                                        
+                                    tienda->comprarCelular(celular, nombre, apellido);
+                                            
+
+                                    } else{
+                                        cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                                    }
+                                menuInterno.stop();
+                            }, false));
+                            
+
+                            menuInterno.add_option(MenuOption("No", [&](MenuOptionArguments args) {
+                                menuInterno.stop();
+                            }, false));
+
+                            menuInterno.display();
+
+                            }else{
+                                cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                            }
+                        }else{
+                           cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                        }    
+
+                            delete [] nombre;
+                            delete [] apellido;
+                        }
+
 
                     }));
                     
                     menuReCelulares.add_option(MenuOption("Recomendar por presupuesto a mayor", [&](MenuOptionArguments args) {
-                        IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
-                        double p;
-
-                        do{
-
-                        p = i->funcionPrincipalFlotantes("\nIngrese el presupuesto con el que desea trabajar: ");    
-
-                        break;
-                        } while (true);
-
-                        //tienda->getStock()->ordenarPorPrecio();
-                        Stock *porNomb = new Stock();
-                        porNomb -> setCelulares(tienda -> celularesPorPresupuestoMayor(p));
                         
-                        porNomb -> verStock();
+                        if(tienda->estaVacio()){
+                                cout<< "Tienda vacia. No hay nada que recomendar" <<endl;
+                        }else{
+
+                        IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                  
+                        double presupuesto;
+
+                        presupuesto = i->funcionPrincipalFlotantes("\nIngrese el presupuesto con el que desea trabajar: ");    
+
+                            if(presupuesto != -1){
+                                
+                                tienda->recomendarMayores(presupuesto);
+                            
+                            }else{
+                            cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                            }    
+           
+                        }
+
+
                     }));
                     
                     
                     menuReCelulares.add_option(MenuOption("Recomendar por presupuesto a menor", [&](MenuOptionArguments args) {
+                       
+                        if(tienda->estaVacio()){
+                                cout<< "Tienda vacia. No hay nada que recomendar" <<endl;
+                        }else{
+
                         IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
-                        double p;
+                  
+                        double presupuesto;
 
-                        do{
+                        presupuesto = i->funcionPrincipalFlotantes("\nIngrese el presupuesto con el que desea trabajar: ");    
 
-                        p = i->funcionPrincipalFlotantes("\nIngrese el presupuesto con el que desea trabajar: ");    
+                            if(presupuesto != -1){
+                                
+                                tienda->recomendarMenores(presupuesto);
+                            
+                            }else{
+                            cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                            }    
+           
+                        }
 
-                        break;
-                        } while (true);
-
-                        //tienda->getStock()->ordenarPorPrecio();
-                        Stock *porNombr = new Stock();
-                        porNombr -> setCelulares(tienda -> celularesPorPresupuestoMenor(p));
-                        
-                        porNombr -> verStock();
                     }));
 
                     menuReCelulares.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
@@ -450,7 +515,7 @@ int main(int argc, char **argv) {
                     }, false));
 
                     menuReCelulares.display();            
-                }));
+                
 
                 menuRecomendaciones.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
                 menuRecomendaciones.stop();
@@ -464,6 +529,7 @@ int main(int argc, char **argv) {
                     
                 IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
                 IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
+                IngresoDatos<int, float> *k = new IngresoDatos<int, float>();
 
                 tienda->getStock()->verStock();
 
@@ -471,8 +537,11 @@ int main(int argc, char **argv) {
                 celular[0] = '\0';
                 char* persona = new char[50];
                 persona[0] = '\0';
+                char* apersona = new char[50];
+                apersona[0] = '\0';
 
-                    celular = i->funcionMixta("\nIngrese el nombre del celular que desea comprar ");    
+                    celular = i->funcionMixta("\nIngrese el nombre del celular que desea comprar ");   
+
                     if(celular[0] != '\0'){
                     
                         system("cls");
@@ -480,10 +549,18 @@ int main(int argc, char **argv) {
                         tienda->getStock()->getPersonas()->imprimirObjetoFinal();
 
 
-                        persona = j->funcionMixta("\nIngrese el nombre de la persona que comprara: ");    
+                        persona = j->funcionLetras("\nIngrese el nombre de la persona que comprara: ");    
 
                         if(persona[0] != '\0'){
-                            tienda->comprarCelular(celular, persona);
+
+                            apersona = k -> funcionLetras("\nIngrese el apellido de la persona que comprara: ");
+
+                            if(apersona[0] != '\0'){
+                                tienda->comprarCelular(celular, persona, apersona);
+                            }else{
+                                cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                            } 
+
                         }else{
                             cout<<"\n~~ Datos vacios ~~\n"<<endl;
                         }
@@ -497,16 +574,22 @@ int main(int argc, char **argv) {
 
             menuComprar.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
             menuComprar.stop();
-            tienda->~Tienda();
             }, false));
 
         menuComprar.display();
+    }));
+
+   
+
+    menu.add_option(MenuOption("Mostrar informe de compras", [&](MenuOptionArguments args) {
+        tienda->getStock()->informeCompraCelulares();
     }));
 
 
     //!Funcion salida del menu
     menu.add_option(MenuOption("Salir", [&](MenuOptionArguments args) {
         cout << "\nGracias por usar el programa!" <<endl;
+        tienda->~Tienda();
         menu.stop();
     }, false));
 

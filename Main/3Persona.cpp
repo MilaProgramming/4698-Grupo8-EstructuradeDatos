@@ -56,6 +56,7 @@ using namespace std;
                         while(cont < comprados->obtenerLongitud()){
                         if(*(it -> getValor()) == *celu){
                             (it->getValor())->aumentarCantidad(1);
+                             cout<< "\n-- Compra realizada con exito --" <<endl;
                         }
                         it = it->getAnterior();
                         cont++;

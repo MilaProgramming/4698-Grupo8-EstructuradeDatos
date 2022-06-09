@@ -35,7 +35,7 @@
         int indice = 0;
         NodoDC<Celular*> *it = lista->obtenerPrimero();
 
-        cout<< "Celulares en venta\n" <<endl;
+        cout<< "\n\nCelulares en venta\n" <<endl;
         while(indice < lista->obtenerLongitud()){
 
             if((it->getValor())->getStock() == 0){
@@ -312,45 +312,42 @@
         //cout << "\n" << lista-> obtenerLongitud() <<endl;
         
 		while (cont < lista-> obtenerLongitud()) {
-        cout<< it->getValor()->getMarca() <<endl;
+            //cout<< it->getValor()->getMarca() <<endl;
 
 			if (it->getValor()->getMarca() == nombre){
                 //cout<< "Entre el if"<<endl;
-                cout << c->toString();
+                //cout << c->toString();
                 return it->getValor();
-                cout << c->toString();
+                //cout << c->toString();
             }
 				
 			it = it->getSiguiente();
 			cont++;
 		}
 		
-        cout << "llegue al final" <<endl;
-        c = nullptr;
-        cout << c -> toString();
-        if(c == nullptr){
-            cout<< "No se encontro la instancia";
-        }
+        //cout << "llegue al final" <<endl;
 		return c;
     }
 
-    Persona* Stock::retornarPersonaporNombre(string nombre){
-        Persona *c = new Persona();
+    
+    Persona* Stock::retornarPersonaporNombre(string nombre, string apellido){
+   
 		NodoDC<Persona*> *it = personas->obtenerPrimero();
 		int cont = 0;
 		
         //cout << valor <<endl;
 		while (cont < personas-> obtenerLongitud()) {
             //cout<< it->getValor()->getNombre() <<endl;
-			if (it->getValor()->getNombre() == nombre)
+			if (it->getValor()->getNombre() == nombre && it->getValor()->getApellido() == apellido)
                 return it->getValor();
 				
 			it = it->getSiguiente();
 			cont++;
 		}
 		
-        cout << "llegue al final" <<endl;
-        cout<< c->toString();
+        //cout << "llegue al final" <<endl;
+        //cout<< c->toString();
         //l->imprimirObjetoFinal();
 		return nullptr;
     }
+    

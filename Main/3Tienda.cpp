@@ -43,7 +43,6 @@
     //!debe estar ordenada
     ListaDobleC<Celular*>* Tienda::celularesPorPresupuestoMenor(double p){
 
-        this->stock->ordenarPorPrecio();
         ListaDobleC<Celular*> *presupuesto = new  ListaDobleC<Celular*>();
 
         NodoDC<Celular*> *it =stock->getCelulares()->obtenerPrimero();
@@ -51,7 +50,7 @@
 
         if (p > (stock->getCelulares()->obtenerUltimo()->getValor())->getPrecio()){
                 presupuesto = stock->getCelulares();
-                cout<<"Entre a la condicion" <<endl;
+                //cout<<"Entre a la condicion" <<endl;
         }
 
         while(cont < stock->getCelulares()->obtenerLongitud()){
@@ -86,7 +85,6 @@
     //!debe estar ordenada
     ListaDobleC<Celular*>* Tienda::celularesPorPresupuestoMayor(double p){
 
-        this->stock->ordenarPorPrecio();
         //this->getStock()->getCelulares()->imprimirObjetoInicio();
         ListaDobleC<Celular*> *presupuesto = new  ListaDobleC<Celular*>();
 
@@ -176,29 +174,6 @@
         //l->imprimirObjetoFinal();
 		return l;
 	}
-
-    /*
-    ListaDobleC<Persona*>* Tienda::personasPorApellidoIgual(string valor) {
-
-		ListaDobleC<Persona*>* l = new ListaDobleC<Persona*>();
-		NodoDC<Persona*> *it = stock->getPersonas()->obtenerPrimero();
-		int cont = 0;
-		
-        //cout << valor <<endl;
-		while (cont < stock->getPersonas()->obtenerLongitud()) {
-            //cout<< it->getValor()->getNombre() <<endl;
-			if (it->getValor()->getApellido() == valor)
-				l->insertarFinal(it->getValor());
-				
-			it = it->getSiguiente();
-			cont++;
-		}
-		
-        //cout << "llegue al final" <<endl;
-        //l->imprimirObjetoFinal();
-		return l;
-	}
-    */
 
     ListaDobleC<Celular*>* Tienda::celularesPorPrecioIgual(double pres){
 
@@ -290,10 +265,10 @@
         //cout<<stock->getCelulares()->obtenerLongitud()<<endl;
     }
 
-    void Tienda::comprarCelular(string celular, string persona){
+    void Tienda::comprarCelular(string celular, string persona, string apersona){
 
-        Celular *c = stock->retornarCelularporNombre(celular);
-        Persona *p = stock->retornarPersonaporNombre(persona);
+        Celular* c = stock->retornarCelularporNombre(celular);
+        Persona* p = stock->retornarPersonaporNombre(persona, apersona);
 
         p -> comprarCelular(c);
     }
@@ -380,4 +355,39 @@
             a ->verPersonas();
             free(a);
         }
+    }
+
+    void Tienda::recomendarAutomatico(string nombre, string apellido){
+        this->stock->ordenarPorPrecio();
+        Stock *por = new Stock();
+
+        por -> setPersonas(personasPorNombreIgual(nombre, apellido));
+        por -> setCelulares(recomendarCelulares(por->getPersonas()->obtenerPrimero()->getValor()));
+        por -> verCelulares();
+
+        free(por);
+    }
+
+    void Tienda::recomendarMenores(double presupuesto){
+        this->stock->ordenarPorPrecio();
+
+        Stock *por = new Stock();
+
+        por -> setCelulares(celularesPorPresupuestoMenor(presupuesto));
+        
+        por -> verCelulares();
+
+        free(por);
+    }
+
+    void Tienda::recomendarMayores(double presupuesto){
+        this->stock->ordenarPorPrecio();
+
+        Stock *por = new Stock();
+
+        por -> setCelulares(celularesPorPresupuestoMayor(presupuesto));
+        
+        por -> verCelulares();
+        
+        free(por);
     }
