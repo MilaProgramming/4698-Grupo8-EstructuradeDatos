@@ -54,9 +54,9 @@
         int cont =1;
         NodoDC<Celular*> *it = lista->obtenerPrimero();
         while(indice < lista->obtenerLongitud()){
-            cout<< cont << ")" << endl;
+            cout<< "\n\n" << cont << ")" << endl;
             cout<< it->toString();
-            cout<< " con un stock de " << (it->getValor())->getStock() <<endl;
+            cout<< "con un stock de " << (it->getValor())->getStock() <<endl;
             indice++;
             cont++;
             it = it->getSiguiente();    
@@ -64,6 +64,20 @@
 
     }
     // ver que celulares estan a la venta y su cantidad
+
+    void Stock::verPersonas(){
+        int indice = 0;
+        int cont =1;
+        NodoDC<Persona*> *it = personas->obtenerPrimero();
+
+        while(indice < personas->obtenerLongitud()){
+            cout<< "\n\n" << cont << ")" << endl;
+            cout<< it->toString();
+            indice++;
+            cont++;
+            it = it->getSiguiente();    
+        }
+    }
 
     void Stock::verStock(Celular* c){
         cout<< "Se tiene " << c->getStock() << " unidades de este ejemplar";
@@ -181,6 +195,24 @@
         return false;
     }
 
+    bool Stock::compararPersona(Persona* c){
+
+        int indice = 0;
+        NodoDC<Persona*> *it = personas->obtenerPrimero();
+
+        while(indice < lista->obtenerLongitud()){
+            if ( (*(it -> getValor()) == *c) ){
+                //cout<<"Es verdadero"<<endl;
+                return true;
+            }
+
+            indice++;
+            it = it->getSiguiente();
+        }
+
+        return false;
+    }
+    
     void Stock::agregarStockRepetido(Celular* c){
 
         int indice = 0;
@@ -251,6 +283,24 @@
         return false;
     }
 
+    bool Stock::eliminarPersona(Persona* c){
+        NodoDC<Persona*> *it = personas->obtenerPrimero();
+        int cont = 0;
+
+        while(cont < personas->obtenerLongitud()){
+            
+            if((*(it->getValor()) == *c)){
+                this->personas->eliminar(cont);
+                return true;
+            }else{
+                cont++;
+                it = it->getSiguiente();
+            }
+
+        }
+
+        return false;
+    }
 
     Celular* Stock::retornarCelularporNombre(string nombre){
 

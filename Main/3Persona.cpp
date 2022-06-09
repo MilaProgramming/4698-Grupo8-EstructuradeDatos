@@ -4,8 +4,9 @@
 #include <string>
 using namespace std;
 
-    Persona::Persona(string n, double p){
+    Persona::Persona(string n, string m, double p){
         this->nombre = n;
+        this ->apellido = m;
         this->presupuesto = p;
     }
 
@@ -141,6 +142,14 @@ using namespace std;
         else return false;
     }
 
+    string Persona::getCedula(){
+        return this ->cedula;
+    }
+    
+    void Persona::setCedula(string c){
+        this -> cedula = c;
+    }
+
     void Persona::verComprados(){
 
         if (comprados->estaVacio()) cout<< " ningun celular todavia"<<endl;
@@ -165,6 +174,11 @@ using namespace std;
         return nombre;
 
     }
+
+    string Persona::getApellido(){
+        return apellido;
+    }
+
     double Persona ::getPresupuesto(){
         return presupuesto;
     }
@@ -189,7 +203,11 @@ using namespace std;
     }
 
     string Persona::toString(){
-        string s =  this->getNombre() + ", tiene un presupuesto de " + to_string(this->getPresupuesto());
+        string s =  this->getNombre() + " " + this->getApellido() + ", tiene un presupuesto de " + to_string(this->getPresupuesto());
         return s;
     }
 
+    bool Persona::operator ==(Persona &c){
+
+        return this->getNombre() == c.getNombre() && this->getApellido() == c.getApellido();
+    }

@@ -8,14 +8,17 @@ using namespace std;
 class Persona: public ToString{
     private:
         string nombre;
+        string apellido;
         double presupuesto;
+        string cedula;
         ListaDobleC<Celular*> *comprados = new ListaDobleC<Celular*>();     
 
     public:
 
-        Persona(string, double);
+        Persona(string, string, double);
         Persona();
         ~Persona();
+
         void comprarCelular(Celular*); //Comprar un celular a su nombre
         bool verificarCelular(Celular*);
         void comprarCelular(Celular*, int); 
@@ -24,8 +27,14 @@ class Persona: public ToString{
 
         //Getter y setters
         string getNombre();
+        string getApellido();
         double getPresupuesto();
         ListaDobleC<Celular*>* getComprados();
+        string getCedula();
+        void setCedula(string);
+
+        //Operadores
+        bool operator ==(Persona&);
 
         void setNombre(string);
         void setPresupuesto(double);

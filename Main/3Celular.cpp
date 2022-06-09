@@ -65,7 +65,7 @@ using namespace std;
         stock = _stock;
     }
 
-    bool Celular ::disminuirStock(){
+    bool Celular::disminuirStock(){
         if(stock > 0){
         --stock; 
         return true;
@@ -75,7 +75,7 @@ using namespace std;
         }
     }
 
-    bool Celular ::disminuirStock(int cantidad){
+    bool Celular::disminuirStock(int cantidad){
 
         if (cantidad == 1){
             return disminuirStock();
@@ -104,19 +104,20 @@ using namespace std;
 
         return this->getMarca() == c.getMarca() && abs(this->getPrecio() - c.getPrecio()) < delta;
     }
-
+    
+    /*
     bool Celular::operator ==(Celular* c){
         double delta = 0.01;
         
-        /*
+        
         cout<< this->getMarca() <<endl;
         cout<< c.getMarca() <<endl;
         cout<< abs(this->getPrecio() - c.getPrecio()) <<endl;
-        */
+        
 
         return this->getMarca() == c->getMarca() && abs(this->getPrecio() - c->getPrecio()) < delta;
     }
-
+    */
     
     bool Celular::iguales (double num1, double num2, double deltaMax) {
         return (abs(num1 - num2) < deltaMax);

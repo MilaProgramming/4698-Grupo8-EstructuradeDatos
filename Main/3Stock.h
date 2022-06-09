@@ -27,11 +27,13 @@ class Stock{
         //Exepciones
 
         bool compararCelulares(Celular*);
+        bool compararPersona(Persona*);
         void ordenarPorPrecio();
 
 
         //Metodos
         bool eliminarCelular(Celular*);
+        bool eliminarPersona(Persona*);
         Celular* retornarCelularporNombre(string);
         Persona* retornarPersonaporNombre(string);
 
@@ -39,6 +41,7 @@ class Stock{
         void verCelulares(); //Celulares disponibles
         void verStock(); // ver que celulares estan a la venta y su cantidad
         void verStock(Celular*); //Ver cuantos celulares hay de la isntancia
+        void verPersonas();
         void informeCompraCelulares(); //Ver usuario y la compra de celulares que ha hecho
 
         //Funciones de dinamica de lista
@@ -46,5 +49,4 @@ class Stock{
         void agregarStockRepetido(Celular*);
         void agregarStockRepetido(Celular*,int);
        
-
 };

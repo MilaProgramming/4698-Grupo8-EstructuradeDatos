@@ -28,18 +28,18 @@ int main(int argc, char **argv) {
     //!Creo objeto menu. Este manejara las opciones
     Menu menu("------- Bienvenidos al programa de compra de Celulares -------");
 
-   
+    //!Funciona menu completo
     menu.add_option(MenuOption("Stock", [&](MenuOptionArguments args) {
         system("CLS");
         //Submenu Stock
         Menu menuStock("Stock");
 
+            //!Funciona
             menuStock.add_option(MenuOption("Ver Stock", [&](MenuOptionArguments args) {
                 tienda->getStock()->verCelulares();
                 //tienda->getStock()->verStock();
                 //cout<<tienda->getStock()->getCelulares()->obtenerLongitud()<<endl;
             }));
-
 
             //!Funciona
             menuStock.add_option(MenuOption("Agregar a Stock", [&](MenuOptionArguments args){
@@ -59,11 +59,16 @@ int main(int argc, char **argv) {
 
                         precio = j->funcionPrincipalFlotantes("\nIngrese el precio del celular: ");
 
-                        stock = k->funcionPrincipalEnteros("\nIngrese la cantidad de ejemplares de este celular que existen: ");
+                        if(precio!= -1){
 
-                        Celular *nuevo = new Celular(marca, precio, stock);
+                            stock = k->funcionPrincipalEnteros("\nIngrese la cantidad de ejemplares de este celular que existen: ");    
+                            
+                            if(stock != -1){
+                                Celular *nuevo = new Celular(marca, precio, stock);
 
-                        tienda->agregarCelularTienda(nuevo);
+                                tienda->agregarCelularTienda(nuevo);
+                            }
+                        }
 
                     }else{
 
@@ -73,6 +78,7 @@ int main(int argc, char **argv) {
                 delete [] marca;
             }));
 
+            //!Funciona
             menuStock.add_option(MenuOption("Eliminar elemento del Stock", [&](MenuOptionArguments args) {
 
                 if(tienda->estaVacio()){
@@ -95,8 +101,10 @@ int main(int argc, char **argv) {
                         
                         precio = j->funcionPrincipalFlotantes("\nIngrese el precio del celular que desea eliminar: ");
 
+                        if(precio != -1){
                         Celular* celu = new Celular(nombre, precio, 0);
                         tienda->eliminarCelularTienda(celu);
+                        }
 
                     }else{
                         cout<<"\n~~ Datos vacios ~~\n"<<endl;
@@ -106,12 +114,14 @@ int main(int argc, char **argv) {
 
                 }
             }));
-
+            
+            //!Funciona
             menuStock.add_option(MenuOption("Busqueda", [&](MenuOptionArguments args) {
        
                 //Submenu Busqueda de Celulares
                 Menu menuBusquedaUsuarios("Busqueda");
 
+                    //!Funciona
                     menuBusquedaUsuarios.add_option(MenuOption("Por Marca", [&](MenuOptionArguments args) {
                         
                         if(tienda->estaVacio()){
@@ -138,14 +148,19 @@ int main(int argc, char **argv) {
                         
                     }));
                     
+                    //!Funciona
                     menuBusquedaUsuarios.add_option(MenuOption("Por Precio", [&](MenuOptionArguments args) {
                        
                         IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
-                        double presupuesto;
+                        double precio;
 
-                        presupuesto = i->funcionPrincipalFlotantes("\nIngrese el nombre de la persona que desea buscar: ");    
+                        precio = i->funcionPrincipalFlotantes("\nIngrese el nombre de la persona que desea buscar: ");    
 
-                        tienda->buscarPorPrecioCelular(presupuesto);
+                        if(precio != 1){
+                            tienda->buscarPorPrecioCelular(precio);
+                        }else{
+                            cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                        }
 
                     }));
                     
@@ -162,26 +177,13 @@ int main(int argc, char **argv) {
 
             }));
 
-             
-        
+            //!Funciona
             menuStock.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
             menuStock.stop();
             }, false));
 
             //Mostrar menu
             menuStock.display();
-       
-        /*do {
-
-            //!Recibo datos de teclado. Me funciona para validar
-            if (std::cin.fail()) {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                continue;
-            }
-
-            break;
-        } while (true);*/
 
     }));
 
@@ -196,49 +198,159 @@ int main(int argc, char **argv) {
                 tienda->getStock()->getPersonas()->imprimirObjetoFinal();
             }));
 
+            //!Funciona
+            menuUsuarios.add_option(MenuOption("Agregar Usuario", [&](MenuOptionArguments args) {   
+                
+                IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
+                IngresoDatos<int, float> *k = new IngresoDatos<int, float>();
+
+                char* nombre = new char[50];
+                nombre[0] = '\0';
+                char* apellido = new char[50];
+                apellido[0] = '\0';
+                double presupuesto;
+
+                nombre = i->funcionLetras("\nIngrese el nombre de la persona: ");
+
+                    if(nombre[0] != '\0'){
+                        apellido = j->funcionLetras("\nIngrese el apellido de la persona: ");
+
+                        if(apellido[0] != '\0'){
+
+                            presupuesto = k->funcionPrincipalFlotantes("\nIngrese el presupuesto de la persona: ");
+
+                            if(presupuesto!= -1){
+
+                                Persona *nueva = new Persona(nombre, apellido, presupuesto);  
+                                
+                                tienda->agregarPersonaTienda(nueva);
+                            }
+
+                        }else{
+                            cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                        }
+                    }else{
+
+                        cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                    }
+
+                delete [] nombre;
+                delete [] apellido;
+
+            }));
+            
+            //!Funciona
+            menuUsuarios.add_option(MenuOption("Eliminar Usuario", [&](MenuOptionArguments args) {
+                
+                if(tienda->estaVacio()){
+                    cout<< "Tienda vacia. No hay nada que borrar" <<endl;
+                }else{
+
+                    IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                    IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
+
+                    char* nombre = new char[50];
+                    nombre[0] = '\0';
+                    char* apellido = new char[50];
+                    apellido[0] = '\0';
+                    tienda->getStock()->verPersonas();
+                    
+
+
+                    nombre = i->funcionLetras("\nIngrese solo el nombre de la persona que desea eliminar: ");    
+
+                    if(nombre[0] != '\0'){
+                        
+                        apellido = j ->funcionLetras("\nIngrese el apellido de la persona que desea eliminar: ");
+
+                        if(apellido[0] != '\0'){
+                            Persona* per = new Persona(nombre, apellido, 0);
+                            tienda->eliminarPersonaTienda(per);
+                        }
+
+                    }else{
+                        cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                    }
+
+                    delete [] nombre;
+
+                }
+
+
+            }));
+
             menuUsuarios.add_option(MenuOption("Buscar Usuarios", [&](MenuOptionArguments args) {
                 system("CLS");
                 //Submenu Busqueda de Usuarios
                 Menu menuBusquedaUsuarios("Busqueda");
 
                     menuBusquedaUsuarios.add_option(MenuOption("Por Nombre", [&](MenuOptionArguments args) {
-                        IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
-                        char* nombre;
+                        
+                        if(tienda->estaVacio()){
 
-                        do{
+                            cout<< "Tienda vacia. No hay nada que buscar" <<endl;
 
-                        nombre = i->funcionMixta("\nIngrese el nombre de la persona que desea buscar: ");    
+                        }else{
 
-                        break;
-                    } while (true);
+                            IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                            IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
+
+                            char* nombre = new char[50];
+                            nombre[0] = '\0';
+                            char* apellido = new char[50];
+                            apellido[0] = '\0';
+
+                            
+                            nombre = i->funcionLetras("\nIngrese solo el nombre que desea buscar: ");    
+                            
+                            if(nombre[0] != '\0'){
+
+                                apellido = j->funcionLetras("\nIngrese solo el nombre que desea buscar: ");
+
+                                if(nombre[0] != '\0'){
+                                    tienda ->buscarPorNombrePersona(nombre, apellido);
+                                }else{
+                                    cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                                }
+            
+                            }else{
+                                cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                            }
+
+                            delete [] nombre;
+                            delete [] apellido;
+                        }
 
                         
-                        Stock *porNombre = new Stock();
-                        porNombre->setPersonas(tienda->personasPorNombreIgual(nombre));
-                        porNombre->informeCompraCelulares();
+                        //Stock *porNombre = new Stock();
+                        //porNombre->setPersonas(tienda->personasPorNombreIgual(nombre));
+                        //porNombre->informeCompraCelulares();
                         
                     }));
                     
                     menuBusquedaUsuarios.add_option(MenuOption("Por Presupuesto", [&](MenuOptionArguments args) {
                        
-                        IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
-                        double presupuesto;
+                        if(tienda->estaVacio()){
 
-                        do{
+                            cout<< "Tienda vacia. No hay nada que buscar" <<endl;
 
-                        presupuesto = i->funcionPrincipalFlotantes("\nIngrese el nombre de la persona que desea buscar: ");    
+                        }else{
 
-                        break;
-                    } while (true);
+                            IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                            double presupuesto;
 
-                        Stock *porNombre = new Stock();
-                        porNombre->setPersonas(tienda->personasPorPresupuestoIgual(presupuesto));
-                        porNombre -> informeCompraCelulares();
+                            presupuesto = i->funcionPrincipalFlotantes("\nIngrese el presupuesto de la persona que desea buscar: ");    
+
+                            if(presupuesto != 1){
+                                tienda->buscarPorPresupuestoPersona(presupuesto);
+                            }else{
+                                cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                            }    
+                        }    
 
                     }));
-                    
-
-                    
+                                
                     menuBusquedaUsuarios.add_option(MenuOption("Regresar a menu principal", [&](MenuOptionArguments args) {
                     menuBusquedaUsuarios.stop();
                     }, false));
@@ -273,8 +385,10 @@ int main(int argc, char **argv) {
 
                     menuReCelulares.add_option(MenuOption("Recomendar automaticamente", [&](MenuOptionArguments args) {
                         
-                        IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                        //IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
                         //tienda->getStock()->ordenarPorPrecio();
+
+                        /*
                         char* nombre;
 
                         do{
@@ -283,13 +397,14 @@ int main(int argc, char **argv) {
 
                         break;
                         } while (true);
+                        */
 
                         //tienda->getStock()->ordenarPorPrecio();
-                        Stock *por = new Stock();
-                        por -> setPersonas(tienda->personasPorNombreIgual(nombre));
-                        por -> setCelulares(tienda->recomendarCelulares(tienda->getStock()->getPersonas()->obtenerPrimero()->getValor()));
+                        //Stock *por = new Stock();
+                        //por -> setPersonas(tienda->personasPorNombreIgual(nombre));
+                        //por -> setCelulares(tienda->recomendarCelulares(tienda->getStock()->getPersonas()->obtenerPrimero()->getValor()));
                         
-                        por -> verStock();
+                        //por -> verStock();
 
                     }));
                     
@@ -403,9 +518,9 @@ int main(int argc, char **argv) {
 
 Tienda* datosDefecto(){
 
-    Persona *p1 = new Persona("Matias Manzin", 100);
-    Persona *p2 = new Persona("Lionel Messi", 5000);
-    Persona *p3 = new Persona("Edward Tech", 1500);
+    Persona *p1 = new Persona("Matias", "Manzin", 100);
+    Persona *p2 = new Persona("Lionel", "Messi", 5000);
+    Persona *p3 = new Persona("Edward", "Tech", 1500);
 
     Celular *c1 = new Celular("Alcatel", 40, 100);
     Celular *c2 = new Celular("Samsung", 1000, 30);

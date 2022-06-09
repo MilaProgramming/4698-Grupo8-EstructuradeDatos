@@ -183,7 +183,7 @@ template <typename T, typename N>
                 while(c != 13){ //Bucle hasta que se presion la tecla ENTER
                     c=getch(); //Recibo el dato por teclado
 
-                    if(c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'){
+                    if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')){
                         printf("%c", c); //Imprimo el valor
                         dato[i] = c;
                         i++;

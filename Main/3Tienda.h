@@ -25,7 +25,7 @@ class Tienda{
 
         //Devuelven listas de objetos que cumplan con ciertos requisitos
         ListaDobleC<Persona*>* personasPorPresupuestoIgual(double);
-		ListaDobleC<Persona*>* personasPorNombreIgual(string);
+		ListaDobleC<Persona*>* personasPorNombreIgual(string, string);
 
         ListaDobleC<Celular*>* celularesPorPrecioIgual(double);
 		ListaDobleC<Celular*>* celularesPorMarcaIgual(string);
@@ -34,9 +34,16 @@ class Tienda{
 
         void agregarCelularTienda(Celular*);
         void eliminarCelularTienda(Celular*);
-        void comprarCelular(string, string);
         void buscarPorNombreCelular(string);
         void buscarPorPrecioCelular(double);
+
+        void agregarPersonaTienda(Persona*);
+        void eliminarPersonaTienda(Persona*);
+        void buscarPorNombrePersona(string, string);
+        void buscarPorPresupuestoPersona(double);
+
+        void comprarCelular(string, string);
+
 
     
 };

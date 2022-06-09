@@ -18,8 +18,9 @@
     bool Tienda::estaVacio(){
         if(this->stock == nullptr){
             return true;
+        }else if(this->stock->getCelulares()->estaVacio() || this->stock->getPersonas()->estaVacio()){
+            return true;
         }
-
         else return false;
     }
 
@@ -129,28 +130,55 @@
 
     ListaDobleC<Persona*>* Tienda::personasPorPresupuestoIgual(double valor) {
 
+        //cout<< "Entre a la funcion encontrar" <<endl;
+
 		ListaDobleC<Persona*>* l = new ListaDobleC<Persona*>();
 		NodoDC<Persona*> *it = stock->getPersonas()->obtenerPrimero();
         Celular *c = new Celular();
 		int cont = 0;
 		
 		while (cont < stock->getPersonas()->obtenerLongitud()) {
-
-			if (c->iguales(it->getValor()->getPresupuesto(), valor, 1e-3)){
+            //cout<< "Entre al while" <<endl;
+            //cout<< (c->iguales(it->getValor()->getPresupuesto(), valor, 0.01)) <<endl;
+			if (c->iguales(it->getValor()->getPresupuesto(), valor, 0.01)){
 				l->insertarFinal(it->getValor());
-                cout<<"Entro al if"<<endl;
-                cont = stock->getPersonas()->obtenerLongitud();
+                //cout<<"Entro al if"<<endl;
             }   
 				
-			it = it->getAnterior();
+			it = it->getSiguiente();
 			cont++;
 		}
 		
-        cout<<"Salgo de la funcion"<<endl;
+        //cout<<"Salgo de la funcion"<<endl;
 		return l;
 	}
 	
-	ListaDobleC<Persona*>* Tienda::personasPorNombreIgual(string valor) {
+	ListaDobleC<Persona*>* Tienda::personasPorNombreIgual(string nombre, string apellido) {
+
+        //cout<< "Entre a la funcion encontrar" <<endl;
+		ListaDobleC<Persona*>* l = new ListaDobleC<Persona*>();
+		NodoDC<Persona*> *it = stock->getPersonas()->obtenerPrimero();
+		int cont = 0;
+		
+        //cout << valor <<endl;
+		while (cont < stock->getPersonas()->obtenerLongitud()) {
+            //cout<< it->getValor()->getNombre() <<endl;
+
+			if (it->getValor()->getNombre() == nombre && it->getValor()->getApellido() == apellido){
+				l->insertarFinal(it->getValor());
+                //cout<< "Entre al if y agregue" <<endl;
+            }
+			it = it->getSiguiente();
+			cont++;
+		}
+		
+        //cout << "llegue al final" <<endl;
+        //l->imprimirObjetoFinal();
+		return l;
+	}
+
+    /*
+    ListaDobleC<Persona*>* Tienda::personasPorApellidoIgual(string valor) {
 
 		ListaDobleC<Persona*>* l = new ListaDobleC<Persona*>();
 		NodoDC<Persona*> *it = stock->getPersonas()->obtenerPrimero();
@@ -159,7 +187,7 @@
         //cout << valor <<endl;
 		while (cont < stock->getPersonas()->obtenerLongitud()) {
             //cout<< it->getValor()->getNombre() <<endl;
-			if (it->getValor()->getNombre() == valor)
+			if (it->getValor()->getApellido() == valor)
 				l->insertarFinal(it->getValor());
 				
 			it = it->getSiguiente();
@@ -170,18 +198,23 @@
         //l->imprimirObjetoFinal();
 		return l;
 	}
+    */
 
     ListaDobleC<Celular*>* Tienda::celularesPorPrecioIgual(double pres){
+
+        //cout<< "stock->getCelulares()->obtenerLongitud()" <<endl;
+
         ListaDobleC<Celular*>* l = new ListaDobleC<Celular*>();
 		NodoDC<Celular*> *it = stock->getCelulares()->obtenerPrimero();
 		int cont = 0;
 		
         //cout << valor <<endl;
 		while (cont < stock->getCelulares()->obtenerLongitud()) {
-            //cout<< it->getValor()->getNombre() <<endl;
-			if (it->getValor()->getPrecio() == pres)
+            //cout<< it->getValor()->getPrecio() <<endl;
+			if (it->getValor()->getPrecio() == pres){
+                //cout<< "Entro al if"<<endl;
 				l->insertarFinal(it->getValor());
-				
+            }
 			it = it->getSiguiente();
 			cont++;
 		}
@@ -193,7 +226,7 @@
 
 	ListaDobleC<Celular*>* Tienda::celularesPorMarcaIgual(string nombre){
 
-        cout<< stock->getCelulares()->obtenerLongitud()<<endl;
+        //cout<< stock->getCelulares()->obtenerLongitud()<<endl;
         ListaDobleC<Celular*>* l = new ListaDobleC<Celular*>();
 		NodoDC<Celular*> *it = stock->getCelulares()->obtenerPrimero();
 		int cont = 0;
@@ -229,14 +262,14 @@
             stock->agregarStockRepetido(nuevo, nuevo->getStock());
             stock->verCelulares();
 
-            cout << "\nEl celular que desea agregar ya existe. Se ha aumentado el stock" <<endl;
+            cout << "\n~~~ El celular que desea agregar ya existe. Se ha aumentado el stock ~~~" <<endl;
 
         }else{
 
             cout<< "\n \n \n";
             stock->getCelulares()->insertarFinal(nuevo);
             stock->verCelulares();
-            cout << "\nEl celular se ha agregado con exito \n" <<endl;
+            cout << "\n~~~ El celular se ha agregado con exito ~~~\n" <<endl;
         }
 
         //cout<<stock->getCelulares()->obtenerLongitud()<<endl;
@@ -269,16 +302,82 @@
     void Tienda::buscarPorNombreCelular(string nombre){
 
         Stock *s = new Stock();
-        s->setCelulares(celularesPorMarcaIgual(nombre));
-        s -> verStock();
-        free(s);
+        if(celularesPorMarcaIgual(nombre)->estaVacio()){
+            cout <<"\n ~~~ No se ha encontrado aquel criterio ~~~ \n";
+        }else{
+            cout<< "\n";
+            s->setCelulares(celularesPorMarcaIgual(nombre));
+            s -> verStock();
+            free(s);
+        }
 
     }
 
     void Tienda::buscarPorPrecioCelular(double precio){
 
-        Stock *s = new Stock();
-        s -> setCelulares(celularesPorPrecioIgual(precio));
-        s ->verStock();
-        free(s);
+        Stock *a = new Stock();
+        if(celularesPorPrecioIgual(precio)->estaVacio()){
+            cout <<"\n ~~~ No se ha encontrado aquel criterio ~~~ \n";
+        }else{
+            cout<< "\n";
+            a -> setCelulares(celularesPorPrecioIgual(precio));
+            a ->verStock();
+            free(a);
+        }
+    }
+
+    void Tienda::agregarPersonaTienda(Persona* p){
+        
+        if(stock->compararPersona(p)){
+
+            cout << "\n~~~ La persona que desea registrar ya se encuentra en la Lista ~~~" <<endl;
+
+        }else{
+
+            cout<< "\n \n \n";
+            stock->getPersonas()->insertarFinal(p);
+            stock->verPersonas();
+            cout << "\n\n~~~ La persona ha agregado con exito ~~~\n" <<endl;
+        }
+    }
+
+    void Tienda::eliminarPersonaTienda(Persona* p){
+        if(stock->eliminarPersona(p)){
+            cout<<"\n";
+            stock->verPersonas();
+
+            cout<< "\n ~~ Persona eliminada con exito ~~\n";
+        }else{
+            cout<< "\n ~~ Ninguna persona corresponde a estos datos. ~~\n";
+        }
+    }
+
+    void Tienda::buscarPorNombrePersona(string nombre, string apellido){
+        Stock *a = new Stock();
+
+        //cout<< "Entre a la funcion buscar" <<endl;
+        if(personasPorNombreIgual(nombre, apellido)->estaVacio()){
+            cout <<"\n ~~~ No se ha encontrado aquel criterio ~~~ \n";
+        }else{
+            cout<< "\n";
+            //cout<< "Holi" <<endl;
+            a -> setPersonas(personasPorNombreIgual(nombre, apellido));
+            //cout<< "Holi2" <<endl;
+            //a -> getPersonas() ->imprimirObjetoFinal();
+            a ->verPersonas();
+            free(a);
+        }
+    }
+    
+    void Tienda::buscarPorPresupuestoPersona(double presupuesto){
+        Stock *a = new Stock();
+        //cout<< "Entre a la funcion buscar" <<endl;
+        if(personasPorPresupuestoIgual(presupuesto)->estaVacio()){
+            cout <<"\n ~~~ No se ha encontrado aquel criterio ~~~ \n";
+        }else{
+            cout<< "\n";
+            a -> setPersonas(personasPorPresupuestoIgual(presupuesto));
+            a ->verPersonas();
+            free(a);
+        }
     }

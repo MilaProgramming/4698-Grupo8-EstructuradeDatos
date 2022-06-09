@@ -4,7 +4,7 @@ using namespace std;
 
 int main(){
 
-    Marquesina<char> *a = new Marquesina<char>("Me quiero cambiar de carrera");
+    Marquesina<char> *a = new Marquesina<char>("Mesa que mas aplauda");
 
     a->bucleMarquesina();
 
