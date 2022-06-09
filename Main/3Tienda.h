@@ -43,9 +43,9 @@ class Tienda{
         void buscarPorPresupuestoPersona(double);
 
         void comprarCelular(string, string, string);
-        void recomendarAutomatico(string, string);
-        void recomendarMenores(double);
-        void recomendarMayores(double);
+        bool recomendarAutomatico(string, string);
+        bool recomendarMenores(double);
+        bool recomendarMayores(double);
 
 
 

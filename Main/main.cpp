@@ -410,41 +410,42 @@ int main(int argc, char **argv) {
 
                             if(apellido[0] != '\0'){
                             
-                            tienda->recomendarAutomatico(nombre, apellido);
+                                if(tienda->recomendarAutomatico(nombre, apellido)){
 
-                            system("pause");
-        
-                            system("CLS");
-                            Menu menuInterno("~~~ Desea comprar alguno? ~~~");
-                            
-                            menuInterno.add_option(MenuOption("Si", [&](MenuOptionArguments args) {
-
-                                    tienda->recomendarAutomatico(nombre, apellido);
-
-                                    IngresoDatos<int, float> *o = new IngresoDatos<int, float>();
+                                system("pause");
             
-                                    char* celular = new char[50];
-    
-                                    celular = o->funcionMixta("\nIngrese el nombre del celular que desea comprar ");   
+                                system("CLS");
+                                Menu menuInterno("~~~ Desea comprar alguno? ~~~");
+                                
+                                menuInterno.add_option(MenuOption("Si", [&](MenuOptionArguments args) {
 
-                                    if(celular[0] != '\0'){
-                                    
+                                        tienda->recomendarAutomatico(nombre, apellido);
+
+                                        IngresoDatos<int, float> *o = new IngresoDatos<int, float>();
+                
+                                        char* celular = new char[50];
+        
+                                        celular = o->funcionMixta("\nIngrese el nombre del celular que desea comprar ");   
+
+                                        if(celular[0] != '\0'){
                                         
-                                    tienda->comprarCelular(celular, nombre, apellido);
                                             
+                                        tienda->comprarCelular(celular, nombre, apellido);
+                                                
 
-                                    } else{
-                                        cout<<"\n~~ Datos vacios ~~\n"<<endl;
-                                    }
-                                menuInterno.stop();
-                            }, false));
-                            
+                                        } else{
+                                            cout<<"\n~~ Datos vacios ~~\n"<<endl;
+                                        }
+                                    menuInterno.stop();
+                                }, false));
+                                
 
-                            menuInterno.add_option(MenuOption("No", [&](MenuOptionArguments args) {
-                                menuInterno.stop();
-                            }, false));
+                                menuInterno.add_option(MenuOption("No", [&](MenuOptionArguments args) {
+                                    menuInterno.stop();
+                                }, false));
 
-                            menuInterno.display();
+                                menuInterno.display();
+                                }
 
                             }else{
                                 cout<<"\n~~ Datos vacios ~~\n"<<endl;

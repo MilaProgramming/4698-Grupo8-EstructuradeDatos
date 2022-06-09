@@ -67,8 +67,8 @@ using namespace std;
 
     bool Celular::disminuirStock(){
         if(stock > 0){
-        --stock; 
-        return true;
+            --stock; 
+            return true;
         }else{
             cout<< "Ya no existe este item en el stock" <<endl;
             return false;

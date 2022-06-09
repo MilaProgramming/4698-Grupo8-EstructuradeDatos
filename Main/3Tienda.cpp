@@ -270,7 +270,15 @@
         Celular* c = stock->retornarCelularporNombre(celular);
         Persona* p = stock->retornarPersonaporNombre(persona, apersona);
 
-        p -> comprarCelular(c);
+        if(c != nullptr && p!= nullptr){
+            p -> comprarCelular(c);
+        }else if(c == nullptr && p== nullptr){
+            cout<< "\n~~~ No existe un celular ni una persona que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else if(c == nullptr){
+            cout<< "\n~~~ No existe un celular que cumpla con los datos ingresados ~~~\n" <<endl;
+        }else{
+            cout<< "\n~~~ No existe una persona que cumpla con los datos ingresados ~~~\n" <<endl;
+        }
     }
    
     
@@ -357,37 +365,55 @@
         }
     }
 
-    void Tienda::recomendarAutomatico(string nombre, string apellido){
+    bool Tienda::recomendarAutomatico(string nombre, string apellido){
         this->stock->ordenarPorPrecio();
         Stock *por = new Stock();
 
         por -> setPersonas(personasPorNombreIgual(nombre, apellido));
-        por -> setCelulares(recomendarCelulares(por->getPersonas()->obtenerPrimero()->getValor()));
-        por -> verCelulares();
+
+        if(por->getPersonas()->obtenerPrimero() != nullptr){
+            por -> setCelulares(recomendarCelulares(por->getPersonas()->obtenerPrimero()->getValor()));
+            por -> verCelulares();
+            return true;
+        }else{
+            cout<< "\n~~~ No se han encontrado coincdencias ~~~\n" <<endl;
+            return false;
+        }
 
         free(por);
     }
 
-    void Tienda::recomendarMenores(double presupuesto){
+    bool Tienda::recomendarMenores(double presupuesto){
         this->stock->ordenarPorPrecio();
 
         Stock *por = new Stock();
 
         por -> setCelulares(celularesPorPresupuestoMenor(presupuesto));
-        
-        por -> verCelulares();
+        if(por->getCelulares()->obtenerPrimero() != nullptr){
+            por -> verCelulares();
+            return true;
+        }else{
+            cout<< "\n~~~ No se han encontrado coincdencias ~~~\n" <<endl;
+            return false;
+        }
 
         free(por);
     }
 
-    void Tienda::recomendarMayores(double presupuesto){
+    bool Tienda::recomendarMayores(double presupuesto){
         this->stock->ordenarPorPrecio();
 
         Stock *por = new Stock();
 
         por -> setCelulares(celularesPorPresupuestoMayor(presupuesto));
         
-        por -> verCelulares();
+        if(por->getCelulares()->obtenerPrimero() != nullptr){
+            por -> verCelulares();
+            return true;
+        }else{
+             cout<< "\n~~~ No se han encontrado coincdencias ~~~\n" <<endl;
+             return true;
+        }
         
         free(por);
     }

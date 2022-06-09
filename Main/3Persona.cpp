@@ -11,6 +11,7 @@ using namespace std;
     }
 
     Persona::~Persona(){
+        delete [] cantidad;
         free(this);
     }
 
@@ -19,8 +20,10 @@ using namespace std;
 
     void Persona::comprarCelular(Celular* celu){
 
+        //!verifico si he comprado el celu antes
         if(verificarCelular(celu)){
             //out<< "1 if" <<endl;
+            //!verifico si mi presupuesto es mayor que 0
             if(disminuirPresupuesto()){
                 //cout<< "2 if" <<endl;
                 if(this->presupuesto - celu->getPrecio() > 0){
@@ -28,13 +31,17 @@ using namespace std;
                     if(celu->disminuirStock()){
                         //cout<< "4 if" <<endl;
                         this->presupuesto -= celu->getPrecio();
-                        celu->aumentarCantidad(1);
+
                         this->comprados->insertarFinal(celu);
+                        cantidad[comprados->obtenerLongitud()-1] = 1;
+
                         cout<< "\n-- Compra realizada con exito --" <<endl;
+
                     }else{
                         //cout<< "3 if" <<endl;
                         celu->disminuirStock(); 
                     }
+
                 }else{
                     //cout<< "5 if" <<endl;
                     cout<< "No posee el suficiente dinero para comprar esto" <<endl;   
@@ -46,21 +53,34 @@ using namespace std;
 
         }else{
 
+            //!CASO CELULAR YA COMPRADO
+
+            //!verifico si mi presupuesto es mayor que 0
             if(disminuirPresupuesto()){
+
                 if(this->presupuesto - celu->getPrecio() > 0){
 
                     if(celu->disminuirStock()){
+
                         this->presupuesto -= celu->getPrecio();
+
+                        //!recorro
                         NodoDC<Celular*> *it =comprados->obtenerUltimo();
                         int cont = 0;
+                        int aux = 0;
+
                         while(cont < comprados->obtenerLongitud()){
-                        if(*(it -> getValor()) == *celu){
-                            (it->getValor())->aumentarCantidad(1);
-                             cout<< "\n-- Compra realizada con exito --" <<endl;
+                            if(*(it -> getValor()) == *celu){
+                                aux = cont;
+                                cont = comprados->obtenerLongitud();
+                            }
+
+                            it = it->getAnterior();
+                            cont++;
                         }
-                        it = it->getAnterior();
-                        cont++;
-                        }
+
+                        cantidad[aux] += 1;
+                        
                     }else{
                         celu->disminuirStock();                
                     }    
@@ -123,8 +143,10 @@ using namespace std;
 
     
     bool Persona::verificarCelular(Celular* celu){
+
         NodoDC<Celular*> *it =comprados->obtenerUltimo();
         int cont = 0;
+
         while(cont < comprados->obtenerLongitud()){ 
             if(*(it -> getValor()) == *celu){
                 return false;
@@ -143,12 +165,12 @@ using namespace std;
         else return false;
     }
 
-    string Persona::getCedula(){
-        return this ->cedula;
+    string Persona::getCorreo(){
+        return this ->correo;
     }
     
-    void Persona::setCedula(string c){
-        this -> cedula = c;
+    void Persona::setCorreo(string c){
+        this -> correo = c;
     }
 
     void Persona::verComprados(){
@@ -156,16 +178,18 @@ using namespace std;
         if (comprados->estaVacio()) cout<< " ningun celular todavia"<<endl;
             else{
                     
-                NodoDC<Celular*> *nimpreso;
-                nimpreso = comprados->obtenerUltimo();
+                NodoDC<Celular*> *nimpreso = comprados->obtenerPrimero();
+                int cont = 0;
 
-                while( nimpreso != comprados->obtenerPrimero()){
+                while(cont < comprados->obtenerLongitud()){
 
-                    cout<< nimpreso -> toString()<< " y ha comprado "<< (nimpreso->getValor())->getCantidad() << " items de este tipo" <<endl;
-                    nimpreso = nimpreso->getAnterior();
-                
+                    cout<< nimpreso -> toString()<< " con ";
+                    cout<< cantidad[cont] << " items de este tipo\n" <<endl;
+
+                    nimpreso = nimpreso->getSiguiente();
+                    cont++;
                 }
-                cout << (comprados->obtenerPrimero())->toString()<< " y ha comprado "<< ((comprados->obtenerPrimero())->getValor())->getCantidad() << " items de este tipo" <<endl;
+
             }
     }
 

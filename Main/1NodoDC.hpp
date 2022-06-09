@@ -45,8 +45,10 @@ template <typename T>
                 return this -> siguiente;
             }
 
+        
             string toString(){
                 return valor->toString();
             }
+            
 
     };

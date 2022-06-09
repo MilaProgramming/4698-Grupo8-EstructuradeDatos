@@ -326,7 +326,7 @@
 		}
 		
         //cout << "llegue al final" <<endl;
-		return c;
+		return nullptr;
     }
 
     
