@@ -345,7 +345,7 @@ int main(int argc, char **argv) {
                             char* apellido = new char[50];
                             apellido[0] = '\0';
 
-                            tienda->getStock()->getPersonas()->imprimirObjetoFinal();
+                            //tienda->getStock()->getPersonas()->imprimirObjetoFinal();
 
                             nombre = i->funcionLetras("\n   Ingrese solo el nombre que desea buscar: ");    
                             
@@ -500,7 +500,7 @@ int main(int argc, char **argv) {
 
         //!Fin del recibo de datos datos para trabajar
         Persona *p = tienda->getStock()->retornarPersonaporNombre(nombre, apellido, presupuesto, cedula);
-        
+
         if (ver != 100){
 
             Menu menuComprar("~~~ Menu de compra ~~~");
@@ -641,15 +641,14 @@ int main(int argc, char **argv) {
                     IngresoDatos<int, float> *q = new IngresoDatos<int, float>();
 
                     celular = c->funcionMixta("\nIngrese el nombre del celular que desea comprar ");   
-
+                        Celular* ce = tienda->getStock()->retornarCelularporNombre(celular);
                         if(celular[0] != '\0'){
                             cantidad = q->funcionPrincipalEnteros("\nIngrese cuantos items de este tipo desea comprar (si desea comprar solo 1, presione enter): ");
 
-                            if (cantidad == -1){
-
-                                tienda->comprarCelular(celular, nombre, apellido, cedula);
+                             if (cantidad == -1){
+                                tienda->comprarCelular(p,ce);
                             }else{
-                                tienda->comprarCelular(celular, nombre, apellido, cantidad, cedula);
+                                tienda->comprarCelular(p,ce,cantidad);
                             }
 
                         } else{

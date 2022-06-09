@@ -75,10 +75,6 @@
             }
         }
 
-        if(presupuesto->obtenerPrimero() == nullptr){
-            cout << "No se encontro el criterio" <<endl;
-        }
-
         //cout<<"Llegue al final"<<endl;
         return presupuesto;
     } //Devolver los celulares menores o iguales que el presupuesto
@@ -117,11 +113,6 @@
             cont++;
         }
         
-        
-        if(presupuesto == nullptr){
-            cout << "No se encontro el criterio" <<endl;
-        }
-
         return presupuesto;
     } //Devolver celulares mayores o iguales que el presupuesto
 

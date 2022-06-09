@@ -36,7 +36,7 @@ using namespace std;
             //!verifico si mi presupuesto es mayor que 0
             if(disminuirPresupuesto()){
                 //cout<< "2 if" <<endl;
-                cout<< this->presupuesto - celu->getPrecio() <<endl;
+                //cout<< this->presupuesto - celu->getPrecio() <<endl;
                 if(this->presupuesto - celu->getPrecio() > 0){
                     //cout<< "3 if" <<endl;
                     if(celu->disminuirStock()){
