@@ -14,6 +14,7 @@
 #include "6Marquesina.h"
 #include <cstdlib>
 #include <conio.h>
+#include <stdlib.h>
 
 #include <iostream>
 #define USER "admin"
@@ -312,8 +313,7 @@ int main(int argc, char **argv) {
                         char* apellido = new char[50];
                         apellido[0] = '\0';
                         double presupuesto;
-                        unsigned long cedula;
-
+                        int cedula=0;
                         nombre = i->funcionLetras("\n   Ingrese el nombre de la persona: ");
 
                             if(nombre[0] != '\0'){
@@ -325,14 +325,14 @@ int main(int argc, char **argv) {
 
                                     if(presupuesto!= -1){
 
-                                        cedula = l->funcionPrincipalLong("\n Ingrese la cedula de la persona: ");
+                                        cedula = l->funcionPrincipalEnteros("\n Ingrese la cedula de la persona: ");
 
-                                        if(cedula!= -1){
+                                        if(cedula != -1){
 
                                             if(tienda->presupuestoCorrecto(presupuesto)){
 
                                                 if(tienda->cedulaCorrecta(cedula)){
-
+                         
                                                     Persona *nueva = new Persona(nombre, apellido, presupuesto, cedula);  
                                                     //cout<< cedula <<endl;
                                                     tienda->agregarPersonaTienda(nueva);
