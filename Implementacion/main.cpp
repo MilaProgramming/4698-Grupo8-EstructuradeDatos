@@ -12,6 +12,7 @@
 #include "3Stock.cpp"
 #include "5IngresoDatos.h"
 #include "6Marquesina.h"
+#include "Imagen.cpp"
 #include <cstdlib>
 #include <conio.h>
 #include <stdlib.h>
