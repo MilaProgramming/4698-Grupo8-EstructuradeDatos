@@ -63,7 +63,7 @@ class Tienda{
         void establecerCorreos();
 
         //Validaciones
-        bool cedulaCorrecta(int);
+        bool cedulaCorrecta(unsigned long);
         bool stockCorrecto(int);
         bool presupuestoCorrecto(double);
 

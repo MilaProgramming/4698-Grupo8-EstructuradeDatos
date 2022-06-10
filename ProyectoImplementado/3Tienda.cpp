@@ -638,7 +638,7 @@
 
     }
 
-    bool Tienda::cedulaCorrecta(int c){
+    bool Tienda::cedulaCorrecta(unsigned long c){
         string ced = to_string(c);
         int t = ced.length();
 
@@ -711,6 +711,7 @@
             if(presupuestoCorrecto(presupuesto) && cedulaCorrecta(cedula)){
                 Persona *p = new Persona(nom, apellido, presupuesto, cedula);
                 agregarPersonaSinString(p);
+                verf=1;
             }else{
                 cout<< "En la fila " << cont << " se tiene un presupuesto o cedula invalida"<<endl;
             }

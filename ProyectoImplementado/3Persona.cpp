@@ -6,7 +6,7 @@
 #include <cmath>
 using namespace std;
 
-    Persona::Persona(string n, string m, double p, long c){
+    Persona::Persona(string n, string m, double p, unsigned long c){
         this->nombre = n;
         this ->apellido = m;
         this->presupuesto = p;

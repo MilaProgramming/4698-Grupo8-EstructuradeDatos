@@ -9,7 +9,7 @@ template <typename T, typename N>
     class IngresoDatos{
         private:
 
-            char* dato; //Arreglo donde guardare la insercion de mis numeros
+            char* dato = new char[500]; //Arreglo donde guardare la insercion de mis numeros
             Conversion<T,N> conversion; //Instancia de conversion para determinar y transformar enteros y flotantes
             void imprimirMensaje(string str){
                 cout<< str <<endl;
@@ -471,7 +471,7 @@ template <typename T, typename N>
               
             } 
 
-            unsigned long funcionPrincipalLong(){
+            unsigned long long funcionPrincipalLong(){
 
                 char *aux = leerSoloLong();
                 if(aux[0] != '\0'){
@@ -482,7 +482,7 @@ template <typename T, typename N>
                 }
             }
 
-            unsigned long funcionPrincipalLong(string mensaje){
+            unsigned long long funcionPrincipalLong(string mensaje){
 
                 char *aux = leerSoloLong(mensaje);
 

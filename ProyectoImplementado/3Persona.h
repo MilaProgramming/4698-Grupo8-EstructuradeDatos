@@ -18,7 +18,7 @@ class Persona: public ToString{
 
     public:
 
-        Persona(string, string, double, long);
+        Persona(string, string, double, unsigned long);
         Persona(string, string, long);
         Persona(void);
         ~Persona();

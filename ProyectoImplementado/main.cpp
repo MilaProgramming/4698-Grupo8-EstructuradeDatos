@@ -3,7 +3,7 @@
 
 #define NOMINMAX 1
 
-
+#include <conio.h>
 #include <iostream>
 #include <limits>
 #include "4Menu.cpp"
@@ -12,8 +12,12 @@
 #include "3Stock.cpp"
 #include "5IngresoDatos.h"
 #include "6Marquesina.h"
+//#include "8Imagen.h"
 #include <cstdlib>
 #include <conio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <windows.h>
 
 #include <iostream>
 #define USER "admin"
@@ -297,7 +301,7 @@ int main(int argc, char **argv) {
                 menuUsuarios.add_option(MenuOption("    - Agregar Usuario", [&](MenuOptionArguments args) {   
                     
                         system("CLS");
-                    Menu menuInterno(" Eliminado");
+                    Menu menuInterno(" Agregado");
 
                     
                     menuInterno.add_option(MenuOption("     + Por teclado", [&](MenuOptionArguments args) {
@@ -312,8 +316,7 @@ int main(int argc, char **argv) {
                         char* apellido = new char[50];
                         apellido[0] = '\0';
                         double presupuesto;
-                        unsigned long cedula;
-
+                        unsigned long cedula = 0;
                         nombre = i->funcionLetras("\n   Ingrese el nombre de la persona: ");
 
                             if(nombre[0] != '\0'){
@@ -325,14 +328,14 @@ int main(int argc, char **argv) {
 
                                     if(presupuesto!= -1){
 
-                                        cedula = l->funcionPrincipalLong("\n Ingrese la cedula de la persona: ");
+                                        cedula = l->funcionPrincipalEnteros("\n Ingrese la cedula de la persona: ");
 
-                                        if(cedula!= -1){
+                                        if(cedula != -1){
 
                                             if(tienda->presupuestoCorrecto(presupuesto)){
 
                                                 if(tienda->cedulaCorrecta(cedula)){
-
+                         
                                                     Persona *nueva = new Persona(nombre, apellido, presupuesto, cedula);  
                                                     //cout<< cedula <<endl;
                                                     tienda->agregarPersonaTienda(nueva);
@@ -877,12 +880,6 @@ int main(int argc, char **argv) {
                     menuInterno1.stop();
                 }, false));
 
-                menuInterno1.add_option(MenuOption(".pdf", [&](MenuOptionArguments args) {
-                    //!IMPLEMENTAR PDF
-                    menuInterno1.stop();
-                }, false));
-
-
                 menuInterno1.display();
 
             }));
@@ -895,8 +892,19 @@ int main(int argc, char **argv) {
 
         }));
 
-        menu.add_option(MenuOption("    -> Ver imagen", [&](MenuOptionArguments args) {
+        /*menu.add_option(MenuOption("    -> Ver imagen", [&](MenuOptionArguments args) {
             //!IMPLEMENTAR
+            	initwindow(700, 600, "Grupo 2", 300, 300);
+			//setviewport(0,0,800,200,1);
+			setbkcolor(COLOR(170,223,101));
+			clearviewport();
+			readimagefile("Grupo2.jpg",100, 20, 600, 580);
+			getch();
+			return 0;
+        }));*/
+
+        menu.add_option(MenuOption("    -> Ayuda", [&](MenuOptionArguments args) {
+            system("ProyectoCelulares.chm");
         }));
 
         //!Funcion salida del menu
@@ -922,9 +930,9 @@ int main(int argc, char **argv) {
 
 Tienda* datosDefecto(){
 
-    Persona *p1 = new Persona("Matias", "Manzin", 100,  1111111111);
-    Persona *p2 = new Persona("Lionel", "Messi", 5000, 2222222222);
-    Persona *p3 = new Persona("Edward", "Tech", 1500, 3333333333);
+    Persona *p1 = new Persona("Matias", "Manzin", 100,  1729010995);
+    Persona *p2 = new Persona("Lionel", "Messi", 5000, 1722311071);
+    Persona *p3 = new Persona("Edward", "Tech", 1500, 1867282736);
 
     Celular *c1 = new Celular("Alcatel", 40, 100);
     Celular *c2 = new Celular("Samsung", 1000, 30);

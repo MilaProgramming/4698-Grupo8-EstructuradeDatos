@@ -1,3 +1,17 @@
+/*ESPE
+*Enunciado del problema:
+*   Realizar el codigo de la catedra en clases (POO)
+*Autor 
+* Camila Rivera
+* Christian Román
+*Fecha de creacion
+*   10-06-2022
+*Fecha de modificacion
+*   10 - 06 -2022
+*Grupo #2
+*Github del grupo:
+* https://github.com/Grupo8-4698-EstructuraDeDatos/4698-Grupo8-EstructuradeDatos
+*/
 #pragma once
 #include <string>
 #include <functional>
@@ -21,7 +35,15 @@ class MenuOptionArgument : public MenuOptionArgumentBase {
 public:
     typedef T Type;
     explicit MenuOptionArgument(const Type& value);
+    /**
+    * @return get_value
+    */
     Type get_value();
+
+    /**
+    * @param value
+    * @return set_value
+    */
     void set_value(Type value);
 private:
     Type value;
@@ -31,6 +53,9 @@ template <typename T>
 MenuOptionArgument<T>::MenuOptionArgument(const T& value): value(value) {}
 
 template <typename T>
+/**
+ * @return get_value
+ */
 T MenuOptionArgument<T>::get_value() {
     return value;
 }
@@ -53,9 +78,17 @@ public:
     void add(std::string key, T value);
 
     template <typename T>
+    /**
+    * @return get_value
+    */
     T get(std::string key);
 
     template <typename T>
+
+    /**
+    * @param value
+    * @return set_value
+    */
     void set(std::string key, T value);
 
     bool has(std::string key);
@@ -79,12 +112,20 @@ void MenuOptionArguments::add(std::string key, T value) {
 }
 
 template <typename T>
+/**
+* @return get_value
+*/
 T MenuOptionArguments::get(std::string key) {
     auto arg = dynamic_cast<MenuOptionArgument<T>&>(*((*arguments)[key]));
     return arg.get_value();
 }
 
 template <typename T>
+
+/**
+ * @param value
+ * @return set_value
+ */
 void MenuOptionArguments::set(std::string key, T value) {
     auto arg = dynamic_cast<MenuOptionArgument<T>&>(*((*arguments)[key]));
     arg.set_value(value);

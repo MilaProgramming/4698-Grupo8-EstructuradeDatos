@@ -9,11 +9,18 @@ Menu::Menu(std::string title) {
     this->title = title;
     console = GetStdHandle(STD_OUTPUT_HANDLE);
 }
-
+/**
+ * @param key
+ * @param argument
+ */
 void Menu::add_option(MenuOption option) {
     options.push_back(option);
 }
-
+    
+/**
+ * @param key
+ * @param value
+ */
 void Menu::remove_option(long long unsigned int index) {
     if (index < 0 || index > options.size()) {
         return;
@@ -23,7 +30,9 @@ void Menu::remove_option(long long unsigned int index) {
     std::advance(it, index);
     options.erase(it);
 }
-
+/**
+ * @param key
+ */
 void Menu::display() {
     long long unsigned int selected = 1;
 
@@ -109,11 +118,16 @@ void Menu::display() {
         }
     }
 }
-
+/**
+ * @param key
+ * @param value
+ */
 void Menu::stop() {
     running = false;
 }
-
+/**
+ * @param key
+ */
 bool Menu::is_running() {
     return running;
 }
