@@ -231,7 +231,6 @@
 
         while(indice < lista->obtenerLongitud()){
             if (*(it -> getValor()) == *c){
-                it->getValor()->aumentarCantidad(1);
                 indice = lista->obtenerLongitud();
             }
             indice++;

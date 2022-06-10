@@ -243,6 +243,10 @@ using namespace std;
         this->cedula = c;
     }
 
+    int* Persona::getCantidad(){
+        return this->cantidad;
+    }
+
     void Persona::verComprados(){
 
         if (comprados->estaVacio()) cout<< " ningun celular todavia"<<endl;

@@ -44,43 +44,77 @@ int main(int argc, char **argv) {
             //!Funciona
             menuStock.add_option(MenuOption("   - Agregar a Stock", [&](MenuOptionArguments args){
 
-                IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
-                IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
-                IngresoDatos<int, float> *k = new IngresoDatos<int, float>();
 
-                char* marca = new char[50];
-                marca[0] = '\0';
-                double precio;
-                int stock;
+                system("CLS");
+                Menu menuInterno(" Agregado");
 
-                marca = i->funcionMixta("\n Ingrese la marca del celular: ");
+                
+                menuInterno.add_option(MenuOption("     + Por teclado", [&](MenuOptionArguments args) {
 
-                    if(marca[0] != '\0'){
+                    IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                    IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
+                    IngresoDatos<int, float> *k = new IngresoDatos<int, float>();
 
-                        precio = j->funcionPrincipalFlotantes("\n   Ingrese el precio del celular: ");
+                    char* marca = new char[50];
+                    marca[0] = '\0';
+                    double precio;
+                    int stock;
 
-                        if(precio!= -1){
+                    marca = i->funcionMixta("\n Ingrese la marca del celular: ");
 
-                            stock = k->funcionPrincipalEnteros("\n  Ingrese la cantidad de ejemplares de este celular que existen: ");    
-                            
-                            if(stock != -1){
+                        if(marca[0] != '\0'){
 
-                                if(tienda->stockCorrecto(stock)){
-                                Celular *nuevo = new Celular(marca, precio, stock);
+                            precio = j->funcionPrincipalFlotantes("\n   Ingrese el precio del celular: ");
 
-                                tienda->agregarCelularTienda(nuevo);
-                                }else{
-                                    cout << "\n\n ~~~ El stock no puede ser 0 ~~~" <<endl;
+                            if(precio!= -1){
+
+                                stock = k->funcionPrincipalEnteros("\n  Ingrese la cantidad de ejemplares de este celular que existen: ");    
+                                
+                                if(stock != -1){
+
+                                    if(tienda->stockCorrecto(stock)){
+                                    Celular *nuevo = new Celular(marca, precio, stock);
+
+                                    tienda->agregarCelularTienda(nuevo);
+                                    }else{
+                                        cout << "\n\n ~~~ El stock no puede ser 0 ~~~" <<endl;
+                                    }
                                 }
                             }
+
+                        }else{
+
+                            cout<<"\n~~ Datos vacios ~~\n"<<endl;
                         }
 
-                    }else{
+                    delete [] marca;
+                }));
 
+                menuInterno.add_option(MenuOption("     + Por archivo", [&](MenuOptionArguments args) {
+
+                    IngresoDatos<int, float> *d = new IngresoDatos<int, float>();
+                    char* nombre = new char[50];
+                    nombre[0] = '\0';
+
+                    nombre = d->funcionMixta("\n Ingrese el nombre con extension, o arrastre el archivo que desea leer \n");
+
+                    if(nombre[0] != '\0'){
+
+                        tienda->importarCelulares(nombre);
+
+                    }else{
                         cout<<"\n~~ Datos vacios ~~\n"<<endl;
                     }
 
-                delete [] marca;
+                }));
+                
+
+                menuInterno.add_option(MenuOption("\n   + Regresar a menu principal", [&](MenuOptionArguments args) {
+                    menuInterno.stop();
+                }, false));
+
+                menuInterno.display();
+
             }));
 
             //!Funciona
@@ -206,60 +240,93 @@ int main(int argc, char **argv) {
             //!Funciona
             menuUsuarios.add_option(MenuOption("    - Agregar Usuario", [&](MenuOptionArguments args) {   
                 
-                IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
-                IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
-                IngresoDatos<int, float> *k = new IngresoDatos<int, float>();
-                IngresoDatos<int, float> *l = new IngresoDatos<int, float>();
+                 system("CLS");
+                Menu menuInterno(" Eliminado");
 
-                char* nombre = new char[50];
-                nombre[0] = '\0';
-                char* apellido = new char[50];
-                apellido[0] = '\0';
-                double presupuesto;
-                long cedula;
+                
+                menuInterno.add_option(MenuOption("     + Por teclado", [&](MenuOptionArguments args) {
 
-                nombre = i->funcionLetras("\n   Ingrese el nombre de la persona: ");
+                    IngresoDatos<int, float> *i = new IngresoDatos<int, float>();
+                    IngresoDatos<int, float> *j = new IngresoDatos<int, float>();
+                    IngresoDatos<int, float> *k = new IngresoDatos<int, float>();
+                    IngresoDatos<int, float> *l = new IngresoDatos<int, float>();
 
-                    if(nombre[0] != '\0'){
-                        apellido = j->funcionLetras("\n Ingrese el apellido de la persona: ");
+                    char* nombre = new char[50];
+                    nombre[0] = '\0';
+                    char* apellido = new char[50];
+                    apellido[0] = '\0';
+                    double presupuesto;
+                    long cedula;
 
-                        if(apellido[0] != '\0'){
+                    nombre = i->funcionLetras("\n   Ingrese el nombre de la persona: ");
 
-                            presupuesto = k->funcionPrincipalFlotantes("\n  Ingrese el presupuesto de la persona: ");
+                        if(nombre[0] != '\0'){
+                            apellido = j->funcionLetras("\n Ingrese el apellido de la persona: ");
 
-                            if(presupuesto!= -1){
+                            if(apellido[0] != '\0'){
 
-                                cedula = l->funcionPrincipalLong("\n Ingrese la cedula de la persona: ");
+                                presupuesto = k->funcionPrincipalFlotantes("\n  Ingrese el presupuesto de la persona: ");
 
-                                if(cedula!= -1){
+                                if(presupuesto!= -1){
 
-                                    if(tienda->presupuestoCorrecto(presupuesto)){
+                                    cedula = l->funcionPrincipalLong("\n Ingrese la cedula de la persona: ");
 
-                                        if(tienda->cedulaCorrecta(cedula)){
+                                    if(cedula!= -1){
 
-                                            Persona *nueva = new Persona(nombre, apellido, presupuesto, cedula);  
-                                            tienda->agregarPersonaTienda(nueva);
+                                        if(tienda->presupuestoCorrecto(presupuesto)){
+
+                                            if(tienda->cedulaCorrecta(cedula)){
+
+                                                Persona *nueva = new Persona(nombre, apellido, presupuesto, cedula);  
+                                                tienda->agregarPersonaTienda(nueva);
+                                            }else{
+                                                cout<<"\n~~ La cedula es incorrecta. Recuerde que son 10 digitos ~~\n"<<endl;
+                                            }
+
                                         }else{
-                                            cout<<"\n~~ La cedula es incorrecta. Recuerde que son 10 digitos ~~\n"<<endl;
+                                            cout<<"\n~~ La persona posee un presupuesto demasiado bajo ~~\n"<<endl;
                                         }
-
-                                    }else{
-                                        cout<<"\n~~ La persona posee un presupuesto demasiado bajo ~~\n"<<endl;
                                     }
+
                                 }
 
+                            }else{
+                                cout<<"\n~~ Datos vacios ~~\n"<<endl;
                             }
-
                         }else{
+
                             cout<<"\n~~ Datos vacios ~~\n"<<endl;
                         }
-                    }else{
 
+                    delete [] nombre;
+                    delete [] apellido;
+                }));
+
+                menuInterno.add_option(MenuOption("     + Por archivo", [&](MenuOptionArguments args) {
+
+                    IngresoDatos<int, float> *d = new IngresoDatos<int, float>();
+                    char* nombre = new char[50];
+                    nombre[0] = '\0';
+
+                    nombre = d->funcionMixta("\n Ingrese el nombre con extension, o arrastre el archivo que desea leer \n");
+
+                    if(nombre[0] != '\0'){
+
+                        tienda->importarPersonas(nombre);
+
+                    }else{
                         cout<<"\n~~ Datos vacios ~~\n"<<endl;
                     }
 
-                delete [] nombre;
-                delete [] apellido;
+                }));
+                
+
+                menuInterno.add_option(MenuOption("\n   + Regresar a menu principal", [&](MenuOptionArguments args) {
+                    menuInterno.stop();
+                }, false));
+
+                menuInterno.display();
+                
 
             }));
             
@@ -676,6 +743,100 @@ int main(int argc, char **argv) {
         tienda->getStock()->informeCompraCelulares();
     }));
 
+    menu.add_option(MenuOption("    -> Exportar datos", [&](MenuOptionArguments args) {
+        
+        system("CLS");
+        Menu menuInterno(" Exportado");
+
+        
+        menuInterno.add_option(MenuOption(" + Exportar celulares", [&](MenuOptionArguments args) {
+
+            system("CLS");
+            Menu menuInterno1(" ~~~ Elija el formato del archivo a exportar ~~~");
+
+            
+            menuInterno1.add_option(MenuOption(".txt", [&](MenuOptionArguments args) {
+                tienda->exportarCelulares(".txt");
+                menuInterno1.stop();
+            }, false));
+
+            menuInterno1.add_option(MenuOption(".csv", [&](MenuOptionArguments args) {
+                tienda->exportarCelulares(".csv");
+                menuInterno1.stop();
+            }, false));
+
+            menuInterno1.add_option(MenuOption(".dat", [&](MenuOptionArguments args) {
+                tienda->exportarCelulares(".dat");
+                menuInterno1.stop();
+            }, false));
+
+            menuInterno1.display();
+
+        }));
+        
+        menuInterno.add_option(MenuOption(" + Exportar Persona", [&](MenuOptionArguments args) {
+
+            system("CLS");
+            Menu menuInterno1(" ~~~ Elija el formato del archivo a exportar ~~~");
+
+            
+            menuInterno1.add_option(MenuOption(".txt", [&](MenuOptionArguments args) {
+                tienda->exportarPersonas(".txt");
+                menuInterno1.stop();
+            }, false));
+
+            menuInterno1.add_option(MenuOption(".csv", [&](MenuOptionArguments args) {
+                tienda->exportarPersonas(".csv");
+                menuInterno1.stop();
+            }, false));
+
+            menuInterno1.add_option(MenuOption(".dat", [&](MenuOptionArguments args) {
+                tienda->exportarPersonas(".dat");
+                menuInterno1.stop();
+            }, false));
+
+            menuInterno1.display();
+
+        }));
+
+        menuInterno.add_option(MenuOption(" + Informe de compra", [&](MenuOptionArguments args) {
+
+            system("CLS");
+            Menu menuInterno1(" ~~~ Elija el formato del archivo a exportar ~~~");
+
+            
+            menuInterno1.add_option(MenuOption(".txt", [&](MenuOptionArguments args) {
+                tienda->exportarInforme(".txt");
+                menuInterno1.stop();
+            }, false));
+
+            menuInterno1.add_option(MenuOption(".csv", [&](MenuOptionArguments args) {
+                tienda->exportarInforme(".csv");
+                menuInterno1.stop();
+            }, false));
+
+            menuInterno1.add_option(MenuOption(".dat", [&](MenuOptionArguments args) {
+                tienda->exportarInforme(".dat");
+                menuInterno1.stop();
+            }, false));
+
+            menuInterno1.add_option(MenuOption(".pdf", [&](MenuOptionArguments args) {
+                //!IMPLEMENTAR PDF
+                menuInterno1.stop();
+            }, false));
+
+
+            menuInterno1.display();
+
+        }));
+
+        menuInterno.add_option(MenuOption("\n Regresar a menu principal", [&](MenuOptionArguments args) {
+            menuInterno.stop();
+        }, false));
+
+        menuInterno.display();
+
+    }));
 
     //!Funcion salida del menu
     menu.add_option(MenuOption("    -> Salir", [&](MenuOptionArguments args) {

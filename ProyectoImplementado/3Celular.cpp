@@ -34,19 +34,11 @@ using namespace std;
         return stock;
     }
 
-    int Celular ::getCantidad(){
-        return this->cantidad;
-    }
+
 
     //Sets
 
-    void Celular ::setCantidad(int c){
-        this->cantidad = c;
-    }
 
-    void Celular ::aumentarCantidad(int c){
-        this->cantidad += c;
-    }
 
     void Celular ::aumentarStock(int c){
         this->stock += c;

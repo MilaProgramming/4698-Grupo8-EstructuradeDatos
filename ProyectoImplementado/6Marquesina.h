@@ -71,7 +71,7 @@ using namespace std;
                 do{
                     system("cls");
                     imprimirLista(it);
-                    Sleep(50);
+                    Sleep(5);
                     it = it->getSiguiente();
                    
                 }while(true);

@@ -3,6 +3,9 @@
 #include "3Celular.cpp"
 #include "3Persona.cpp"
 #include "3Stock.cpp"
+#include <fstream>
+#include <string>
+
 
 class Tienda{
 
@@ -35,11 +38,14 @@ class Tienda{
         //Funciones para el menu
 
         void agregarCelularTienda(Celular*);
+        void agregarCelularTiendaSinString(Celular*);
+
         void eliminarCelularTienda(Celular*);
         void buscarPorNombreCelular(string);
         void buscarPorPrecioCelular(double);
 
         void agregarPersonaTienda(Persona*);
+        void agregarPersonaSinString(Persona*);
         void eliminarPersonaTienda(Persona*);
         void buscarPorNombrePersona(string, string);
         void buscarPorPresupuestoPersona(double);
@@ -60,6 +66,16 @@ class Tienda{
         bool cedulaCorrecta(int);
         bool stockCorrecto(int);
         bool presupuestoCorrecto(double);
+
+        //Leer txts
+        void importarCelulares(string);
+        void importarPersonas(string);
+
+        void exportarCelulares(string);
+        void exportarPersonas(string);
+        void exportarInforme(string);
+
+
 
     
 };

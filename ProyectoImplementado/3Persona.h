@@ -6,6 +6,7 @@
 using namespace std;
 
 class Persona: public ToString{
+
     private:
         string nombre;
         string apellido;
@@ -19,7 +20,7 @@ class Persona: public ToString{
 
         Persona(string, string, double, long);
         Persona(string, string, long);
-        Persona();
+        Persona(void);
         ~Persona();
 
         void comprarCelular(Celular*); //Comprar un celular a su nombre
@@ -38,6 +39,7 @@ class Persona: public ToString{
         void setCedula(unsigned long);
         void setCorreo(string);
         bool tieneCorreo();
+        int* getCantidad();
 
         //Operadores
         bool operator ==(Persona&);

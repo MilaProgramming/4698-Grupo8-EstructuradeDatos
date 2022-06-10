@@ -3,6 +3,7 @@
 #include "3Celular.cpp"
 #include "1NodoDC.h"
 
+
     //Constructor y destructor
     Tienda::Tienda(){
 
@@ -296,6 +297,24 @@
 
     }
 
+    void  Tienda::agregarCelularTiendaSinString(Celular* nuevo){
+
+        if(stock->compararCelulares(nuevo)){
+
+            cout<< "\n \n \n";
+            stock->agregarStockRepetido(nuevo, nuevo->getStock());
+
+            //cout << "\n~~~ El celular que desea agregar ya existe. Se ha aumentado el stock ~~~" <<endl;
+
+        }else{
+
+            cout<< "\n \n \n";
+            stock->getCelulares()->insertarFinal(nuevo);
+            //cout << "\n~~~ El celular se ha agregado con exito ~~~\n" <<endl;
+        }
+
+    }
+
     void Tienda::eliminarCelularTienda(Celular* c){
 
         if(stock->eliminarCelular(c)){
@@ -450,6 +469,22 @@
             establecerCorreos();
             stock->verPersonas();
             cout << "\n\n~~~ La persona ha agregado con exito ~~~\n" <<endl;
+        }
+    }
+
+    void Tienda::agregarPersonaSinString(Persona* p){
+        
+        if(stock->compararPersona(p)){
+
+            //cout << "\n~~~ La persona que desea registrar ya se encuentra en la Lista ~~~" <<endl;
+
+        }else{
+
+            cout<< "\n \n \n";
+            stock->getPersonas()->insertarFinal(p);
+            establecerCorreos();
+            //stock->verPersonas();
+            //cout << "\n\n~~~ La persona ha agregado con exito ~~~\n" <<endl;
         }
     }
 
@@ -620,4 +655,169 @@
 
     bool Tienda::presupuestoCorrecto(double p){
         return (p > stock->menorPrecioCelular());
+    }
+
+    void Tienda::importarCelulares(string nombre){
+
+        ifstream file(nombre);
+    
+        string marca;
+        double precio;
+        int stock;
+
+        int cont = 1;
+        int verf = 0;
+
+        while(file >> marca >> precio >> stock){
+            
+            //cout<< "Entre al while" <<endl;
+            //cout<< marca << " " << precio << " " << stock <<endl;
+
+            if(stockCorrecto(stock)){
+                Celular* c = new Celular(marca,precio,stock);
+                //cout<< c->toString()<<endl;
+                agregarCelularTiendaSinString(c);
+                verf = 1;
+            }else{
+                cout<< "En la fila " << cont << " se tiene un stock vacio. No se agrega el objeto"<<endl;
+            }
+
+            cont++;
+        }
+
+        //cout<< verf;
+        if(verf == 1){
+            cout << "\n~~ Se leyo y se agrego a los celulares con exito ~~"<<endl;
+        }else{
+            cout<< "\n~~ No se encontro el archivo ~~\n";
+        }
+       
+        file.close();
+    }
+
+    void Tienda::importarPersonas(string nombre){
+
+        ifstream file(nombre);
+    
+        string nom;
+        string apellido;
+        double presupuesto;
+        unsigned long cedula;
+
+        int cont = 1;
+        int verf = 0;
+        
+        while(file >> nom >> apellido >> presupuesto >> cedula){
+            if(presupuestoCorrecto(presupuesto) && cedulaCorrecta(cedula)){
+                Persona *p = new Persona(nom, apellido, presupuesto, cedula);
+                agregarPersonaSinString(p);
+            }else{
+                cout<< "En la fila " << cont << " se tiene un presupuesto o cedula invalida"<<endl;
+            }
+        }
+
+        if(verf == 1){
+            cout << "\n~~ Se leyo y se agrego a los celulares con exito ~~"<<endl;
+        }else{
+            cout<< "\n~~ No se encontro el archivo ~~\n";
+        }
+
+        file.close();
+    }
+
+
+    void Tienda::exportarCelulares(string m){
+
+        string nom = "Celulares" + m;
+        ofstream file(nom, ios::app);
+        
+ 
+        NodoDC<Celular*> *it = this->getStock()->getCelulares()->obtenerPrimero();
+        int cont = 0;
+        
+        if(!(this->getStock()->getCelulares()->estaVacio())){
+
+            while(cont < this->getStock()->getCelulares()->obtenerLongitud()){
+
+                file << it->getValor()->getMarca() << ' ' << it->getValor()->getPrecio() << ' ' << it->getValor()->getStock() <<endl;
+                it = it ->getSiguiente();
+                cont++;
+            }
+
+            cout<< "Creado con exito" <<endl;
+
+        }else{
+            cout<< "\n Lista vacia"<<endl;
+        }    
+  
+        file.close();
+
+    }
+
+    void Tienda::exportarPersonas(string m){
+
+        string nom = "Personas" + m;
+        ofstream file(nom, ios::app);
+        
+ 
+        NodoDC<Persona*> *it = this->getStock()->getPersonas()->obtenerPrimero();
+        int cont = 0;
+        
+        if(!(this->getStock()->getPersonas()->estaVacio())){
+
+            while(cont < this->getStock()->getPersonas()->obtenerLongitud()){
+
+                file << it->getValor()->getNombre() << ' ' << it->getValor()->getApellido() << ' ' << it->getValor()->getPresupuesto() << ' ' << it->getValor()->getCedula()<<endl;
+                it = it ->getSiguiente();
+                cont++;
+            }
+
+            cout<< "Creado con exito" <<endl;
+
+        }else{
+            cout<< "\n Lista vacia"<<endl;
+        }    
+  
+        file.close();
+    }
+
+    void Tienda::exportarInforme(string m){
+        string nom = "Informe" + m;
+        ofstream file(nom, ios::app);
+
+        int indice = 0;
+        NodoDC<Persona*> *it = this->getStock()->getPersonas()->obtenerPrimero();
+
+        if(!(this->getStock()->getPersonas()->estaVacio())){
+            while(indice < this->getStock()->getPersonas()->obtenerLongitud()){
+
+                file << (it->getValor())->getNombre() << ", de presupuesto actual " << (it->getValor())->getPresupuesto() << ", y de cedula " << to_string(it->getValor()->getCedula()) << " ha comprado " <<endl;
+                
+                if (it->getValor()->getComprados()->estaVacio()) file<< " ningun celular todavia"<<endl;
+                else{
+                    
+                    NodoDC<Celular*> *nimpreso = it->getValor()->getComprados()->obtenerPrimero();
+                    int cont = 0;
+
+                    while(cont < it->getValor()->getComprados()->obtenerLongitud()){
+
+                        file << "Marca = " <<  nimpreso->getValor()->getMarca() + "\nPrecio = " + to_string(nimpreso->getValor()->getPrecio()) << " con ";
+
+
+                        file<< it->getValor()->getCantidad()[cont] << " items de este tipo\n" <<endl;
+
+                        nimpreso = nimpreso->getSiguiente();
+                        cont++;
+                    }
+
+                }
+
+                it = it->getSiguiente();
+                indice++;
+            }
+
+                cout<< "Creado con exito" <<endl;
+        }else{
+        cout<< "\n Lista vacia"<<endl;
+        } 
     }
