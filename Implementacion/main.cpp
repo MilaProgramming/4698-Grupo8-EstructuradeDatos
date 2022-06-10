@@ -894,6 +894,10 @@ int main(int argc, char **argv) {
 
         }));
 
+        menu.add_option(MenuOption("    -> Ver imagen", [&](MenuOptionArguments args) {
+            //!IMPLEMENTAR
+        }));
+
         //!Funcion salida del menu
         menu.add_option(MenuOption("    -> Salir", [&](MenuOptionArguments args) {
             
