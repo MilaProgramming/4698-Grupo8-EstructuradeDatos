@@ -36,23 +36,15 @@ template <typename T>
             NodoDC<T> *ultimo = nullptr;
             int longitud;
 
-            /**
-             * @param indice
-             * @return indiceOFL
-             */
             bool indiceOFL(int indice){
                 return indice >= longitud  || indice < 0;
             }
 
         public:
-   
-            /**
-             * @return bool
-             */
-            bool estaVacio ListaDobleC::estaVacio() {
+
+            bool estaVacio(){
                 return primero == nullptr;
             }
-
             ListaDobleC(){
                 longitud = 0;
             }
@@ -62,10 +54,6 @@ template <typename T>
                 free(ultimo);
             }
 
-            /**
-             * @param v
-             * @return insertarInicio
-             */
             void insertarInicio(T v){
 
                     if(longitud == 0){
@@ -89,10 +77,6 @@ template <typename T>
                 
             }
 
-            /**
-             * @param v
-             * @return insertarFinal
-             */            
             void insertarFinal(T v){
 
                
@@ -116,11 +100,6 @@ template <typename T>
                     }              
             }
 
-            /**
-             * @param v
-             * @param indice
-             * @return insertar
-             */
             void insertar(T v, int indice){
 
                 if(indiceOFL(indice)){
@@ -154,10 +133,6 @@ template <typename T>
                 }
             }
 
-            /**
-             * @param v
-             * @return insertar
-             */
             void insertar(T v){
                 if(longitud == 0){
                     NodoDC<T> *nuevo = new NodoDC<T>(v);
@@ -166,11 +141,6 @@ template <typename T>
                 }else cout<<"Cuidado. Su lista ya posee nodos" <<endl;
             }
 
-
-
-            /**
-             * @return eliminarInicio
-             */
             void eliminarInicio(){
 
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que borrar"<<endl;
@@ -188,11 +158,7 @@ template <typename T>
                     longitud--;
                 }
             }
-            
 
-            /**
-             * @return eliminarFinal
-             */
             void eliminarFinal(){
 
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que borrar"<<endl;
@@ -209,10 +175,6 @@ template <typename T>
                 }
             }
 
-            /**
-             * @param indice
-             * @return eliminar
-             */
             void  eliminar(int indice){
 
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que borrar"<<endl;
@@ -255,9 +217,6 @@ template <typename T>
                 }
             }
 
-            /**
-             * @return imprimirInicio
-             */
             void imprimirInicio(){
 
                 if (estaVacio()){ 
@@ -280,10 +239,6 @@ template <typename T>
                 }
             }
 
-
-            /**
-             * @return imprimirFinal
-             */
             void imprimirFinal(){
 
                 if (estaVacio()) cout<< "Lista vacia. No existe nada imprimir"<<endl;
@@ -304,10 +259,6 @@ template <typename T>
                 }
             }
 
-
-            /**
-             * @return imprimirObjetoInicio
-             */
             void imprimirObjetoInicio(){
                 if (estaVacio()){ 
                     cout<< "Lista vacia. No existe nada imprimir"<<endl;
@@ -328,10 +279,6 @@ template <typename T>
                 }
             }
 
-
-            /**
-             * @return imprimirObjetoFinal
-             */
             void imprimirObjetoFinal(){
 
                 if (estaVacio()) cout<< "Lista vacia. No existe nada imprimir"<<endl;
@@ -350,10 +297,6 @@ template <typename T>
                 }
             }
 
-            /**
-             * @param indice
-             * @return obtenerValorIndice
-             */
             T obtenerValorIndice(int indice){
                 if (estaVacio()){
                 cout<< "Lista vacia. No existe nada que buscar"<<endl;
@@ -378,12 +321,6 @@ template <typename T>
                 }
             }
 
-
-            /**
-             * @param indice
-             * @param v
-             * @return setValorIndice
-             */
             void setValorIndice(int indice, T v){
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que buscar"<<endl;
                 else{
@@ -405,11 +342,7 @@ template <typename T>
                 }
             }
 
-            /**
-             * @param indice
-             * @param v
-             * @return setValorIndice
-             */
+            
             int buscar(T buscado){
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que buscar"<<endl;
                 else{
@@ -424,12 +357,7 @@ template <typename T>
                 }
                 return -1;
             }
-
-            /**
-             * @param indice
-             * @param v
-             * @return setValorIndice
-             */
+           
             void imprimirBuscar(T buscado){
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que buscar"<<endl;
                 else{
@@ -444,9 +372,6 @@ template <typename T>
 
          
 
-            /**
-             * @return revertir
-             */
             void revertir(){
                 if (estaVacio()) cout<< "Lista vacia. No existe nada que revertir"<<endl;
                 else{
@@ -466,9 +391,6 @@ template <typename T>
                 }
             }
 
-            /**
-             * @return imprimir
-             */
             void imprimir(){
                 if (estaVacio()){ 
                     cout<< "Lista vacia. No existe nada imprimir"<<endl;
@@ -485,10 +407,6 @@ template <typename T>
                     cout << ultimo->getValor();
                 }
             }
-
-            /**
-             * @return obtenerArray
-             */
 
             T* obtenerArray(){
 
@@ -507,12 +425,6 @@ template <typename T>
 
                 return array;
             }
-
-
-            
-            /**
-            * @return ordenar
-            */
 
             void ordenar(){
                 ListaDobleC<T> *ordenada = new ListaDobleC<T>(); 
@@ -546,48 +458,26 @@ template <typename T>
                 delete [] array;
             }
 
-
-            /**
-             * @return obtenerLongitud
-             */
             int obtenerLongitud(){
                 return this->longitud;
             }
 
-            /**
-             * @return NodoDC<obtenerPrimero>
-             */
             NodoDC<T>* obtenerPrimero(){
                 return this->primero;
             }
 
-
-            /**
-             * @return  NodoDC<obtenerUltimo>
-             */
             NodoDC<T>* obtenerUltimo(){
                 return this->ultimo;
             }
 
-            /**
-             * @param p
-             * @return setPrimero
-             */
             void setPrimero(NodoDC<T>* p){
                 this->primero = p;
             }
 
-            /**
-             * @param u
-             * @return setUltimo
-             */
             void setUltimo(NodoDC<T>* u){
                 this->ultimo = u;
             }
             
-            /**
-             * @return toString
-             */
             string toString(){
                 return "Cosillas";
             }
