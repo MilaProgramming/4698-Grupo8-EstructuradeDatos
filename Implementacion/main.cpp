@@ -313,7 +313,7 @@ int main(int argc, char **argv) {
                         char* apellido = new char[50];
                         apellido[0] = '\0';
                         double presupuesto;
-                        int cedula=0;
+                        unsigned long cedula = 0;
                         nombre = i->funcionLetras("\n   Ingrese el nombre de la persona: ");
 
                             if(nombre[0] != '\0'){
