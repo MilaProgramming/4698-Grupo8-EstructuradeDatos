@@ -50,7 +50,7 @@ template <typename T>
              * @return bool
              */
             bool estaVacio ListaDobleC::estaVacio() {
-                    return primero == nullptr;
+                return primero == nullptr;
             }
 
             ListaDobleC(){
