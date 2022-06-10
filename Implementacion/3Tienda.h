@@ -55,10 +55,10 @@ class Tienda{
         ListaDobleC<Persona*>* personasPorNombreIgual(string, string);
         /* Una función que devuelve una lista de punteros a objetos de tipo Persona que tienen el mismo
         nombre, apellido, presupuesto y edad. */
-        ListaDobleC<Persona*>* personasIgual(string, string, double, int);
+        ListaDobleC<Persona*>* personasIgual(string, string, double, char*);
        /* Una función que devuelve una lista de punteros a objetos de tipo Persona que tienen el mismo
        nombre, apellido, presupuesto y edad. */
-        ListaDobleC<Persona*>* personasIgual(string nombre, string apellido, unsigned long cedula);
+        ListaDobleC<Persona*>* personasIgual(string nombre, string apellido, char* cedula);
 
        /* Una función que devuelve una lista de punteros a objetos de tipo Celular que tienen el mismo
        precio. */
@@ -93,20 +93,20 @@ class Tienda{
         void buscarPorPresupuestoPersona(double);
 
         /* Una función que se utiliza para comprar un teléfono celular. */
-        void comprarCelular(string, string, string, double, long);
+        void comprarCelular(string, string, string, double, char*);
        /* Una función que se utiliza para comprar un teléfono celular. */
-       void comprarCelular(string, string, string, double,  int, long);
+       void comprarCelular(string, string, string, double,  int, char*);
         /* Una función que se utiliza para comprar un teléfono celular. */
-        void comprarCelular(string, string, string, long);
+        void comprarCelular(string, string, string, char*);
         /* Una función que se utiliza para comprar un teléfono celular. */
-        void comprarCelular(string, string, string, int, long);
+        void comprarCelular(string, string, string, int, char*);
         /* Una función que se utiliza para comprar un teléfono celular. */
         void comprarCelular(Persona*, Celular*);
        /* Una función que se utiliza para comprar un teléfono celular. */
         void comprarCelular(Persona*, Celular*, int);
 
         /* Una función que se utiliza para recomendar un teléfono celular a una persona. */
-        bool recomendarAutomatico(string, string, double, int);
+        bool recomendarAutomatico(string, string, double, char*);
        /* Una función que devuelve una lista de punteros a objetos de tipo Celular que tienen un precio
        menor o igual al presupuesto. */
         bool recomendarMenores(double);
@@ -119,7 +119,7 @@ class Tienda{
 
         //Validaciones
        /* Una función que comprueba si la cédula es correcta. */
-        bool cedulaCorrecta(unsigned long);
+        bool cedulaCorrecta(char*);
        /* Comprobando si el stock es correcto. */
         bool stockCorrecto(int);
        /* Comprobar si el presupuesto es correcto. */

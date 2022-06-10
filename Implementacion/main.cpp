@@ -12,7 +12,6 @@
 #include "3Stock.cpp"
 #include "5IngresoDatos.hpp"
 #include "6Marquesina.h"
-//#include "8Imagen.h"
 #include <cstdlib>
 #include <conio.h>
 #include <stdlib.h>
@@ -316,7 +315,8 @@ int main(int argc, char **argv) {
                         char* apellido = new char[50];
                         apellido[0] = '\0';
                         double presupuesto;
-                        unsigned long cedula = 0;
+                        char* cedula = new char[11];
+                        cedula[0] = '\0';
                         nombre = i->funcionLetras("\n   Ingrese el nombre de la persona: ");
 
                             if(nombre[0] != '\0'){
@@ -328,9 +328,9 @@ int main(int argc, char **argv) {
 
                                     if(presupuesto!= -1){
 
-                                        cedula = l->funcionPrincipalEnteros("\n Ingrese la cedula de la persona: ");
+                                        cedula = l->lecturaNumerosChar("\n Ingrese la cedula de la persona: ");
 
-                                        if(cedula != -1){
+                                        if(cedula[0] != '\0'){
 
                                             if(tienda->presupuestoCorrecto(presupuesto)){
 
@@ -408,7 +408,8 @@ int main(int argc, char **argv) {
                         apellido[0] = '\0';
                         tienda->getStock()->verPersonas();
                         double presupuesto;
-                        long cedula;
+                        char* cedula = new char[1];
+                        cedula[0] = '\0';
 
 
                         nombre = i->funcionLetras("\n Ingrese solo el nombre de la persona que desea eliminar: ");    
@@ -425,9 +426,9 @@ int main(int argc, char **argv) {
                                 if(presupuesto!= -1){
 
                                     
-                                    cedula = l->funcionPrincipalLong("\n Ingrese la cedula de la persona: ");
+                                    cedula = l->lecturaNumerosChar("\n Ingrese la cedula de la persona: ");
 
-                                    if(cedula!= -1){
+                                    if(cedula[0] != '\0'){
 
                                         Persona* per = new Persona(nombre, apellido, presupuesto, cedula);
                                         tienda->eliminarPersonaTienda(per);
@@ -560,7 +561,8 @@ int main(int argc, char **argv) {
             nombre[0] = '\0';
             
             double presupuesto;
-            int cedula;
+            char* cedula = new char[11];
+            cedula[0] = '\0';
 
             IngresoDatos<int, float> *a = new IngresoDatos<int, float>();
             IngresoDatos<int, float> *b = new IngresoDatos<int, float>();
@@ -588,9 +590,9 @@ int main(int argc, char **argv) {
 
                             if(presupuesto!= -1){
 
-                                    cedula = l->funcionPrincipalEnteros("\n Ingrese la cedula de la persona: ");
+                                    cedula = l->lecturaNumerosChar("\n Ingrese la cedula de la persona: ");
 
-                                    if(cedula!= -1){
+                                    if(cedula[0] != '\0'){
 
                                             Persona* c = tienda->getStock()->retornarPersonaporNombre(nombre, apellido, presupuesto, cedula);
 
@@ -928,11 +930,22 @@ int main(int argc, char **argv) {
     return 0; 
 }
 
+/**
+ * Crea un nuevo objeto Tienda, y luego crea un nuevo objeto Stock, y luego crea un nuevo objeto
+ * ListaDobleC para Personas y Celulares, y luego crea un nuevo objeto Persona y un nuevo objeto
+ * Celular, y luego inserta el nuevo objetos Persona y Celular en los objetos ListaDobleC, y luego
+ * coloca los objetos ListaDobleC en el objeto Stock, y luego coloca el objeto Stock en el objeto
+ * Tienda, y luego devuelve el objeto Tienda
+ * 
+ * Returns
+ * -------
+ * 	Un puntero a un objeto Tienda.
+ */
 Tienda* datosDefecto(){
 
-    Persona *p1 = new Persona("Matias", "Manzin", 100,  1729010995);
-    Persona *p2 = new Persona("Lionel", "Messi", 5000, 1722311071);
-    Persona *p3 = new Persona("Edward", "Tech", 1500, 1867282736);
+    Persona *p1 = new Persona("Matias", "Manzin", 100,  "1729010995");
+    Persona *p2 = new Persona("Lionel", "Messi", 5000, "1722311071");
+    Persona *p3 = new Persona("Edward", "Tech", 1500, "1867282736");
 
     Celular *c1 = new Celular("Alcatel", 40, 100);
     Celular *c2 = new Celular("Samsung", 1000, 30);

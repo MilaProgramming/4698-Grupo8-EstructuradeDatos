@@ -15,7 +15,7 @@
 
 #pragma once
 #include <string>
-#include "2ItoString.h"
+#include "2ItoString.hpp"
 
 class Celular: public ToString {
     private:
@@ -81,5 +81,6 @@ class Celular: public ToString {
          * @param deltaMax
          */
         bool iguales (double num1, double num2, double deltaMax);
+        
 
 };

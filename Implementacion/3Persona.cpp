@@ -21,6 +21,8 @@
 #include <string>
 #include <cstdlib>
 #include <cmath>
+#include <iomanip>
+
 using namespace std;
 
    /**
@@ -38,7 +40,7 @@ using namespace std;
     * c : unsigned long
     * 	cedula
     */
-    Persona::Persona(string n, string m, double p, unsigned long c){
+    Persona::Persona(string n, string m, double p, char* c){
         this->nombre = n;
         this ->apellido = m;
         this->presupuesto = p;
@@ -58,7 +60,7 @@ using namespace std;
      * 	cedula
      */
 
-    Persona::Persona(string n, string m, long c){
+    Persona::Persona(string n, string m, char* c){
         this->nombre = n;
         this ->apellido = m;
         this->cedula = c;
@@ -345,7 +347,7 @@ using namespace std;
     * -------
     * 	El valor de la cédula del atributo.
     */
-    unsigned long Persona::getCedula(){
+    char* Persona::getCedula(){
         return this->cedula;
     }
 
@@ -357,7 +359,7 @@ using namespace std;
     * c : unsigned long
     * 	La nueva cédula para el objeto.
     */
-    void Persona::setCedula(unsigned long c){
+    void Persona::setCedula(char* c){
         this->cedula = c;
     }
 
@@ -501,7 +503,8 @@ using namespace std;
     * 	Una cadena con el nombre, apellido, presupuesto, id y correo electrónico de la persona.
     */
     string Persona::toString(){
-        string s =  this->getNombre() + " " + this->getApellido() + ", tiene un presupuesto de " + to_string(this->getPresupuesto()) + ", de cedula " + to_string(this->getCedula()) + " y su correo es " + this->getCorreo() + "\n";
+        
+        string s =  this->getNombre() + " " + this->getApellido() + ", tiene un presupuesto de " + to_string(this->getPresupuesto()) + ", de cedula " + this->getCedula() + " y su correo es " + this->getCorreo() + "\n";
         return s;
     }
 
@@ -521,7 +524,26 @@ using namespace std;
 
         double delta = 0.01;
         //cout<< abs(this->getPresupuesto()-c.getPresupuesto()) <<endl;
-        return (this->getNombre() == c.getNombre()) && (this->getApellido() == c.getApellido()) && (abs(this->getPresupuesto()-c.getPresupuesto()) < delta && (this->cedula) == c.getCedula());
+        return (this->getNombre() == c.getNombre()) && (this->getApellido() == c.getApellido()) && (abs(this->getPresupuesto()-c.getPresupuesto()) < delta && verificarDosChars(this->cedula, c.getCedula()));
+    }
+
+    bool Persona::verificarDosChars(char* a,char* b){
+        int p = 0;
+        int e = 0;
+
+        while(e == 0){
+
+        for(int o = 0; o < 11; o++){
+            if(a[o] == b[o]){
+                p++;
+                //cout << "Entro condicion" <<endl;
+            }
+        }
+
+        e++;
+
+        }
+        return p>9;
     }
 
     /**

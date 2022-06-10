@@ -293,7 +293,7 @@
      * -------
      * 	Una lista de punteros a Personas.
      */
-    ListaDobleC<Persona*>* Tienda::personasIgual(string nombre, string apellido, double presupuesto, int cedula){
+    ListaDobleC<Persona*>* Tienda::personasIgual(string nombre, string apellido, double presupuesto, char* cedula){
          
         Persona *p = new Persona(nombre, apellido, presupuesto, cedula); 
         //cout<< "Entre a la funcion encontrar" <<endl;
@@ -334,7 +334,7 @@
     * -------
     * 	Una lista de punteros a objetos Person.
     */
-    ListaDobleC<Persona*>* Tienda::personasIgual(string nombre, string apellido, unsigned long cedula){
+    ListaDobleC<Persona*>* Tienda::personasIgual(string nombre, string apellido, char* cedula){
          
         //Persona *p = new Persona(nombre, apellido, cedula); 
         //cout<< "Entre a la funcion encontrar" <<endl;
@@ -534,7 +534,7 @@
      * cedula : long
      * 	largo
      */
-    void Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto, long cedula){
+    void Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto, char* cedula){
 
         Celular* c = stock->retornarCelularporNombre(celular);
         Persona* p = stock->retornarPersonaporNombre(persona, apersona, presupuesto, cedula);
@@ -570,7 +570,7 @@
      * cedula : long
      * 	largo
      */
-    void  Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto, int cantidad, long cedula){
+    void  Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto, int cantidad, char* cedula){
 
         Celular* c = stock->retornarCelularporNombre(celular);
         Persona* p = stock->retornarPersonaporNombre(persona, apersona, presupuesto, cedula);
@@ -600,7 +600,7 @@
      * cedula : long
      * 	largo
      */
-    void Tienda::comprarCelular(string celular, string persona, string apersona, long cedula){
+    void Tienda::comprarCelular(string celular, string persona, string apersona, char* cedula){
 
         //cout<< "Entro a comprar celular unico" <<endl;
 
@@ -640,7 +640,7 @@
      * cedula : long
      * 	largo
      */
-    void  Tienda::comprarCelular(string celular, string persona, string apersona, int cantidad, long cedula){
+    void  Tienda::comprarCelular(string celular, string persona, string apersona, int cantidad, char* cedula){
 
         Celular* c = stock->retornarCelularporNombre(celular);
         Persona* p = stock->retornarPersonaporNombre(persona, apersona, cedula);
@@ -900,7 +900,7 @@
      * -------
      * 	Un valor booleano.
      */
-    bool Tienda::recomendarAutomatico(string nombre, string apellido, double presupuesto, int cedula){
+    bool Tienda::recomendarAutomatico(string nombre, string apellido, double presupuesto, char* cedula){
         this->stock->ordenarPorPrecio();
         Stock *por = new Stock();
 
@@ -1049,11 +1049,11 @@
     * -------
     * 	un valor booleano.
     */
-    bool Tienda::cedulaCorrecta(unsigned long c){
-        string ced = to_string(c);
+    bool Tienda::cedulaCorrecta(char* c){
+        string ced = c;
         int t = ced.length();
 
-        if(t < 9 || t > 11){
+        if(t < 10 || t > 10){
             return false;
         }
         
@@ -1154,7 +1154,7 @@
         string nom;
         string apellido;
         double presupuesto;
-        unsigned long cedula;
+        char* cedula = new char[11];
 
         int cont = 1;
         int verf = 0;
@@ -1271,7 +1271,7 @@
         if(!(this->getStock()->getPersonas()->estaVacio())){
             while(indice < this->getStock()->getPersonas()->obtenerLongitud()){
 
-                file << (it->getValor())->getNombre() << ", de presupuesto actual " << (it->getValor())->getPresupuesto() << ", y de cedula " << to_string(it->getValor()->getCedula()) << " ha comprado " <<endl;
+                file << (it->getValor())->getNombre() << ", de presupuesto actual " << (it->getValor())->getPresupuesto() << ", y de cedula " << it->getValor()->getCedula() << " ha comprado " <<endl;
                 
                 if (it->getValor()->getComprados()->estaVacio()) file<< " ningun celular todavia"<<endl;
                 else{

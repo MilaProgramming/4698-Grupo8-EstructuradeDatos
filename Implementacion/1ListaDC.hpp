@@ -13,12 +13,13 @@
 *Github del grupo:
 * https://github.com/Grupo8-4698-EstructuraDeDatos/4698-Grupo8-EstructuradeDatos
 ***************************************************************88/
-   
-/* Creating a class called ListaDobleC, which is a template class. */
+ Creating a class called ListaDobleC, which is a template class. */
+
 #pragma once
 
 /* Una clase de plantilla. */
 #include <iostream>
+
 #include "1NodoDC.hpp"
 #include "2IInsertar.hpp"
 #include "2IEliminar.hpp"

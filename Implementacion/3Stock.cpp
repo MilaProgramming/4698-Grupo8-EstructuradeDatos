@@ -179,7 +179,7 @@
         while(indice < personas->obtenerLongitud()){
 
             cout << (it->getValor())->getNombre() << ", de presupuesto actual " << (it->getValor())->getPresupuesto() << ", y de cedula ";
-            cout<< to_string(it->getValor()->getCedula()); 
+            cout<< it->getValor()->getCedula(); 
             cout<< " ha comprado " <<endl;
             (it->getValor())->verComprados();
             it = it->getSiguiente();
@@ -518,7 +518,7 @@
     * -------
     * 	Un puntero a una persona.
     */
-    Persona* Stock::retornarPersonaporNombre(string nombre, string apellido, double presupuesto, unsigned long cedula){
+    Persona* Stock::retornarPersonaporNombre(string nombre, string apellido, double presupuesto, char* cedula){
    
 		Persona *p = new Persona(nombre, apellido, presupuesto, cedula);
         NodoDC<Persona*> *it = personas->obtenerPrimero();
@@ -556,7 +556,7 @@
     * -------
     * 	Un puntero a una persona.
     */
-    Persona* Stock::retornarPersonaporNombre(string nombre, string apellido, unsigned long cedula){
+    Persona* Stock::retornarPersonaporNombre(string nombre, string apellido, char* cedula){
    
 		//Persona *p = new Persona(nombre, apellido, cedula);
         NodoDC<Persona*> *it = personas->obtenerPrimero();

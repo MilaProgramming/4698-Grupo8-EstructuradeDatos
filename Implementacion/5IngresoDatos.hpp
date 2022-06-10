@@ -822,6 +822,20 @@ template <typename T, typename N>
                 
             }
 
+            char* lecturaNumerosChar(){
+                char *aux = new char[11];
+                aux = leerSoloEnteros();        
+                return aux;
+                
+            }
+
+            char* lecturaNumerosChar(string mensaje){
+                char *aux = new char[11];
+                aux = leerSoloEnteros(mensaje);   
+                    return aux;
+               
+            }
+
             /**
              * Devuelve una cadena.
              * 

@@ -17,7 +17,8 @@
 #include <string>
 #include "3Celular.cpp"
 #include "1ListaDC.hpp"
-#include "2ItoString.h"
+#include "2ItoString.hpp"
+
 using namespace std;
 
 class Persona: public ToString{
@@ -27,17 +28,17 @@ class Persona: public ToString{
         string nombre;
         string apellido;
         double presupuesto;
-        unsigned long cedula;
         string correo = " ";
         ListaDobleC<Celular*> *comprados = new ListaDobleC<Celular*>();     
-        int* cantidad = new int[50]; 
+        int* cantidad = new int[50];
+        char* cedula = new char[11]; 
 
     public:
 
        /* un constructor */
-        Persona(string, string, double, unsigned long);
+        Persona(string, string, double, char*);
         /* Un constructor que toma una cadena, una cadena y un largo. */
-        Persona(string, string, long);
+        Persona(string, string, char*);
         /* Un constructor que no acepta argumentos. */
         Persona(void);
        /* Un destructor. */
@@ -63,9 +64,9 @@ class Persona: public ToString{
      /* Un método captador. */
         string getCorreo();
         /* Un método captador. */
-        unsigned long getCedula();
+        char* getCedula();
         /* Fijación de la cédula de la persona. */
-        void setCedula(unsigned long);
+        void setCedula(char*);
         /* Configuración del correo electrónico de la persona. */
         void setCorreo(string);
        /* Un método que verifica si la persona tiene un correo electrónico. */
@@ -85,4 +86,5 @@ class Persona: public ToString{
         void setComprados(ListaDobleC<Celular*>*);
         /* Un método que devuelve una cadena. */
         string toString();
+        bool verificarDosChars(char*,char*);
 };

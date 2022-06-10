@@ -14,6 +14,7 @@
 */
 
 #pragma once
+
 #include "2ItoString.hpp"
 
 /* Creando una clase llamada NodoDC. */
@@ -39,49 +40,74 @@ template <typename T>
             */
             NodoDC(){}
 
-           /**
-            * El destructor de la clase NodoDC
-            */
+            /**
+             * El destructor de la clase NodoDC
+             */
             ~NodoDC(){
                 delete anterior;
                 delete siguiente;
             }
 
+          
             /**
-             * @param v
-             * @return setValor
+             * Establece el valor de la variable valor al valor del parámetro v.
+             * 
+             * Parameters
+             * ----------
+             * v : T
+             * 	El valor que se almacenará en el nodo.
              */
             void setValor(T v){
                 this -> valor = v;
             }
 
-            /**
-             * @param v
-             * @return setValor
-             */
+           
+           /**
+            * Devuelve el valor de la variable valor.
+            * 
+            * Returns
+            * -------
+            * 	El valor del nodo.
+            */
             T getValor(){
                 return this->valor;
             }
 
-            /** @param ante
-            * @return setAnterior
+        
+           /**
+            * Esta función establece el valor del puntero anterior al valor del puntero ante
+            * 
+            * Parameters
+            * ----------
+            * ante : NodoDC
+            * 	El nodo anterior
             */
             void setAnterior(NodoDC* ante){
                 this -> anterior = ante;
             }   
 
+           
             /**
-             * @param sig
-             * @return setSiguiente
+             * Establece el siguiente nodo.
+             * 
+             * Parameters
+             * ----------
+             * sig : NodoDC
+             * 	es el siguiente nodo
              */
             void setSiguiente(NodoDC* sig){
                 this -> siguiente = sig;
             }
 
 
-            /**
-             * @return getAnterior
-             */
+           /**
+            * `NodoDC* getAnterior()` devuelve el nodo anterior
+            * 
+            * Returns
+            * -------
+            * 	El nodo anterior.
+            */
+            
             NodoDC* getAnterior(){
                 return this-> anterior;
             }

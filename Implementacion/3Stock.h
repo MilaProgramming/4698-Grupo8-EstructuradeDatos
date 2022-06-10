@@ -52,8 +52,8 @@ class Stock{
         bool eliminarCelular(Celular*);
         bool eliminarPersona(Persona*);
         Celular* retornarCelularporNombre(string);
-        Persona* retornarPersonaporNombre(string, string, double, unsigned long);
-        Persona* retornarPersonaporNombre(string, string, unsigned long);
+        Persona* retornarPersonaporNombre(string, string, double, char*);
+        Persona* retornarPersonaporNombre(string, string, char*);
 
         //Funciones impresion
         void verCelulares(); //Celulares disponibles
