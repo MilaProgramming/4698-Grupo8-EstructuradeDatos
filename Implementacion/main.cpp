@@ -312,7 +312,7 @@ int main(int argc, char **argv) {
                         char* apellido = new char[50];
                         apellido[0] = '\0';
                         double presupuesto;
-                        long cedula;
+                        unsigned long cedula;
 
                         nombre = i->funcionLetras("\n   Ingrese el nombre de la persona: ");
 
@@ -334,6 +334,7 @@ int main(int argc, char **argv) {
                                                 if(tienda->cedulaCorrecta(cedula)){
 
                                                     Persona *nueva = new Persona(nombre, apellido, presupuesto, cedula);  
+                                                    //cout<< cedula <<endl;
                                                     tienda->agregarPersonaTienda(nueva);
                                                 }else{
                                                     cout<<"\n~~ La cedula es incorrecta. Recuerde que son 10 digitos ~~\n"<<endl;

@@ -18,6 +18,7 @@ template <typename T, typename N>
             //metodo pincipal
 
             char* leerSoloLong(string mensaje){
+
                 imprimirMensaje(mensaje);
                 char c;  //Creo un caracter, con el que voy a recibir el cada input
                 int j = 0; //Iterador para la verifiacion del unico punto
@@ -38,6 +39,12 @@ template <typename T, typename N>
                 }
 
                 dato[i]='\0';
+
+                /*
+                for(int o = 0; o < 10; o++)
+                    cout<<dato[o];
+                */
+
                 return dato;
             }
 
@@ -464,7 +471,7 @@ template <typename T, typename N>
               
             } 
 
-            long funcionPrincipalLong(){
+            unsigned long funcionPrincipalLong(){
 
                 char *aux = leerSoloLong();
                 if(aux[0] != '\0'){
@@ -475,10 +482,18 @@ template <typename T, typename N>
                 }
             }
 
-            long funcionPrincipalLong(string mensaje){
+            unsigned long funcionPrincipalLong(string mensaje){
 
                 char *aux = leerSoloLong(mensaje);
+
+                /*
+                for(int i = 0; i < 10; i++){
+                    cout<< aux[i] << " "<<endl;
+                }
+                */
+
                 if(aux[0] != '\0'){
+                    //cout<< conversion.numLong(aux) <<endl;
                     return this -> conversion.numLong(aux);
                 }else{
                     cout<<"\n~~ Datos vacios ~~\n"<<endl;

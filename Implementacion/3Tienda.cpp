@@ -642,7 +642,7 @@
         string ced = to_string(c);
         int t = ced.length();
 
-        if(t < 9 || t > 9){
+        if(t < 9 || t > 11){
             return false;
         }
         

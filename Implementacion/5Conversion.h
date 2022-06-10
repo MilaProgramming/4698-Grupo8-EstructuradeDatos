@@ -1,4 +1,5 @@
 #pragma once
+#include <stdlib.h>
 
 template <typename T, typename N>
 
@@ -16,7 +17,7 @@ template <typename T, typename N>
             } 
 
             unsigned long numLong(char* dato){
-                return atol(dato);
+                return atoll(dato);
             }
 
             N numFloat(char* dato){ //Convertir a flotante 
