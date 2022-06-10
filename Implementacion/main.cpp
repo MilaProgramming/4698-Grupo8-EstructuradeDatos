@@ -298,7 +298,7 @@ int main(int argc, char **argv) {
                 menuUsuarios.add_option(MenuOption("    - Agregar Usuario", [&](MenuOptionArguments args) {   
                     
                         system("CLS");
-                    Menu menuInterno(" Eliminado");
+                    Menu menuInterno(" Agregado");
 
                     
                     menuInterno.add_option(MenuOption("     + Por teclado", [&](MenuOptionArguments args) {
