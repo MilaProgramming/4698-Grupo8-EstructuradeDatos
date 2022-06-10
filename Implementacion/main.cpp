@@ -899,6 +899,10 @@ int main(int argc, char **argv) {
             //!IMPLEMENTAR
         }));
 
+        menu.add_option(MenuOption("    -> Ayuda", [&](MenuOptionArguments args) {
+            system("ProyectoCelulares.chm");
+        }));
+
         //!Funcion salida del menu
         menu.add_option(MenuOption("    -> Salir", [&](MenuOptionArguments args) {
             
