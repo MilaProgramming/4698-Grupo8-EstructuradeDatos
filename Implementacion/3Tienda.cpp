@@ -711,6 +711,7 @@
             if(presupuestoCorrecto(presupuesto) && cedulaCorrecta(cedula)){
                 Persona *p = new Persona(nom, apellido, presupuesto, cedula);
                 agregarPersonaSinString(p);
+                verf=1;
             }else{
                 cout<< "En la fila " << cont << " se tiene un presupuesto o cedula invalida"<<endl;
             }
