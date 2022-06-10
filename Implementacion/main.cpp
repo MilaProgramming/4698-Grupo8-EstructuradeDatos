@@ -3,21 +3,20 @@
 
 #define NOMINMAX 1
 
-
+#include <conio.h>
 #include <iostream>
 #include <limits>
 #include "4Menu.cpp"
 #include "4OpcionMenu.cpp"
 #include "3Tienda.cpp"
 #include "3Stock.cpp"
-#include "5IngresoDatos.h"
+#include "5IngresoDatos.hpp"
 #include "6Marquesina.h"
 //#include "8Imagen.h"
 #include <cstdlib>
 #include <conio.h>
 #include <stdlib.h>
 #include <iostream>
-#include <graphics.h>
 #include <windows.h>
 
 #include <iostream>
@@ -931,9 +930,9 @@ int main(int argc, char **argv) {
 
 Tienda* datosDefecto(){
 
-    Persona *p1 = new Persona("Matias", "Manzin", 100,  1111111111);
-    Persona *p2 = new Persona("Lionel", "Messi", 5000, 2222222222);
-    Persona *p3 = new Persona("Edward", "Tech", 1500, 3333333333);
+    Persona *p1 = new Persona("Matias", "Manzin", 100,  1729010995);
+    Persona *p2 = new Persona("Lionel", "Messi", 5000, 1722311071);
+    Persona *p3 = new Persona("Edward", "Tech", 1500, 1867282736);
 
     Celular *c1 = new Celular("Alcatel", 40, 100);
     Celular *c2 = new Celular("Samsung", 1000, 30);

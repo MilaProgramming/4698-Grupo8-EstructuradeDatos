@@ -34,10 +34,16 @@ using namespace std;
     }
 
 
+   /**
+    * Celular::Celular() es una función que crea un nuevo objeto Celular
+    */
     Celular::Celular(){
 
     }
 
+   /**
+    * El destructor es una función miembro que se llama cuando se destruye un objeto.
+    */
     Celular::~Celular(){
         free(this);
     }
@@ -70,41 +76,64 @@ using namespace std;
     //Sets
 
     /**
-     * @param 
-     * @return aumentarStock
+     * Incrementa el stock del celular en la cantidad de c.
+     * 
+     * Parameters
+     * ----------
+     * c : int
+     * 	la cantidad de stock a añadir
      */
     void Celular ::aumentarStock(int c){
         this->stock += c;
     }
 
-    /**
-     * @param 
-     * @return setMarca
-     */
+    
+   /**
+    * Esta función establece el valor de la variable privada marca al valor del parámetro _marca
+    * 
+    * Parameters
+    * ----------
+    * _marca : string
+    * 	La marca del teléfono.
+    */
     void Celular :: setMarca(string _marca){
         marca = _marca;
 
     }
 
-    /**
-     * @param 
-     * @return setPrecio
-     */
+   
+   /**
+    * Esta función establece el valor de la variable privada precio al valor del parámetro _precio
+    * 
+    * Parameters
+    * ----------
+    * _precio : double
+    * 	El precio del teléfono.
+    */
     void Celular ::setPrecio(double _precio){
         precio = _precio;
     }
 
-    /**
-     * @param 
-     * @return setPrecio
-     */
+    
+   /**
+    * Esta función establece el stock del celular
+    * 
+    * Parameters
+    * ----------
+    * _stock : int
+    * 	El stock del celular.
+    */
     void Celular ::setStock(int _stock){
         stock = _stock;
     }
 
+   
     /**
-     * @param 
-     * @return aumentarStock
+     * Disminuye el stock del artículo en 1.
+     * 
+     * Returns
+     * -------
+     * 	un valor booleano.
      */
     bool Celular::disminuirStock(){
         
@@ -118,10 +147,21 @@ using namespace std;
     }
 
 
-    /**
-     * @param 
-     * @return disminuirStock
-     */
+   
+   /**
+    * Si la cantidad es 1, entonces llama a la otra función; de lo contrario, si la acción es mayor que
+    * 0 o la acción menos la cantidad es mayor que 0, entonces establece la acción en la acción menos
+    * la cantidad y devuelve verdadero; de lo contrario, imprime un mensaje y devuelve falso
+    * 
+    * Parameters
+    * ----------
+    * cantidad : int
+    * 	La cantidad de artículos que se eliminarán del stock.
+    * 
+    * Returns
+    * -------
+    * 	un valor booleano.
+    */
     bool Celular::disminuirStock(int cantidad){
 
         if (cantidad == 1){
@@ -145,43 +185,43 @@ using namespace std;
         return t;
     }
 
+
     /**
-     * @param 
-     * @return operator
+     * La función devuelve verdadero si los dos objetos tienen la misma marca y la diferencia entre sus
+     * precios es menor a 0.01
+     * 
+     * Parameters
+     * ----------
+     * c : Celular
+     * 	Célula
+     * 
+     * Returns
+     * -------
+     * 	un valor booleano.
      */
     bool Celular::operator ==(Celular &c){
         double delta = 0.01;
-        
-        
-        //cout<< this->getMarca() <<endl;
-        //cout<< c.getMarca() <<endl;
-        //cout<< abs(this->getPrecio() - c.getPrecio()) <<endl;
-        
-
-        return this->getMarca() == c.getMarca() && abs(this->getPrecio() - c.getPrecio()) < delta;
+            return this->getMarca() == c.getMarca() && abs(this->getPrecio() - c.getPrecio()) < delta;
     }
-    
-    /*
-    bool Celular::operator ==(Celular* c){
-        double delta = 0.01;
-        
-        
-        cout<< this->getMarca() <<endl;
-        cout<< c.getMarca() <<endl;
-        cout<< abs(this->getPrecio() - c.getPrecio()) <<endl;
-        
 
-        return this->getMarca() == c->getMarca() && abs(this->getPrecio() - c->getPrecio()) < delta;
-    }
+   
+   /**
+    * La función devuelve verdadero si el valor absoluto de la diferencia entre num1 y num2 es menor
+    * que deltaMax
+    * 
+    * Parameters
+    * ----------
+    * num1 : double
+    * 	El primer número a comparar.
+    * num2 : double
+    * 	El número a comparar.
+    * deltaMax : double
+    * 	La diferencia máxima entre los dos números.
+    * 
+    * Returns
+    * -------
+    * 	un valor booleano.
     */
-    
-
-    /**
-     * @param num1
-     * @param num2
-     * @param deltaMax
-     * @return iguales
-     */
     bool Celular::iguales (double num1, double num2, double deltaMax) {
         return (abs(num1 - num2) < deltaMax);
     }

@@ -1,14 +1,34 @@
+/*ESPE
+*Enunciado del problema:
+*   Realizar el codigo de la catedra en clases (POO)
+*Autor 
+* Camila Rivera
+* Christian Román
+*Fecha de creacion
+*   10-06-2022
+*Fecha de modificacion
+*   10 - 06 -2022
+*Grupo #2
+*Github del grupo:
+* https://github.com/Grupo8-4698-EstructuraDeDatos/4698-Grupo8-EstructuradeDatos
+*/
+
 #pragma once
 #include "3Tienda.h"
 #include "3Celular.cpp"
-#include "1NodoDC.h"
+#include "1NodoDC.hpp"
 
 
     //Constructor y destructor
+
     Tienda::Tienda(){
 
     }
 
+  /**
+   * El destructor de la clase Tienda. Libera la memoria asignada al objeto y llama al destructor de la
+   * clase Stock.
+   */
     Tienda::~Tienda(){
         free(this);
         stock->~Stock();
@@ -16,6 +36,13 @@
 
     //Funciones de excepciones, getter y setter
 
+   /**
+    * Comprueba si el stock está vacío.
+    * 
+    * Returns
+    * -------
+    * 	un valor booleano.
+    */
     bool Tienda::estaVacio(){
         if(this->stock == nullptr){
             return true;
@@ -25,11 +52,35 @@
         else return false;
     }
 
+   /**
+    * `void Tienda::setStock(Stock * s)`
+    * 
+    * La función se llama `setStock` y es miembro de la clase `Tienda`. Toma un puntero a un objeto
+    * `Stock` como argumento. no devuelve nada
+    * 
+    * Parameters
+    * ----------
+    * s : Stock
+    * 	Objeto común
+    */
     void Tienda::setStock( Stock * s){
         this->stock = s;
         establecerCorreos();
     }
 
+    /**
+     * `Stock* Tienda::getStock(){`
+     * 
+     * `devolver esto->stock;`
+     * 
+     * `}`
+     * 
+     * La función devuelve un puntero a un objeto Stock
+     * 
+     * Returns
+     * -------
+     * 	El stock de la tienda.
+     */
     Stock*  Tienda::getStock(){
         return this->stock;
     }
@@ -37,12 +88,36 @@
     //Recomendaciones de compra   
 
     //!debe estar ordenada
+    /**
+     * Devuelve una lista de teléfonos celulares que están por debajo del presupuesto de la persona.
+     * 
+     * Parameters
+     * ----------
+     * persona : Persona
+     * 	es un puntero a un objeto persona
+     * 
+     * Returns
+     * -------
+     * 	Un puntero a aListDobleC<Mobile*>
+     */
     ListaDobleC<Celular*>* Tienda::recomendarCelulares(Persona* persona){
        //cout<<persona->getPresupuesto() <<endl;
        return celularesPorPresupuestoMenor(persona->getPresupuesto());
     } //Recomendar automaticamente a la persona un celular por presupuesto
 
     //!debe estar ordenada
+    /**
+     * Toma un doble como parámetro y devuelve una lista de punteros a objetos de Celular
+     * 
+     * Parameters
+     * ----------
+     * p : double
+     * 	es el presupuesto
+     * 
+     * Returns
+     * -------
+     * 	Una lista de punteros a objetos de Celular.
+     */
     ListaDobleC<Celular*>* Tienda::celularesPorPresupuestoMenor(double p){
 
         ListaDobleC<Celular*> *presupuesto = new  ListaDobleC<Celular*>();
@@ -81,6 +156,18 @@
     } //Devolver los celulares menores o iguales que el presupuesto
 
     //!debe estar ordenada
+   /**
+    * Toma como parámetro un doble y devuelve una lista de punteros a objetos de tipo Celular
+    * 
+    * Parameters
+    * ----------
+    * p : double
+    * 	es el precio que el usuario quiere gastar
+    * 
+    * Returns
+    * -------
+    * 	Una lista de punteros a objetos de Celular.
+    */
     ListaDobleC<Celular*>* Tienda::celularesPorPresupuestoMayor(double p){
 
         //this->getStock()->getCelulares()->imprimirObjetoInicio();
@@ -123,7 +210,9 @@
 
         //cout<< "Entre a la funcion encontrar" <<endl;
 
-		ListaDobleC<Persona*>* l = new ListaDobleC<Persona*>();
+		/* El código anterior está creando una lista de personas que tienen un presupuesto igual al valor
+        pasado como parámetro. */
+        ListaDobleC<Persona*>* l = new ListaDobleC<Persona*>();
 		NodoDC<Persona*> *it = stock->getPersonas()->obtenerPrimero();
         Celular *c = new Celular();
 		int cont = 0;
@@ -144,6 +233,21 @@
 		return l;
 	}
 	
+    /**
+     * Toma una cadena y una lista de punteros a objetos de tipo Persona, y devuelve una lista de punteros
+     * a objetos de tipo Persona
+     * 
+     * Parameters
+     * ----------
+     * nombre : string
+     * 	cuerda
+     * apellido : string
+     * 	cuerda
+     * 
+     * Returns
+     * -------
+     * 	Una lista de personas con el mismo nombre y apellido.
+     */
 	ListaDobleC<Persona*>* Tienda::personasPorNombreIgual(string nombre, string apellido) {
 
         //cout<< "Entre a la funcion encontrar" <<endl;
@@ -168,6 +272,27 @@
 		return l;
 	}
 
+    /**
+     * Esta función se utiliza para encontrar una persona en la lista de personas, recibe el nombre,
+     * apellido, presupuesto y id de la persona a encontrar, crea una nueva persona con los datos
+     * recibidos y luego la compara con las personas en la lista, si encuentra una persona igual a la
+     * creada, la agrega a una nueva lista y la devuelve
+     * 
+     * Parameters
+     * ----------
+     * nombre : string
+     * 	cuerda
+     * apellido : string
+     * 	cuerda
+     * presupuesto : double
+     * 	doble
+     * cedula : int
+     * 	En t
+     * 
+     * Returns
+     * -------
+     * 	Una lista de punteros a Personas.
+     */
     ListaDobleC<Persona*>* Tienda::personasIgual(string nombre, string apellido, double presupuesto, int cedula){
          
         Persona *p = new Persona(nombre, apellido, presupuesto, cedula); 
@@ -193,6 +318,22 @@
 		return l;
     }
 
+   /**
+    * Devuelve una lista de personas con el mismo nombre, apellido y DNI.
+    * 
+    * Parameters
+    * ----------
+    * nombre : string
+    * 	cuerda
+    * apellido : string
+    * 	cuerda
+    * cedula : unsigned long
+    * 	largo sin firmar
+    * 
+    * Returns
+    * -------
+    * 	Una lista de punteros a objetos Person.
+    */
     ListaDobleC<Persona*>* Tienda::personasIgual(string nombre, string apellido, unsigned long cedula){
          
         //Persona *p = new Persona(nombre, apellido, cedula); 
@@ -219,8 +360,18 @@
     }
 
 
-
-
+   /**
+    * Devuelve una lista de punteros a objetos de tipo Celular que tienen un precio determinado
+    * 
+    * Parameters
+    * ----------
+    * pres : double
+    * 	doble
+    * 
+    * Returns
+    * -------
+    * 	Una lista de punteros a objetos de Celular.
+    */
     ListaDobleC<Celular*>* Tienda::celularesPorPrecioIgual(double pres){
 
         //cout<< "stock->getCelulares()->obtenerLongitud()" <<endl;
@@ -245,7 +396,20 @@
 		return l;
     }
 
-	ListaDobleC<Celular*>* Tienda::celularesPorMarcaIgual(string nombre){
+	/**
+     * Devuelve una lista de punteros a objetos de tipo Celular que tienen la misma marca que el pasado
+     * como parámetro
+     * 
+     * Parameters
+     * ----------
+     * nombre : string
+     * 	el nombre de la marca
+     * 
+     * Returns
+     * -------
+     * 	Una lista de punteros a objetos de Celular.
+     */
+    ListaDobleC<Celular*>* Tienda::celularesPorMarcaIgual(string nombre){
 
         //cout<< stock->getCelulares()->obtenerLongitud()<<endl;
         ListaDobleC<Celular*>* l = new ListaDobleC<Celular*>();
@@ -275,6 +439,15 @@
     }
 
 
+    /**
+     * Agrega un nuevo celular al stock de la tienda, si el celular ya existe, aumenta el stock del
+     * celular existente
+     * 
+     * Parameters
+     * ----------
+     * nuevo : Celular
+     * 	es un puntero a un objeto Celular
+     */
     void Tienda::agregarCelularTienda(Celular* nuevo){
 
         if(stock->compararCelulares(nuevo)){
@@ -297,6 +470,14 @@
 
     }
 
+    /**
+     * Toma un puntero a un objeto Celular y lo agrega a una lista de objetos Celular
+     * 
+     * Parameters
+     * ----------
+     * nuevo : Celular
+     * 	es un puntero a un objeto Celular
+     */
     void  Tienda::agregarCelularTiendaSinString(Celular* nuevo){
 
         if(stock->compararCelulares(nuevo)){
@@ -315,6 +496,14 @@
 
     }
 
+    /**
+     * Es una función que borra un celular de una lista de celulares
+     * 
+     * Parameters
+     * ----------
+     * c : Celular
+     * 	es un puntero a un objeto Celular
+     */
     void Tienda::eliminarCelularTienda(Celular* c){
 
         if(stock->eliminarCelular(c)){
@@ -329,6 +518,22 @@
         //cout<<stock->getCelulares()->obtenerLongitud()<<endl;
     }
 
+    /**
+     * Toma una cadena, una cadena, una cadena, un doble y un largo como parámetros y no devuelve nada.
+     * 
+     * Parameters
+     * ----------
+     * celular : string
+     * 	nombre del celular
+     * persona : string
+     * 	nombre de la persona
+     * apersona : string
+     * 	apellido
+     * presupuesto : double
+     * 	la cantidad de dinero que tiene la persona
+     * cedula : long
+     * 	largo
+     */
     void Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto, long cedula){
 
         Celular* c = stock->retornarCelularporNombre(celular);
@@ -346,6 +551,25 @@
         }
     }
 
+    /**
+     * Toma una cadena, una cadena, una cadena, un doble, un int y un largo como parámetros y no
+     * devuelve nada.
+     * 
+     * Parameters
+     * ----------
+     * celular : string
+     * 	nombre del celular
+     * persona : string
+     * 	nombre de la persona
+     * apersona : string
+     * 	apellido
+     * presupuesto : double
+     * 	la cantidad de dinero que tiene la persona
+     * cantidad : int
+     * 	cantidad del producto a comprar
+     * cedula : long
+     * 	largo
+     */
     void  Tienda::comprarCelular(string celular, string persona, string apersona, double presupuesto, int cantidad, long cedula){
 
         Celular* c = stock->retornarCelularporNombre(celular);
@@ -362,6 +586,20 @@
         }
     }
 
+    /**
+     * Toma una cadena, una cadena, una cadena y un largo como parámetros, y no devuelve nada.
+     * 
+     * Parameters
+     * ----------
+     * celular : string
+     * 	cuerda
+     * persona : string
+     * 	cuerda
+     * apersona : string
+     * 	cuerda
+     * cedula : long
+     * 	largo
+     */
     void Tienda::comprarCelular(string celular, string persona, string apersona, long cedula){
 
         //cout<< "Entro a comprar celular unico" <<endl;
@@ -383,6 +621,25 @@
         }
     }
 
+    /**
+     * "Si la persona y el celular existen, la persona compra el celular, de lo contrario, imprime un
+     * mensaje de error".
+     * 
+     * El problema es que la función no funciona como se esperaba.
+     * 
+     * Parameters
+     * ----------
+     * celular : string
+     * 	nombre del celular
+     * persona : string
+     * 	nombre de la persona
+     * apersona : string
+     * 	apellido
+     * cantidad : int
+     * 	cantidad de teléfonos para comprar
+     * cedula : long
+     * 	largo
+     */
     void  Tienda::comprarCelular(string celular, string persona, string apersona, int cantidad, long cedula){
 
         Celular* c = stock->retornarCelularporNombre(celular);
@@ -400,6 +657,19 @@
     }
    
 
+    /**
+     * Toma como parámetros un puntero a una persona y un puntero a un celular y un número entero y si
+     * los punteros no son nulos llama a la función comprarCellPhone de la clase persona
+     * 
+     * Parameters
+     * ----------
+     * p : Persona
+     * 	puntero a una persona
+     * c : Celular
+     * 	es un puntero a un objeto Celular
+     * cant : int
+     * 	es la cantidad del producto que el usuario quiere comprar
+     */
     void Tienda::comprarCelular(Persona* p, Celular* c, int cant){
 
         if(c != nullptr && p!= nullptr){
@@ -413,6 +683,18 @@
         }
     }
 
+    /**
+     * Se supone que la función toma un puntero a una persona y un puntero a un teléfono celular y
+     * luego llama a la función "comprarCelular" de la clase "Persona" que se supone que toma el
+     * teléfono celular y lo agrega al inventario de la persona.
+     * 
+     * Parameters
+     * ----------
+     * p : Persona
+     * 	puntero a una persona
+     * c : Celular
+     * 	es un puntero a un objeto Celular
+     */
     void Tienda::comprarCelular(Persona* p, Celular* c){
 
         //cout<< p->getPresupuesto() <<endl;
@@ -429,6 +711,21 @@
     }
 
     
+    /**
+     * Crea un nuevo objeto Stock, y luego establece el atributo celular del nuevo objeto Stock al
+     * resultado de la función celularesPorMarcaIgual.
+     * 
+     * La función celularesPorMarcaIgual devuelve un objeto Lista.
+     * 
+     * La función setCelulares toma como parámetro un objeto Lista.
+     * 
+     * El conjunto
+     * 
+     * Parameters
+     * ----------
+     * nombre : string
+     * 	nombre de la marca
+     */
     void Tienda::buscarPorNombreCelular(string nombre){
 
         Stock *s = new Stock();
@@ -443,6 +740,16 @@
 
     }
 
+   /**
+    * Crea un nuevo objeto Stock y luego verifica si la lista está vacía. Si es así, imprime un
+    * mensaje. Si no es así, establece la lista del nuevo objeto Stock en la lista devuelta por la
+    * función y luego imprime la lista.
+    * 
+    * Parameters
+    * ----------
+    * precio : double
+    * 	doble
+    */
     void Tienda::buscarPorPrecioCelular(double precio){
 
         Stock *a = new Stock();
@@ -456,6 +763,14 @@
         }
     }
 
+    /**
+     * Agrega una persona a la lista de personas en la tienda
+     * 
+     * Parameters
+     * ----------
+     * p : Persona
+     * 	es un puntero a un objeto persona
+     */
     void Tienda::agregarPersonaTienda(Persona* p){
         
         if(stock->compararPersona(p)){
@@ -472,6 +787,14 @@
         }
     }
 
+   /**
+    * Toma un puntero a un objeto Persona y lo agrega al final de una lista enlazada
+    * 
+    * Parameters
+    * ----------
+    * p : Persona
+    * 	es un puntero a un objeto Person
+    */
     void Tienda::agregarPersonaSinString(Persona* p){
         
         if(stock->compararPersona(p)){
@@ -488,6 +811,14 @@
         }
     }
 
+    /**
+     * Elimina a una persona de la lista.
+     * 
+     * Parameters
+     * ----------
+     * p : Persona
+     * 	es un puntero a un objeto persona
+     */
     void Tienda::eliminarPersonaTienda(Persona* p){
 
         if(stock->eliminarPersona(p)){
@@ -500,6 +831,16 @@
         }
     }
 
+    /**
+     * Toma una cadena y una cadena e imprime las personas que coinciden con el nombre y el apellido.
+     * 
+     * Parameters
+     * ----------
+     * nombre : string
+     * 	cuerda
+     * apellido : string
+     * 	cuerda
+     */
     void Tienda::buscarPorNombrePersona(string nombre, string apellido){
         Stock *a = new Stock();
 
@@ -517,6 +858,16 @@
         }
     }
     
+    /**
+     * Crea un nuevo objeto Stock, luego verifica si la lista está vacía, si lo está, imprime un
+     * mensaje, si no, establece la lista de personas en la lista de personas que coinciden con los
+     * criterios, luego imprime la lista de personas
+     * 
+     * Parameters
+     * ----------
+     * presupuesto : double
+     * 	es el presupuesto que el usuario quiere buscar.
+     */
     void Tienda::buscarPorPresupuestoPersona(double presupuesto){
         Stock *a = new Stock();
         //cout<< "Entre a la funcion buscar" <<endl;
@@ -530,6 +881,25 @@
         }
     }
 
+    /**
+     * Toma un nombre, apellido, presupuesto y número de cédula y devuelve una lista de teléfonos que
+     * coinciden con el presupuesto y el número de cédula
+     * 
+     * Parameters
+     * ----------
+     * nombre : string
+     * 	nombre de la persona
+     * apellido : string
+     * 	apellido
+     * presupuesto : double
+     * 	la cantidad de dinero que el usuario tiene que gastar
+     * cedula : int
+     * 	En t
+     * 
+     * Returns
+     * -------
+     * 	Un valor booleano.
+     */
     bool Tienda::recomendarAutomatico(string nombre, string apellido, double presupuesto, int cedula){
         this->stock->ordenarPorPrecio();
         Stock *por = new Stock();
@@ -548,6 +918,18 @@
         free(por);
     }
 
+    /**
+     * Toma un doble como parámetro y devuelve un bool
+     * 
+     * Parameters
+     * ----------
+     * presupuesto : double
+     * 	doble
+     * 
+     * Returns
+     * -------
+     * 	Un valor booleano.
+     */
     bool Tienda::recomendarMenores(double presupuesto){
         this->stock->ordenarPorPrecio();
 
@@ -565,6 +947,20 @@
         free(por);
     }
 
+    /**
+     * Toma un doble como parámetro, ordena las acciones por precio, crea un nuevo objeto de acciones,
+     * configura los celulares de las nuevas acciones al resultado de la función
+     * celularesPorPresupuestoMayor, y luego imprime los celulares de las nuevas acciones.
+     * 
+     * Parameters
+     * ----------
+     * presupuesto : double
+     * 	doble
+     * 
+     * Returns
+     * -------
+     * 	Un valor booleano.
+     */
     bool Tienda::recomendarMayores(double presupuesto){
         this->stock->ordenarPorPrecio();
 
@@ -583,6 +979,9 @@
         free(por);
     }
 
+     /**
+      * Toma una lista de personas y les asigna una dirección de correo electrónico
+      */
      void Tienda::establecerCorreos(){
 
         //cout<< "Establezco correos"<<endl;
@@ -638,7 +1037,19 @@
 
     }
 
-    bool Tienda::cedulaCorrecta(int c){
+   /**
+    * Comprueba si la longitud de la cadena está entre 9 y 11
+    * 
+    * Parameters
+    * ----------
+    * c : unsigned long
+    * 	el numero de cedula
+    * 
+    * Returns
+    * -------
+    * 	un valor booleano.
+    */
+    bool Tienda::cedulaCorrecta(unsigned long c){
         string ced = to_string(c);
         int t = ced.length();
 
@@ -649,14 +1060,47 @@
         return true;
     }
 
+   /**
+    * Comprueba si el stock es mayor que 0.
+    * 
+    * Parameters
+    * ----------
+    * s : int
+    * 	Valores
+    * 
+    * Returns
+    * -------
+    * 	un valor booleano.
+    */
     bool Tienda::stockCorrecto(int s){
         return (s > 0);
     }
 
+   /**
+    * Devuelve verdadero si el parámetro es mayor que el precio más bajo de un celular en la tienda.
+    * 
+    * Parameters
+    * ----------
+    * p : double
+    * 	doble
+    * 
+    * Returns
+    * -------
+    * 	un valor booleano.
+    */
     bool Tienda::presupuestoCorrecto(double p){
         return (p > stock->menorPrecioCelular());
     }
 
+   /**
+    * Se supone que la función lee un archivo y crea un nuevo objeto de la clase Celular o Persona,
+    * dependiendo del archivo, y luego lo agrega al vector respectivo
+    * 
+    * Parameters
+    * ----------
+    * nombre : string
+    * 	nombre del archivo
+    */
     void Tienda::importarCelulares(string nombre){
 
         ifstream file(nombre);
@@ -695,6 +1139,14 @@
         file.close();
     }
 
+    /**
+     * Lee un archivo y agrega los datos a un vector de punteros a objetos de la clase Persona
+     * 
+     * Parameters
+     * ----------
+     * nombre : string
+     * 	nombre del archivo
+     */
     void Tienda::importarPersonas(string nombre){
 
         ifstream file(nombre);
@@ -727,6 +1179,15 @@
     }
 
 
+    /**
+     * Toma como parámetro una cadena y crea un archivo con el nombre de la cadena y luego escribe la
+     * información de la lista de celulares en el archivo
+     * 
+     * Parameters
+     * ----------
+     * m : string
+     * 	mes
+     */
     void Tienda::exportarCelulares(string m){
 
         string nom = "Celulares" + m;
@@ -755,6 +1216,15 @@
 
     }
 
+    /**
+     * Toma una cadena como parámetro y crea un archivo con el nombre de la cadena y luego escribe la
+     * información de las personas en la lista
+     * 
+     * Parameters
+     * ----------
+     * m : string
+     * 	es el nombre del archivo
+     */
     void Tienda::exportarPersonas(string m){
 
         string nom = "Personas" + m;
@@ -782,6 +1252,15 @@
         file.close();
     }
 
+   /**
+    * Toma una cadena como parámetro, crea un archivo con el nombre de la cadena y luego itera a través
+    * de una lista de personas y escribe la información de cada persona en el archivo.
+    * 
+    * Parameters
+    * ----------
+    * m : string
+    * 	mes
+    */
     void Tienda::exportarInforme(string m){
         string nom = "Informe" + m;
         ofstream file(nom, ios::app);

@@ -1,13 +1,34 @@
+/*ESPE
+*Enunciado del problema:
+*   Realizar el codigo de la catedra en clases (POO)
+*Autor 
+* Camila Rivera
+* Christian Román
+*Fecha de creacion
+*   10-06-2022
+*Fecha de modificacion
+*   10 - 06 -2022
+*Grupo #2
+*Github del grupo:
+* https://github.com/Grupo8-4698-EstructuraDeDatos/4698-Grupo8-EstructuradeDatos
+*/
+
 #pragma once
-#include "1ListaDC.h"
+#include "1ListaDC.hpp"
 #include "3Celular.cpp"
 #include "3Persona.cpp"
 #include "3Stock.h"
 #include <cstring>
 
+   /**
+    * Un constructor para la clase Stock.
+    */
     Stock::Stock(){
     }
 
+   /**
+    * Libera la memoria del objeto.
+    */
     Stock::~Stock(){
         free(this);
         lista->~ListaDobleC();
@@ -15,22 +36,55 @@
     }
 
 
+   /**
+    * Establece el valor de la variable personas al valor de la variable p.
+    * 
+    * Parameters
+    * ----------
+    * p : ListaDobleC<Persona*>
+    * 	Un puntero a un objeto ListaDobleC.
+    */
     void Stock::setPersonas(ListaDobleC<Persona*>* p){
         this->personas = p;
     }
 
+   /**
+    * *|CURSOR_MARCADOR|*
+    * 
+    * Parameters
+    * ----------
+    * l : ListaDobleC<Celular*>
+    * 	ListDobleC<Celular*>*
+    */
     void  Stock::setCelulares(ListaDobleC<Celular*>* l){
         this->lista = l;
     }
 
+    /**
+     * Devuelve la lista de teléfonos móviles.
+     * 
+     * Returns
+     * -------
+     * 	Un puntero al objeto aListDobleC<Cellular*>.
+     */
     ListaDobleC<Celular*>* Stock::getCelulares(){
         return this->lista;
     }
     
+    /**
+     * Devuelve la lista de personas.
+     * 
+     * Returns
+     * -------
+     * 	Un puntero a ListDobleC<Persona*>
+     */
     ListaDobleC<Persona*>* Stock::getPersonas(){
         return this->personas;
     }
 
+    /**
+     * Imprime la lista de celulares disponibles
+     */
     void Stock::verCelulares(){
 
         int indice = 0;
@@ -50,6 +104,9 @@
         lista->imprimirObjetoInicio();
     }//Celulares disponibles
 
+    /**
+     * Imprime el stock de cada artículo de la lista
+     */
     void Stock::verStock(){
         int indice = 0;
         int cont =1;
@@ -66,6 +123,9 @@
     }
     // ver que celulares estan a la venta y su cantidad
 
+   /**
+    * Imprime la lista de personas en stock
+    */
     void Stock::verPersonas(){
         int indice = 0;
         int cont =1;
@@ -80,16 +140,36 @@
         }
     }
 
+   /**
+    * Imprime el stock de un determinado celular.
+    * 
+    * Parameters
+    * ----------
+    * c : Celular
+    * 	es un puntero a un objeto Celular
+    */
     void Stock::verStock(Celular* c){
         cout<< "Se tiene " << c->getStock() << " unidades de este ejemplar";
     } 
     //Ver cuantos celulares hay de la isntancia
 
+   /**
+    * Agrega un celular al stock.
+    * 
+    * Parameters
+    * ----------
+    * c : Celular
+    * 	es un puntero a un objeto Celular
+    */
     void Stock::agregarAlStock(Celular* c){
         lista->insertarFinal(c);
     }
 
     //Agregar un celular a la venta
+    /**
+     * Se supone que debe imprimir el nombre, el presupuesto actual y la cédula de cada persona en la
+     * lista, y luego imprimir los teléfonos que compraron.
+     */
     void Stock::informeCompraCelulares(){
 
         int indice = 0;
@@ -109,6 +189,9 @@
     } //Ver usuario y la compra de celulares que ha hecho
 
 
+   /**
+    * Toma una lista de objetos y los ordena por precio
+    */
     void Stock::ordenarPorPrecio(){
         
 
@@ -163,6 +246,13 @@
 
     }
 
+   /**
+    * Devuelve el precio del celular más barato del stock
+    * 
+    * Returns
+    * -------
+    * 	El precio del primer elemento de la lista.
+    */
     double Stock::menorPrecioCelular(){
 
         ordenarPorPrecio();
@@ -171,6 +261,18 @@
         return it->getValor()->getPrecio();
     }
 
+    /**
+     * Compara un objeto Celular con los objetos en una lista de objetos Celular
+     * 
+     * Parameters
+     * ----------
+     * c : Celular
+     * 	es un puntero a un objeto Celular
+     * 
+     * Returns
+     * -------
+     * 	Un valor booleano.
+     */
     bool Stock::compararCelulares(Celular* c){
 
         //cout<<"Ingrese el metodo"<<endl;
@@ -206,6 +308,18 @@
         return false;
     }
 
+    /**
+     * Compara una persona con la lista de personas en el stock
+     * 
+     * Parameters
+     * ----------
+     * c : Persona
+     * 	es un puntero a un objeto persona
+     * 
+     * Returns
+     * -------
+     * 	Un valor booleano.
+     */
     bool Stock::compararPersona(Persona* c){
 
         int indice = 0;
@@ -224,6 +338,14 @@
         return false;
     }
     
+   /**
+    * Comprueba si un determinado celular ya está en stock, y si lo está, no hace nada
+    * 
+    * Parameters
+    * ----------
+    * c : Celular
+    * 	es un puntero a un objeto Celular
+    */
     void Stock::agregarStockRepetido(Celular* c){
 
         int indice = 0;
@@ -239,6 +361,16 @@
 
     }
 
+    /**
+     * Comprueba si un objeto Celular ya está en la lista, y si lo está, aumenta el stock de ese objeto
+     * 
+     * Parameters
+     * ----------
+     * c : Celular
+     * 	es un puntero a un objeto Celular
+     * cantidad : int
+     * 	En t
+     */
     void Stock::agregarStockRepetido(Celular* c, int cantidad){
 
         int indice = 0;
@@ -259,25 +391,33 @@
         }
     }
 
+    /**
+     * Elimina un nodo de una lista doblemente enlazada
+     * 
+     * Parameters
+     * ----------
+     * c : Celular
+     * 	es un puntero a un objeto Celular
+     * 
+     * Returns
+     * -------
+     * 	Un valor booleano.
+     */
     bool Stock::eliminarCelular(Celular* c){
         
-        //cout <<"Funcion eleiminar" <<endl;
-        //cout<< this->lista->obtenerLongitud() <<endl;
-        //cout << c->toString();
+
 
         NodoDC<Celular*> *it = lista->obtenerPrimero();
         int cont = 0;
    
         while(cont < lista->obtenerLongitud()){
             
-            //cout<< it->getValor()->getMarca() <<endl;
+
  
             if((*(it->getValor()) == *c)){
-                //cout<<"Entre al if" <<endl;
-                //cout<< cont <<endl;
+
                 this->lista->eliminar(cont);
-                //cout<< this->lista->obtenerLongitud() <<endl;
-                //cout<<"Termine el if"<<endl;
+       
                 return true;
             }else{
                 cont++;
@@ -286,13 +426,21 @@
 
         }
 
-        //cout<< this->lista->obtenerLongitud() <<endl;
-        //cout<<"Estoy afuera";
-        //cout<< "Sali del while" <<endl;
-        
         return false;
     }
 
+    /**
+     * Elimina a una persona de la lista de personas.
+     * 
+     * Parameters
+     * ----------
+     * c : Persona
+     * 	es el objeto a eliminar
+     * 
+     * Returns
+     * -------
+     * 	Un valor booleano.
+     */
     bool Stock::eliminarPersona(Persona* c){
     
         NodoDC<Persona*> *it = personas->obtenerPrimero();
@@ -313,6 +461,18 @@
         return false;
     }
 
+   /**
+    * Devuelve un puntero a un objeto Celular, que es una clase que creé.
+    * 
+    * Parameters
+    * ----------
+    * nombre : string
+    * 	es el nombre del teléfono
+    * 
+    * Returns
+    * -------
+    * 	Un puntero a un objeto Celular.
+    */
     Celular* Stock::retornarCelularporNombre(string nombre){
 
 		NodoDC<Celular*> *it = lista->obtenerPrimero();
@@ -340,6 +500,24 @@
     }
 
     
+   /**
+    * Esta función devuelve un puntero a un objeto persona que está en la lista de personas
+    * 
+    * Parameters
+    * ----------
+    * nombre : string
+    * 	cuerda
+    * apellido : string
+    * 	cuerda
+    * presupuesto : double
+    * 	doble
+    * cedula : unsigned long
+    * 	largo sin firmar
+    * 
+    * Returns
+    * -------
+    * 	Un puntero a una persona.
+    */
     Persona* Stock::retornarPersonaporNombre(string nombre, string apellido, double presupuesto, unsigned long cedula){
    
 		Persona *p = new Persona(nombre, apellido, presupuesto, cedula);
@@ -362,6 +540,22 @@
 		return nullptr;
     }
 
+   /**
+    * Devuelve un puntero a un objeto persona.
+    * 
+    * Parameters
+    * ----------
+    * nombre : string
+    * 	cuerda
+    * apellido : string
+    * 	cuerda
+    * cedula : unsigned long
+    * 	largo sin firmar
+    * 
+    * Returns
+    * -------
+    * 	Un puntero a una persona.
+    */
     Persona* Stock::retornarPersonaporNombre(string nombre, string apellido, unsigned long cedula){
    
 		//Persona *p = new Persona(nombre, apellido, cedula);
@@ -384,6 +578,21 @@
 		return nullptr;
     }
 
+   /**
+    * Toma una cadena, la convierte en una matriz de caracteres y luego concatena el primer carácter de
+    * la matriz de caracteres con otra cadena.
+    * 
+    * Parameters
+    * ----------
+    * nombre : string
+    * 	cuerda
+    * apellido : string
+    * 	cuerda
+    * 
+    * Returns
+    * -------
+    * 	Una cuerda
+    */
     string Stock::generarCorreo(string nombre, string apellido){
 
         int l = nombre.length();
@@ -396,6 +605,23 @@
         return correo;
     }
 
+   /**
+    * Toma una cadena, la convierte en una matriz de caracteres y luego la vuelve a convertir en una
+    * cadena.
+    * 
+    * Parameters
+    * ----------
+    * nombre : string
+    * 	cuerda
+    * apellido : string
+    * 	apellido
+    * lugar : int
+    * 	es el número del empleado, si es el primero es 0, si es el segundo es 1, etc.
+    * 
+    * Returns
+    * -------
+    * 	Una cuerda
+    */
     string Stock::generarCorreo(string nombre, string apellido, int lugar){
 
         int l = nombre.length();
