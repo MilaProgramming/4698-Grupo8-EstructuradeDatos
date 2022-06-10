@@ -38,6 +38,7 @@
     "string": "cpp",
     "thread": "cpp",
     "fstream": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "array": "cpp"
   }
 }

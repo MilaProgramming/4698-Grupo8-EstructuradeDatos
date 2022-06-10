@@ -9,7 +9,7 @@ template <typename T, typename N>
     class IngresoDatos{
         private:
 
-            char* dato; //Arreglo donde guardare la insercion de mis numeros
+            char* dato = new char[100]; //Arreglo donde guardare la insercion de mis numeros
             Conversion<T,N> conversion; //Instancia de conversion para determinar y transformar enteros y flotantes
             void imprimirMensaje(string str){
                 cout<< str <<endl;
