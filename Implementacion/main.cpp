@@ -877,12 +877,6 @@ int main(int argc, char **argv) {
                     menuInterno1.stop();
                 }, false));
 
-                menuInterno1.add_option(MenuOption(".pdf", [&](MenuOptionArguments args) {
-                    //!IMPLEMENTAR PDF
-                    menuInterno1.stop();
-                }, false));
-
-
                 menuInterno1.display();
 
             }));
