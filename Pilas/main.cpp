@@ -16,7 +16,11 @@ int main(){
     //pila->mostrar();
 
     pila->desapilar();
-
+    pila->desapilar();
+    pila->desapilar();
+    pila->desapilar();
+    pila->desapilar();
+    pila->desapilar();
     pila->mostrar();
 
     return 0;

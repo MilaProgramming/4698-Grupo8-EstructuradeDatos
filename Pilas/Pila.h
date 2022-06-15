@@ -23,31 +23,34 @@ public:
 
     	if (primero == nullptr) {
         	primero = siguiente = nuevo;
-    	}else if(primero == siguiente){    	
-        	primero->setNodo(nuevo);
+			
+    	}else {    	
+			nuevo->setNodo(siguiente);
 			siguiente=nuevo;
-    	}else{
-		siguiente -> setNodo(nuevo);	
-    	siguiente = nuevo;
 		}
 	}
 
 	void mostrar(){
-    	Nodo<T> * tmp=this->primero;
+    	Nodo<T> * tmp=this->siguiente;
     	while (tmp !=nullptr){
         std::cout << tmp->getValor()<<" ";
         tmp = tmp->getNodo();
     	}
 	}	
 	void desapilar() {
+		Nodo<T> * tmp;
 		if(primero == nullptr){
 			cout<<"\n Pila Vacia"<<endl;
 		}else if(primero ==siguiente){
-			primero=siguiente=nullptr;
+			Nodo<T>  *aux_borrar=siguiente->getNodo();
+			cout<<"\n Desapilando: "<<aux_borrar->getValor()<<endl;
+			primero = siguiente=nullptr;
+			delete aux_borrar;
 		}else{
-    		Nodo<T>  *aux_borrar=siguiente->getNodo();
-			siguiente->~Nodo();
-			siguiente=aux_borrar;
+    		Nodo<T>  *aux_borrar=siguiente;
+			cout<<"\n Desapilando: "<<aux_borrar->getValor()<<endl;
+			siguiente=aux_borrar->getNodo();
+			delete aux_borrar;
         }
     	}
 };	
