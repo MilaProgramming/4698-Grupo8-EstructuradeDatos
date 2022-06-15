@@ -6,6 +6,7 @@ using namespace std;
 int main(){
 
     Pila<int> *pila = new Pila<int>();
+
     pila->apilar(1);
     pila->apilar(2);
     pila->apilar(3);
@@ -13,15 +14,10 @@ int main(){
     pila->apilar(5);
     pila->apilar(6);
     
-    //pila->mostrar();
-
-    pila->desapilar();
-    pila->desapilar();
-    pila->desapilar();
-    pila->desapilar();
-    pila->desapilar();
-    pila->desapilar();
     pila->mostrar();
 
+    pila->desapilar();
+
+    pila->mostrar();
     return 0;
 }
