@@ -45,12 +45,12 @@ public:
 			Nodo<T>  *aux_borrar=siguiente->getNodo();
 			cout<<"\n Desapilando: "<<aux_borrar->getValor()<<endl;
 			primero = siguiente=nullptr;
-			delete aux_borrar;
+			aux_borrar->~Nodo();
 		}else{
     		Nodo<T>  *aux_borrar=siguiente;
 			cout<<"\n Desapilando: "<<aux_borrar->getValor()<<endl;
 			siguiente=aux_borrar->getNodo();
-			delete aux_borrar;
+			aux_borrar->~Nodo();
         }
     	}
 };	
