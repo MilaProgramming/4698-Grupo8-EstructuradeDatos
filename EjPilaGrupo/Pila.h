@@ -56,9 +56,11 @@ public:
     }
 
 	int sumaPares(){
-		Nodo<T> *it = primero;
+
+		Nodo<T> *it = siguiente;
 		int suma = 0;
 		while(it!=nullptr){
+
 			if((it->getValor()%2) == 0){
 				suma += it->getValor();
 			}
