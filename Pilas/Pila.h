@@ -33,7 +33,7 @@ public:
 	void mostrar(){
     	Nodo<T> * tmp=this->siguiente;
     	while (tmp !=nullptr){
-        std::cout << tmp->getValor()<<" ";
+        std::cout << tmp->getValor()<<" "<<endl;
         tmp = tmp->getNodo();
     	}
 	}	
