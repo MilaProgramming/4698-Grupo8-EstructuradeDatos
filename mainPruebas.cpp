@@ -1,15 +1,13 @@
 #include "1Pila.hpp"
 #include <iostream>
+#include "Proceso.cpp"
 using namespace std;
 
 int main(){
 
-    Pila<int> *p = new Pila<int>();
-    p->push(1);
-    p->push(2);
-    p->push(3);
+    Proceso *p = new Proceso();
 
-    p->imprimir();
+    p->recibirExpresion();
 
     return 0;
 }

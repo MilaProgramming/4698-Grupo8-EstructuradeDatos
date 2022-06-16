@@ -3,6 +3,7 @@
 #include <iostream>
 using namespace std;
 #include "1Nodo.hpp"
+#pragma once
 
 template <typename T>
     class Pila{
@@ -10,11 +11,10 @@ template <typename T>
         private:
             Nodo<T> *primero = nullptr;
             Nodo<T> *ultimo = nullptr;
-            int longitud;
+            int longitud=0;
 
         public:
             Pila(){
-                longitud = 0;
             }
 
             ~Pila(){
@@ -31,7 +31,6 @@ template <typename T>
 
                 if(primero == nullptr){
                     primero = ultimo = n;
-                    ultimo->setNodo(nullptr);
                 }else{
                     n->setNodo(primero);
                     primero = n;
@@ -40,20 +39,19 @@ template <typename T>
 
             }
 
-            int pop(){
+            T pop(){
 
-                int valor{0};
+                T valor;
                 if(primero == nullptr){
                     cout<< "\nStack underflow"<<endl;
-                    return -1;
                 }else{
                     Nodo<T> *n = primero->getNodo();
                     valor = primero->getValor();
                     primero->~Nodo();
                     primero = n;
+                    longitud--;
                 }
 
-                longitud--;
                 return valor;
             }
 
