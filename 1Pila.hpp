@@ -25,6 +25,10 @@ template <typename T>
                 return primero == nullptr;
             }
 
+            Nodo<T>* getPrimero(){
+                return this->primero;
+            }
+
             void push(T v){
 
                 Nodo<T> *n = new Nodo<T>(v);
@@ -42,8 +46,13 @@ template <typename T>
             T pop(){
 
                 T valor;
-                if(primero == nullptr){
+                if(longitud == 0){
                     cout<< "\nStack underflow"<<endl;
+                }else if(longitud == 1){
+                    valor = primero->getValor();
+                    ultimo = nullptr;
+                    longitud--;
+                    return valor;
                 }else{
                     Nodo<T> *n = primero->getNodo();
                     valor = primero->getValor();
@@ -56,12 +65,16 @@ template <typename T>
             }
 
             void imprimir(){
+                
+                cout<< "Entro funcion" <<endl;
 
                 if(primero == nullptr) cout<<"\nStack underflow"<<endl;
                 else{
 
-                    Nodo<T> *n = primero;
+                    cout<< ultimo->getValor() <<endl;
+                    cout<< "Entro" <<endl;
 
+                    Nodo<T> *n = primero;
                     Pila<T> *pNueva = new Pila<T>();
 
                     while(n != nullptr){
@@ -69,19 +82,37 @@ template <typename T>
                         n = n->getNodo();
                     }
 
-                    Nodo<T> *np = pNueva->primero;
+                    //cout<< pNueva->ultimo->getValor() <<endl;
 
+                    Nodo<T> *np = pNueva->primero;
                     cout<<"\n";
 
-                    while(!(pNueva->estaVacia())){
+                    while(np!=nullptr){
                         cout<< pNueva->pop() << " ";
                         np = np->getNodo();
                     }
 
-                    np->~Nodo();
-                    pNueva->~Pila();
-
+                    cout<< "Final" <<endl;
                 }
+            }
+
+            void imprimirT(){
+                
+                if(primero == nullptr) cout<<"\nStack underflow"<<endl;
+                else{
+
+                    Nodo<T> *np = primero;
+
+                    while(np!=nullptr){
+                        cout<< np->getValor() << " ";
+                        np = np->getNodo();
+                    }
+                    
+                }
+            }
+
+            T tope(){
+                return this->primero->getValor();
             }
 
     };    

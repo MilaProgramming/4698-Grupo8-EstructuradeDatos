@@ -3,30 +3,76 @@
 using namespace std;
 #pragma once
 
-Pila<char>* Proceso::getIngreso(){
-    return this->ingreso;
-}
+    Pila<string>* Proceso::getInfija(){
+        return this->infija;
+    }
 
-void Proceso::setIngreso(Pila<char> *i) {
-    this ->ingreso = i;
-}
+    void Proceso::setInfija(Pila<string> *i) {
+        this ->infija = i;
+    }
 
-void Proceso::recibirExpresion(){
+    Pila<string> *Proceso::getPostfija(){
+        return postfija;
+    }
 
-    string input{"0"};
+    void Proceso::setPostfija(Pila<string> *post) {
+        postfija = post;
+    }
 
-    cin >> input;
+    Pila<string> *Proceso::getPrefija(){
+        return prefija;
+    }
 
-    int n = input.length();
-    char *aux = new char[n+1];
+    void Proceso::setPrefija(Pila<string> *pre) {
+        prefija = pre;
+    }
 
-    strcpy(aux, input.c_str());
+    /**
+    * Recibe una cadena del usuario, la convierte en una matriz de caracteres y empuja cada carácter en
+    * una pila
+    */
+    void Proceso::recibirExpresion(){
 
-    for (int i = 0; i < n; i++){
-        ingreso->push(aux[i]);
-    }    
+        string input{"0"};
 
-    //ingreso->imprimir();
-    delete &input;
-    delete &aux;
-}
+        Regex *r = new Regex();
+        cin >> input;
+
+        Pila<string> *fragmento= r->fragmento(input);
+        // cout<< "cola"<<endl;
+        // fragmento->imprimir();
+        // cout<<"antes del segundo imprimir"<<endl;
+        // fragmento->imprimir();
+        // cout<<"hago cosas despues"<<endl;
+
+        Nodo<string> *n = fragmento->getPrimero();
+        //cout<< n->getValor()<<endl; 
+        while(n != nullptr){
+            //cout<< n->getValor()<<endl<<endl;           
+            infija->push(n->getValor());
+            n = n->getNodo();
+        }
+
+        infija->imprimirT();
+    }
+
+    void Proceso::convertirPostfija(){
+
+        Nodo<string> *it = infija->getPrimero();
+        Pila<string> *conversion = new Pila<string>();
+
+        while(it != nullptr){
+
+
+
+            it = it->getNodo();
+        }
+    }
+
+
+    void Proceso::convertirPrefija(){
+        
+    }
+
+
+    
