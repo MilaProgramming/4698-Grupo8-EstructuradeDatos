@@ -37,11 +37,11 @@ class Calculadora{
 
         double tg(double a);
 
-        // double csen(double a);
+        double csen(double a);
 
-        // double scs(double a);
+        double scs(double a);
 
-        // double ctg(double a);
+        double ctg(double a);
 
         double senh(double a);
 
@@ -51,9 +51,9 @@ class Calculadora{
 
         //?Logaritmicas
 
-        // double ln(double a);
+        double ln(double a);
 
-        // double ln10(double a);
+        double ln10(double a);
 
-        // double logc(double a, double b);
+        double logc(double a, double b);
 };

@@ -4,6 +4,7 @@
 #include <string>
 #include <cstring>
 #include "Regex.cpp"
+#include "Calculadora.cpp"
 
 using namespace std;
 #pragma once
@@ -13,6 +14,7 @@ class Proceso{
         Pila<string> *infija = new Pila<string>();
         Pila<string> *postfija = new Pila<string>();
         Pila<string> *prefija = new Pila<string>();
+        Regex *r = new Regex();
 
     public:
 
@@ -20,6 +22,8 @@ class Proceso{
     }
 
     void evaluarPostfija();
+
+    int pNumero();
 
     ~Proceso(){
         free(this);
@@ -34,11 +38,25 @@ class Proceso{
     Pila<string> *getPrefija();
     void setPrefija(Pila<string> *pre);
 
-    void recibirExpresion();
+    bool recibirExpresion();
 
     void convertirPostfija();
 
     void convertirPrefija();
+
+    bool esPrioritario(string &uno, string &dos);
+
+    int pMultiplicacionDivision();
+
+    int pSumaResta();
+
+    int pExponenteRaiz();
+
+    int pParentesis();
+
+    int pNunmero();
+
+    int pTrigonometricasLog();
 
 
 };

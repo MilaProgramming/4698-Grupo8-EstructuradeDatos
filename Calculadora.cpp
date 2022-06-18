@@ -47,17 +47,17 @@ double Calculadora::tg(double a){
 
 //!excepciones de 0
 
-// double Calculadora::csen(double a){
-//     return 1/sin(a);
-// }
+double Calculadora::csen(double a){
+    return 1/sin(a);
+}
 
-// double Calculadora::scs(double a){
-//     return 1/cos(a);
-// }
+double Calculadora::scs(double a){
+    return 1/cos(a);
+}
 
-// double Calculadora::ctg(double a){
-//     return 1/tan(a);
-// }
+double Calculadora::ctg(double a){
+    return 1/tan(a);
+}
 
 //?Hiperbolicas
 
@@ -77,15 +77,15 @@ double Calculadora::tgh(double a){
 
 // //!manejo de excepcion > 0
 
-// double Calculadora::ln(double a){
-//     return log(a);
-// }
+double Calculadora::ln(double a){
+    return log(a);
+}
 
-// double Calculadora::ln10(double a){
-//     return log10(a);
-// }
+double Calculadora::ln10(double a){
+    return log10(a);
+}
 
 // //!manejo excepcion log b = 0
-// double Calculadora::logc(double a, double b){
-//     return log(a)/log(b);
-// }
+double Calculadora::logc(double a, double b){
+    return log(a)/log(b);
+}

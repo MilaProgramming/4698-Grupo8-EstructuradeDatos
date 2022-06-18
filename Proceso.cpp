@@ -27,33 +27,40 @@ using namespace std;
         prefija = pre;
     }
 
+   
     /**
-    * Recibe una cadena del usuario, la convierte en una matriz de caracteres y empuja cada carácter en
-    * una pila
-    */
-    void Proceso::recibirExpresion(){
+     * Recibe una cadena del usuario, luego usa una expresión regular para dividir la cadena en tokens
+     * y luego empuja esos tokens en una pila
+     */
+    bool Proceso::recibirExpresion(){
 
         string input{"0"};
 
-        Regex *r = new Regex();
-        cin >> input;
+       /* Obtener la entrada del usuario. */
+        getline(cin,input);
+
+        int longitud = input.length();
 
         Pila<string> *fragmento= r->fragmento(input);
-        // cout<< "cola"<<endl;
-        // fragmento->imprimir();
-        // cout<<"antes del segundo imprimir"<<endl;
-        // fragmento->imprimir();
-        // cout<<"hago cosas despues"<<endl;
 
+        /* Empujando los valores de la pila de fragmentos en la pila infija. */
         Nodo<string> *n = fragmento->getPrimero();
-        //cout<< n->getValor()<<endl; 
-        while(n != nullptr){
-            //cout<< n->getValor()<<endl<<endl;           
+        while(n != nullptr){        
             infija->push(n->getValor());
             n = n->getNodo();
         }
 
-        infija->imprimirT();
+        /* Comprobando si la longitud de la entrada es la misma que la longitud de la pila. */
+        if(r->compararLongitudes(longitud)){
+            cout<< "\nExpresion leida con exito"<<endl;
+            infija->imprimirT();
+            return true;
+        }else{
+            cout<< "\nOcurrio un error con su expresion. Ha cometido un error de sintaxis"<<endl;
+        }
+
+        //infija->imprimirT();
+        return false;
     }
 
     void Proceso::convertirPostfija(){
@@ -70,9 +77,30 @@ using namespace std;
     }
 
 
-    void Proceso::convertirPrefija(){
-        
+    int Proceso::pNumero(){
+        return 0;
     }
+
+    int Proceso::pSumaResta(){
+        return 5;
+    }
+
+    int Proceso::pMultiplicacionDivision(){
+        return 4;
+    } 
+
+    int Proceso::pExponenteRaiz(){
+        return 3;
+    }
+
+    int Proceso::pTrigonometricasLog(){
+        return 2;
+    }
+
+    int Proceso::pParentesis(){
+        return 1;
+    }
+
 
 
     

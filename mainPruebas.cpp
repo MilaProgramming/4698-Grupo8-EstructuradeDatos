@@ -5,6 +5,7 @@
 using namespace std;
 #include <cstring>
 
+
 int main(){
 
     Proceso *p = new Proceso();
