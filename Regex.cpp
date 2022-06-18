@@ -13,7 +13,7 @@ Pila<string>* Regex::fragmento(const string &s){
     Pila<string> *frag = new Pila<string>();
 
    /* Una expresión regular que coincida con lo siguiente: */
-    regex r("[-+]?|([0-9]+([.][0-9]*)?|[.][0-9]+|e|pi)|[+-^*/]?| cos|tan|sinh|senh|sin|sen|cosh|tanh|csc|sec|ctg|ln|log10|log|[(]|[)]|rt");
+    regex r("([0-9]+([.][0-9]*)?|[.][0-9]+|e|pi)|[+-~^*/]|cos|tan|sinh|senh|sin|sen|cosh|tanh|csc|sec|ctg|ln|log10|log|[(]|[)]|rt");
 
     for (
     std::sregex_iterator i = std::sregex_iterator(s.begin(), s.end(), r);
@@ -23,9 +23,11 @@ Pila<string>* Regex::fragmento(const string &s){
     {
         smatch m = *i;
         longitud += m.length();
+        //cout << m.str() <<endl;
         frag->push(m.str());
     }
 
+    //frag ->imprimir();
     return frag;
 }
 

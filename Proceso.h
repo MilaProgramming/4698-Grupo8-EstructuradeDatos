@@ -68,5 +68,6 @@ class Proceso{
 
     bool buscoSignos(string& str);
 
+    void reemplazoMenos(string& str);
 
 };

@@ -23,6 +23,7 @@ using namespace std;
         return prefija;
     }
 
+    
     void Proceso::setPrefija(Pila<string> *pre) {
         prefija = pre;
     }
@@ -44,6 +45,7 @@ using namespace std;
 
         if(buscoSignos(input)){
 
+            
             int longitud = input.length();
 
             Pila<string> *fragmento= r->fragmento(input);
@@ -58,14 +60,16 @@ using namespace std;
             /* Comprobando si la longitud de la entrada es la misma que la longitud de la pila. */
             if(r->compararLongitudes(longitud)){
                 cout<< "\nExpresion leida con exito"<<endl;
-                infija->imprimirT();
+                reemplazoMenos(input);
+                cout << input <<endl;
+                //infija->imprimirT();
                 return true;
             }else{
                 cout<< "\nOcurrio un error con su expresion. Ha cometido un error de sintaxis"<<endl;
             }
 
         }else{
-            cout<< "\nOcurrio un error con su expresion. Ha cometido un error de sintaxis"<<endl;
+            cout<< "\nOcurrio un error con su expresion. Ha cometido un error de sintaxis2"<<endl;
         }
 
         return false;
@@ -98,7 +102,7 @@ using namespace std;
                     string tope{conversion->tope()};
                     int pConversion{operadores(conversion->tope())};
                 }else{
-                    string tope{"~"};
+                    string tope{"!"};
                     int pConversion{0};
                 }
 
@@ -108,7 +112,7 @@ using namespace std;
 
                 
                 
-
+               it = it->getNodo();
             }
         
         }
@@ -136,6 +140,11 @@ using namespace std;
         return 0;
     }
 
+    /**
+     * Devuelve el valor de la variable numero.
+     * 
+     * @return El valor devuelto es el valor de la variable numero.
+    */
     int Proceso::pNumero(){
         return 0;
     }
@@ -169,10 +178,11 @@ using namespace std;
     }
 
     void Proceso::reemplazoSignos(string& str){
-        reemplazaString(str, "--", "+");
-        reemplazaString(str, "+-", "-");
-        reemplazaString(str, "-+", "-");
-        reemplazaString(str, "++", "+");
+        reemplazaString(str, "(-", "(~");
+    }
+
+    void Proceso::reemplazoMenos(string& str){
+        reemplazaString(str, "~", "-");
     }
 
     bool Proceso::buscoSignos(string& str){
