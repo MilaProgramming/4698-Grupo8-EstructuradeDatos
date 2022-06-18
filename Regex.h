@@ -57,5 +57,11 @@ class Regex{
         bool esUnlog10(const string &a);
 
         bool esUnlog(const string &a);
+
+        bool esUnOperando(const string &a);
+
+        bool esUnExponente(const string &a);
+
+        bool esUnaRaiz(const string &a);
       
 };

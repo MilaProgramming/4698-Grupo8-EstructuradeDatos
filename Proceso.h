@@ -58,5 +58,15 @@ class Proceso{
 
     int pTrigonometricasLog();
 
+    int operadores(const string &a);
+
+    int prioridades(int operador);
+
+    void reemplazaString(string& subject, const string& search, const string& replace);
+
+    void reemplazoSignos(string& str);
+
+    bool buscoSignos(string& str);
+
 
 };
