@@ -13,7 +13,7 @@ Pila<string>* Regex::fragmento(const string &s){
     Pila<string> *frag = new Pila<string>();
 
    /* Una expresión regular que coincida con lo siguiente: */
-    regex r("([0-9]+([.][0-9]*)?|[.][0-9]+|e|pi)|[+-~^*/]|cos|tan|sinh|senh|sin|sen|cosh|tanh|csc|sec|ctg|ln|log10|log|[(]|[)]|rt");
+    regex r("([0-9]+([.][0-9]*)?|[.][0-9]+|e|pi)|[+\\-~^*/]|cos|tan|sinh|senh|sin|sen|cosh|tanh|csc|sec|ctg|ln|log10|log|[(]|[)]|rt");
 
     for (
     std::sregex_iterator i = std::sregex_iterator(s.begin(), s.end(), r);
@@ -29,6 +29,61 @@ Pila<string>* Regex::fragmento(const string &s){
 
     //frag ->imprimir();
     return frag;
+}
+
+bool Regex::excepciones(const string &s){
+    const regex r("[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)ln|[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)sen|[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)sin|[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)cos|[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)tan|[+-]?([0-9]+([.][0-9]*)|[.][0-9]+)csc|[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)sec|[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)ctg$|^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)ln|[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)log10|[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)[(]$|^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)sinh|[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)senh|[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)tanh|[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)cosh|~~");
+    bool existe{true};
+    for(sregex_iterator i = std::sregex_iterator(s.begin(), s.end(), r);
+                            i != std::sregex_iterator();
+                            ++i )
+    {
+        smatch m = *i;
+        cout << m.str() << " error en la posicion " << m.position() << '\n';
+        existe = false;
+    }
+
+    return existe;
+}
+
+bool Regex::excepcionesParentesis(const string &s){
+    return parentesisAbiertos(s) == parentesisCerrados(s);
+}
+
+int Regex::parentesisAbiertos(const string &s){
+    regex const expression("[(]");
+    
+    ptrdiff_t const match_count(distance(
+    sregex_iterator(s.begin(), s.end(), expression),
+    sregex_iterator()));
+
+    return  match_count;
+}
+
+int Regex::parentesisCerrados(const string &s){
+    regex  const expression("[)]");
+    
+    ptrdiff_t const match_count(distance(
+    sregex_iterator(s.begin(), s.end(), expression),
+    sregex_iterator()));
+
+    return match_count;
+}
+
+bool Regex::excepcionesBinarios(const string &s){
+    const regex r("[+-/*^]{2}|[=]");
+
+    bool existe{true};
+    for(sregex_iterator i = std::sregex_iterator(s.begin(), s.end(), r);
+                            i != std::sregex_iterator();
+                            ++i )
+    {
+        smatch m = *i;
+        cout << m.str() << " error en la posicion " << m.position() << '\n';
+        existe = false;
+    }
+
+    return existe;
 }
 
 /**
@@ -60,7 +115,25 @@ bool Regex::esUnNumero(const string &a){
 // }
 
 bool Regex::esUnBinario(const string &a){
-    return esUnMas(a) || esUnMenos(a) || esUnaMultiplicacion(a) || esUnaDivision(a)|| esUnExponente(a) || esUnaRaiz(a); 
+    return esUnMas(a) || esUnMenos(a) || esUnaMultiplicacion(a) || esUnaDivision(a) ||  esUnExponente(a); 
+}
+
+bool Regex::noEsBinario(const string &a){
+    return esUnSeno(a) || esUnCoseno(a) || esUnTangente(a) || esUnCosecante(a) || esUnSecante(a) || esUnCotangente(a) || esUnSenh(a) || esUnCosh(a) || esUnTanh(a) || esUnln(a) || esUnlog10(a);
+}
+
+bool Regex::esUnFormatoEspecial(const string &a){
+    return esUnaRaiz(a) || esUnlog(a);
+}
+
+bool Regex::esUnParentesisInicial(const string &a){
+    const regex r("[(]");
+    return regex_match(a,r);
+}
+
+bool Regex::esUnParentesisFinal(const string &a){
+    const regex r("[)]");
+    return regex_match(a,r);
 }
 
 bool Regex::esUnMas(const string &a){

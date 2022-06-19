@@ -67,5 +67,23 @@ class Regex{
         bool esUnSigno(const string &a);
 
         bool esUnBinario(const string &a);
+
+        bool esUnParentesisInicial(const string &a);
+
+        bool esUnParentesisFinal(const string &a);
+
+        bool noEsBinario(const string &a);
+
+        bool esUnFormatoEspecial(const string &a);
+
+        bool excepciones(const string &s);
+
+        bool excepcionesBinarios(const string &s);
+
+        bool excepcionesParentesis(const string &s);
+
+        int parentesisAbiertos(const string &s);
+
+        int parentesisCerrados(const string &s);
       
 };

@@ -15,6 +15,7 @@ class Proceso{
         Pila<string> *postfija = new Pila<string>();
         Pila<string> *prefija = new Pila<string>();
         Regex *r = new Regex();
+        bool calculable = true;
 
     public:
 
@@ -37,6 +38,10 @@ class Proceso{
 
     Pila<string> *getPrefija();
     void setPrefija(Pila<string> *pre);
+
+    bool getCalculable();
+
+    void setCalculable(bool calc);
 
     bool recibirExpresion();
 
@@ -69,5 +74,7 @@ class Proceso{
     void reemplazoMenos(string& str);
 
     int pSigno();
+
+    int tipoOperador(const string &a);
 
 };

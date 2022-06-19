@@ -28,6 +28,14 @@ using namespace std;
         prefija = pre;
     }
 
+    bool Proceso::getCalculable(){
+        return calculable;
+    }
+
+    void Proceso::setCalculable(bool calc) {
+        this->calculable = calc;
+    }
+
    
     /**
      * La función recibe una cadena del usuario, luego usa una expresión regular para dividir la cadena en tokens
@@ -43,7 +51,7 @@ using namespace std;
         getline(cin,input);
         reemplazoSignos(input);
 
-        if(buscoSignos(input)){
+        if(r->excepcionesBinarios(input) && r->excepciones(input) && r->excepcionesParentesis(input)){
 
             int longitud = input.length();
 
@@ -58,17 +66,17 @@ using namespace std;
 
             /* Comprobando si la longitud de la entrada es la misma que la longitud de la pila. */
             if(r->compararLongitudes(longitud)){
-                cout<< "\nExpresion leida con exito"<<endl;
+                cout<< "\nExpresion leida con exito\n"<<endl;
                 reemplazoMenos(input);
                 //cout << input <<endl;
-                //infija->imprimirT();
+                infija->imprimirT();
                 return true;
             }else{
                 cout<< "\nOcurrio un error con su expresion. Ha cometido un error de sintaxis"<<endl;
             }
 
         }else{
-            cout<< "\nOcurrio un error con su expresion. Ha cometido un error de sintaxis2"<<endl;
+            cout<< "\nOcurrio un error con su expresion. Ha cometido un error de sintaxis"<<endl;
         }
 
         return false;
@@ -77,7 +85,6 @@ using namespace std;
     void Proceso::convertirPostfija(){
 
         Pila<string> *conversion = new Pila<string>();
-        //cout << "Estoy en el inicio de convertir"<<endl;
         /* Comprobando si la pila está vacía. */
         while(!(infija->estaVacia())){
 
@@ -91,47 +98,89 @@ using namespace std;
             if(r->esUnNumero(token)){
                 //cout << token <<" token que es numero" <<endl;
                 postfija ->push(token);
-               // system("pause");
+                //system("pause");
                 
             }else{
 
                 /**
-                 * Operador actual 
-                 * + -> 1
-                 * - -> 2
-                 * * -> 3
-                 * / -> 4
-                 * ~ (signo) -> 5
+                * Operador actual 
+                * + -> 1
+                * - -> 2
+                * * -> 3
+                * / -> 4
+                * ~ (signo) -> 5
+                * ^ -> 6
+                * rt (raiz) -> 7
+                * sin/sen -> 8
+                * cos -> 9
+                * tan -> 10
+                * csc -> 11
+                * sec -> 12
+                * ctg -> 13
+                * sinh -> 14
+                * cosh -> 15
+                * tanh -> 16
+                * ln -> 17
+                * log10 -> 18
+                * log -> 19
+                * ( -> 20
+                * ) -> 21
         
-                 * Prioridades de los operadores respectivos
-                 * 
-                 * + - -> prioridad 5
-                 * * / -> prioridad 4
-                 */
+                * Prioridades de los operadores respectivos
+                *
+                * + - -> prioridad 1
+                * * / -> prioridad 2
+                * ^ rt -> 3
+                * Trigonometricas, logaritmicas -> 4
+                * () -> 5
+                * ~ -> 6
+                * 
+                */
 
                 /**
-                 * Si la pila de conversion esta vacia
-                 * o si el operador en su tope tiene mayor prioridad que el de 
-                 * token.
-                 */
-                if(conversion->estaVacia() || prioridades(operadores(token)) < prioridades(operadores(conversion->tope()))){
-                    //cout << token <<" token que es de pila vacia o de operador de menor prioridad" <<endl;
-                    conversion -> push(token);
-                }else if(prioridades(operadores(token)) >= prioridades(operadores(conversion->tope())) && r->esUnBinario(token)){
-                    //cout << token <<" token de operador de mayor prioridad" <<endl;
-                    postfija->push(conversion->pop());
-                    conversion->push(token);
+                * Si la pila de conversion esta vacia
+                * o si el operador en su tope tiene mayor prioridad que el de 
+                * token.
+                */
+ 
+                if(r->esUnBinario(token) || r->noEsBinario(token)){
+
+                    int cont{0};
+                    int comparador{0};
+
+                    while (cont == comparador){
+                        if(conversion->estaVacia() || prioridades(operadores(token)) > prioridades(operadores(conversion->tope()))){
+                            //cout << token <<" token que es de pila vacia o de operador de mayor prioridad" <<endl;
+                            conversion -> push(token);
+                            cont ++;
+                        }else if(prioridades(operadores(token)) <= prioridades(operadores(conversion->tope()))){
+                            //cout << token <<" token de operador de menor prioridad" <<endl;
+                            postfija->push(conversion->pop());
+                        }
+                        //cout << cont <<" contador"<<endl;
+                        //cout << comparador <<" comparador"<<endl;
+                        //system("pause");
+                    }
+
+                    comparador++;
+
+                }else if(r->esUnFormatoEspecial(token)){
+                    
+                }else if(r->esUnParentesisInicial(token)){
+
+                }else if(r->esUnParentesisFinal(token)){
+
                 }
-       
+
             }
-        
+
         }
 
         if(!(conversion->estaVacia())){
             while(!(conversion->estaVacia())){
                 postfija->push(conversion->pop());            
             }
-             //cout<< "Llegue a la condicion de impresion 1"<<endl;
+            //cout<< "Llegue a la condicion de impresion 1"<<endl;
             postfija->imprimir();
             //system("pause");
         }else{
@@ -150,6 +199,22 @@ using namespace std;
      * * -> 3
      * / -> 4
      * ~ (signo) -> 5
+     * ^ -> 6
+     * rt (raiz) -> 7
+     * sin/sen -> 8
+     * cos -> 9
+     * tan -> 10
+     * csc -> 11
+     * sec -> 12
+     * ctg -> 13
+     * sinh -> 14
+     * cosh -> 15
+     * tanh -> 16
+     * ln -> 17
+     * log10 -> 18
+     * log -> 19
+     * ( -> 20
+     * ) -> 21
      * @param a La cadena a comprobar
      * 
      * @return El valor devuelto es el resultado de la operación.
@@ -166,6 +231,38 @@ using namespace std;
             return 4;
         }else if(r->esUnSigno(a)){
             return 5;
+        }else if(r->esUnExponente(a)){
+            return 6;
+        }else if(r->esUnaRaiz(a)){
+            return 7;
+        }else if(r->esUnSeno(a)){
+            return 8;
+        }else if(r->esUnCoseno(a)){
+            return 9;
+        }else if(r->esUnTangente(a)){
+            return 10;
+        }else if(r->esUnCosecante(a)){
+            return 11;
+        }else if(r->esUnSecante(a)){
+            return 12;
+        }else if(r->esUnCotangente(a)){
+            return 13;
+        }else if(r->esUnSenh(a)){
+            return 14;
+        }else if(r->esUnCosh(a)){
+            return 15;
+        }else if(r->esUnTanh(a)){
+            return 16;
+        }else if(r->esUnln(a)){
+            return 17;
+        }else if(r->esUnlog10(a)){
+            return 18;
+        }else if(r->esUnlog(a)){
+            return 19;
+        }else if(r->esUnParentesisInicial(a)){
+            return 20;
+        }else if(r->esUnParentesisFinal(a)){
+            return 21;
         }
 
         return 0;
@@ -175,8 +272,12 @@ using namespace std;
     /**
      * Devuelve la prioridad del operador
      * 
-     * + - -> prioridad 5
-     * * / -> prioridad 4
+     * + - -> prioridad 1
+     * * / -> prioridad 2
+     * ^ rt -> 3
+     * Trigonometricas, logaritmicas -> 4
+     * () -> 5
+     * ~ -> 6
      * 
      * @param operador 1 = +, 2 = -, 3 = *, 4 = /
      * 
@@ -188,9 +289,45 @@ using namespace std;
             return pSumaResta();
         }else if(operador == 3 || operador == 4){
             return pMultiplicacionDivision();
+        }else if(operador == 6 || operador == 7){
+            return pExponenteRaiz();
+        }else if(operador == 8 || operador == 9 || operador == 10 || operador == 11 || operador == 12 || operador == 13 || operador == 14 || operador == 15 || operador == 16 || operador == 17 || operador == 18 || operador == 19){
+            return pTrigonometricasLog();
+        }else if(operador == 5){
+            return pSigno();
+        }else if(operador == 20 || operador == 21){
+            return pParentesis();
         }
 
         return 0;
+    }
+
+    /** Binaridad
+     * 
+     * binario -> 1
+     * no binario -> 2
+     * parentesis inicial -> 3
+     * parentesis final -> 4
+     * 
+     * @param a La cadena a evaluar
+     * 
+     * @return el tipo de operador.
+     */
+    int Proceso::tipoOperador(const string &a){
+        
+        if(r->esUnBinario(a)){
+            return 1;
+        }else if(r->noEsBinario(a)){
+            return 2;
+        }else if(r->esUnFormatoEspecial(a)){
+            return 3;
+        }else if(r->esUnParentesisInicial(a)){
+            return 4;
+        }else if(r->esUnParentesisFinal(a)){
+            return 5;
+        }
+
+        return 0; 
     }
 
     /**
@@ -270,6 +407,46 @@ using namespace std;
         }else if(str.find("+-") != string::npos){
             return false;
         }else if(str.find("**") != string::npos){
+            return false;
+        }else if(str.find("//") != string::npos){
+            return false;
+        }else if(str.find("^^") != string::npos){
+            return false;
+        }else if(str.find("*/") != string::npos){
+            return false;
+        }else if(str.find("/*") != string::npos){
+            return false;
+        }else if(str.find("^*") != string::npos){
+            return false;
+        }else if(str.find("*^") != string::npos){
+            return false;
+        }else if(str.find("-*") != string::npos){
+            return false;
+        }else if(str.find("*-") != string::npos){
+            return false;
+        }else if(str.find("+*") != string::npos){
+            return false;
+        }else if(str.find("*+") != string::npos){
+            return false;
+        }else if(str.find("/+") != string::npos){
+            return false;
+        }else if(str.find("+/") != string::npos){
+            return false;
+        }else if(str.find("/-") != string::npos){
+            return false;
+        }else if(str.find("-/") != string::npos){
+            return false;
+        }else if(str.find("/^") != string::npos){
+            return false;
+        }else if(str.find("^/") != string::npos){
+            return false;
+        }else if(str.find("^+") != string::npos){
+            return false;
+        }else if(str.find("+^") != string::npos){
+            return false;
+        }else if(str.find("^-") != string::npos){
+            return false;
+        }else if(str.find("-^") != string::npos){
             return false;
         }
 
