@@ -34,7 +34,7 @@ using namespace std;
      * @return un valor booleano.
      */
     bool Proceso::recibirExpresion(){
-         string input{"0"};
+        string input{"0"};
 
         /*Obtener la entrada del usuario. */
         getline(cin,input);
@@ -57,7 +57,7 @@ using namespace std;
             if(r->compararLongitudes(longitud)){
                 cout<< "\nExpresion leida con exito\n"<<endl;
                 reemplazoMenos(input);
-                //cout << input <<endl;
+                cout << input <<endl;
                 infija->imprimirT();
                 return true;
             }else{
@@ -73,21 +73,27 @@ using namespace std;
 
     void Proceso::convertirPostfija(){
 
-       Pila<string> *conversion = new Pila<string>();
+        cout<< "Entro a convertir postfija"<<endl;
+        Pila<string> *conversion = new Pila<string>();
         /* Comprobando si la pila está vacía. */
+        cout<< "infija"<<endl;
+        infija->imprimirT();
+
         while(!(infija->estaVacia())){
 
+            cout<< "entre al big while"<<endl;
             /* Creando una nueva cadena llamada token y asignándole el valor de la parte superior de la
             pila. Ademas, elimino el valor de la pila infija*/
             //cout << infija->getLongitud() << "longitud inicial" <<endl;
             string token{infija->pop()};
+            cout<< "asigne token"<<endl;
             //cout << infija->getLongitud() << "longitud luego del pop" <<endl;
-            //system("pause");
+            system("pause");
 
             if(r->esUnNumero(token)){
-                //cout << token <<" token que es numero" <<endl;
                 postfija ->push(token);
-                //system("pause");
+                cout << token <<" token que es numero" <<endl;
+                system("pause");
                 
             }else{
 
@@ -132,10 +138,10 @@ using namespace std;
                 * token.
                 */
 
-                // cout << token << " " << r->esUnBinario(token)<<endl;
-                // cout << token << " " << r->noEsBinario(token)<<endl;
-                // cout << token << " " << r->esUnFormatoEspecial(token)<<endl;
-                // system("pause");
+                cout << token << " " << r->esUnBinario(token)<<endl;
+                cout << token << " " << r->noEsBinario(token)<<endl;
+                cout << token << " " << r->esUnFormatoEspecial(token)<<endl;
+                system("pause");
                 if(r->esUnBinario(token) || r->noEsBinario(token) || r->esUnFormatoEspecial(token)){
 
                     int cont{0};
@@ -203,23 +209,23 @@ using namespace std;
 
         }
 
-        //cout<< "Sali del while"<<endl;
+        cout<< "Sali del while grande"<<endl;
 
         if(!(conversion->estaVacia())){
-            //cout<< "Entre al if"<<endl;
+            cout<< "Entre al if"<<endl;
             while(!(conversion->estaVacia())){
                 if(!(r->esUnParentesisInicial(conversion->tope()))){
-                    //cout<< "Entre a la condicion de parentesis"<<endl;
+                    cout<< "Entre a la condicion de parentesis"<<endl;
                     postfija->push(conversion->pop());      
                 }     
             }
-            //cout<< "Llegue a la condicion de impresion 1"<<endl;
+            cout<< "Llegue a la condicion de impresion 1"<<endl;
             postfija->imprimir();
-            //system("pause");
+            system("pause");
         }else{
-            //cout<< "Llegue a la condicion de impresion"<<endl;
+            cout<< "Llegue a la condicion de impresion"<<endl;
             postfija->imprimir();
-            //system("pause");
+            system("pause");
         }
 
     }
