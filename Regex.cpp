@@ -13,7 +13,7 @@ Pila<string>* Regex::fragmento(const string &s){
     Pila<string> *frag = new Pila<string>();
 
    /* Una expresión regular que coincida con lo siguiente: */
-    regex r("([0-9]+([.][0-9]*)?|[.][0-9]+|e|pi)|[+\\-~^*/]|cos|tan|sinh|senh|sin|sen|cosh|tanh|csc|sec|ctg|ln|log10|log|[(]|[)]|rt");
+    regex r("([0-9]+([.][0-9]*)?|[.][0-9]+|e|pi)|[+\\-~^*/]|arcsin|arcsen|arccos|arctan|cos|tan|sinh|senh|sin|sen|cosh|tanh|csc|sec|ctg|ln|log10|log|[(]|[)]|rt");
 
     for (
     std::sregex_iterator i = std::sregex_iterator(s.begin(), s.end(), r);
@@ -221,6 +221,21 @@ bool Regex::esUnCosh(const string &a){
 
 bool Regex::esUnTanh(const string &a){
     const regex r("tanh");
+    return regex_match(a,r);
+}
+
+bool Regex::esUnArcSen(const string &a){
+    const regex r("arcsin|arcsin");
+    return regex_match(a,r);
+}
+
+bool Regex::esUnArcCos(const string &a){
+    const regex r("arcos");
+    return regex_match(a,r);
+}
+
+bool Regex::esUnArcTan(const string &a){
+    const regex r("arctan");
     return regex_match(a,r);
 }
 

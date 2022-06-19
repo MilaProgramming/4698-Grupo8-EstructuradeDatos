@@ -62,4 +62,10 @@ class Calculadora{
         bool esMenorQueCero(double a);
 
         bool rangoArc(double a);
+
+        double arcsen(double a);
+
+        double arccos(double a);
+
+        double arctan(double a);
 };

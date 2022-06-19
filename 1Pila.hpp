@@ -29,6 +29,10 @@ template <typename T>
                 return this->primero;
             }
 
+            void setPrimero(Nodo<T>* p){
+                this -> primero = p;
+            }
+
             void push(T v){
 
                 Nodo<T> *n = new Nodo<T>(v);
@@ -45,6 +49,7 @@ template <typename T>
 
             T pop(){
 
+                //cout<< "Entro a pop" <<endl;
                 T valor;
                 if(longitud == 0){
                     cout<< "\nStack underflow"<<endl;
@@ -53,15 +58,18 @@ template <typename T>
                     primero = nullptr;
                     ultimo = nullptr;
                     longitud--;
+                    //cout<< "Salgo de pop 1" <<endl;
                     return valor;
                 }else{
+                    //cout<< "Entro a condicion else pop" <<endl;
                     Nodo<T> *n = primero->getNodo();
                     valor = primero->getValor();
-                    primero->~Nodo();
+                    primero = nullptr;
                     primero = n;
                     longitud--;
                 }
 
+                //cout<< "salgo a pop else" <<endl;
                 return valor;
             }
 

@@ -73,6 +73,18 @@ double Calculadora::tgh(double a){
     return tanh(a);
 }
 
+double Calculadora::arcsen(double a){
+    return asin(a);
+}
+
+double Calculadora::arccos(double a){
+    return acos(a);
+}
+
+double Calculadora::arctan(double a){
+    return atan(a);
+}
+
 //? Logaritmos
 
 // //!manejo de excepcion > 0

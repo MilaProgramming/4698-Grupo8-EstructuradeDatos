@@ -85,5 +85,11 @@ class Regex{
         int parentesisAbiertos(const string &s);
 
         int parentesisCerrados(const string &s);
+
+        bool esUnArcSen(const string &a);
+
+        bool esUnArcCos(const string &a);
+
+        bool esUnArcTan(const string &a);
       
 };

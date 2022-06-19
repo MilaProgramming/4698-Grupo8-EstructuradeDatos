@@ -13,7 +13,7 @@ int main(){
   
     p->recibirExpresion();
     p->convertirPostfija();
-    //p->resolver();
+    p->resolver();
  
     return 0;
 }
