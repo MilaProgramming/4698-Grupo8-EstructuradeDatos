@@ -106,7 +106,7 @@ bool Regex::compararLongitudes(int l){
  * @return Un valor booleano.
  */
 bool Regex::esUnNumero(const string &a){
-    const regex r("^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$");
+    const regex r("^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$|e|pi");
     return regex_match(a,r);
 }
 
@@ -115,7 +115,15 @@ bool Regex::esUnNumero(const string &a){
 // }
 
 bool Regex::esUnBinario(const string &a){
-    return esUnMas(a) || esUnMenos(a) || esUnaMultiplicacion(a) || esUnaDivision(a) ||  esUnExponente(a); 
+    // cout<< esUnMas(a) << " mas"<<endl;
+    // cout<< esUnMenos(a) << " menos"<<endl;
+    // cout<< esUnaMultiplicacion(a) << " multi"<<endl;
+    // cout<< esUnaDivision(a) << " div"<<endl;
+    // cout<< esUnExponente(a) << " exp"<<endl;
+    // cout<< esUnaRaiz(a) << " raiz"<<endl;
+    // cout<< esUnlog(a) << " log"<<endl;
+
+    return esUnMas(a) || esUnMenos(a) || esUnaMultiplicacion(a) || esUnaDivision(a) ||  esUnExponente(a) || esUnaRaiz(a) || esUnlog(a); 
 }
 
 bool Regex::noEsBinario(const string &a){
@@ -123,7 +131,7 @@ bool Regex::noEsBinario(const string &a){
 }
 
 bool Regex::esUnFormatoEspecial(const string &a){
-    return esUnaRaiz(a) || esUnlog(a);
+    return esUnSigno(a);
 }
 
 bool Regex::esUnParentesisInicial(const string &a){
@@ -162,7 +170,7 @@ bool Regex::esUnaMultiplicacion(const string &a){
 }
 
 bool Regex::esUnExponente(const string &a){
-    const regex r("[^]");
+    const regex r("[\\^]");
     return regex_match(a,r);
 }
 

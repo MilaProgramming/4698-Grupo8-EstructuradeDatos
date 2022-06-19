@@ -132,8 +132,8 @@ using namespace std;
                 * * / -> prioridad 2
                 * ^ rt -> 3
                 * Trigonometricas, logaritmicas -> 4
-                * () -> 5
-                * ~ -> 6
+                * ~ -> 5
+                * () -> 6
                 * 
                 */
 
@@ -142,20 +142,33 @@ using namespace std;
                 * o si el operador en su tope tiene mayor prioridad que el de 
                 * token.
                 */
- 
-                if(r->esUnBinario(token) || r->noEsBinario(token)){
+
+                // cout << token << " " << r->esUnBinario(token)<<endl;
+                // cout << token << " " << r->noEsBinario(token)<<endl;
+                // cout << token << " " << r->esUnFormatoEspecial(token)<<endl;
+                // system("pause");
+                if(r->esUnBinario(token) || r->noEsBinario(token) || r->esUnFormatoEspecial(token)){
 
                     int cont{0};
                     int comparador{0};
 
                     while (cont == comparador){
                         if(conversion->estaVacia() || prioridades(operadores(token)) > prioridades(operadores(conversion->tope()))){
-                            //cout << token <<" token que es de pila vacia o de operador de mayor prioridad" <<endl;
+                            // cout << token <<" token que es de pila vacia o de operador de mayor prioridad" <<endl;
+                            // system("pause");
                             conversion -> push(token);
                             cont ++;
                         }else if(prioridades(operadores(token)) <= prioridades(operadores(conversion->tope()))){
-                            //cout << token <<" token de operador de menor prioridad" <<endl;
+                            // cout << token <<" token de operador de menor prioridad" <<endl;
+                            // system("pause");
                             postfija->push(conversion->pop());
+                            // cout<< "\n";
+                            // cout <<"posfija: " <<endl;
+                            // postfija->imprimir();
+                            // cout<< "\n";
+                            // cout <<"operadores: " <<endl;
+                            // conversion->imprimir();
+                            // cout<< "\n";
                         }
                         //cout << cont <<" contador"<<endl;
                         //cout << comparador <<" comparador"<<endl;
@@ -164,21 +177,52 @@ using namespace std;
 
                     comparador++;
 
-                }else if(r->esUnFormatoEspecial(token)){
-                    
                 }else if(r->esUnParentesisInicial(token)){
-
+                    // cout << "token "<< token <<endl;
+                    // cout << "Parentesis inicial" <<endl;
+                    // system("pause");
+                    // cout<< "\n";
+                    conversion -> push(token);
+                    // cout <<"operadores: " <<endl;
+                    // conversion->imprimir();
+                    // cout<< "posfija: "<<endl;
+                    // cout<< "\n";
+                    // postfija->imprimir();
+                    // cout<< "\n";
                 }else if(r->esUnParentesisFinal(token)){
 
+                    // cout << "Parentesis final" <<endl;
+                    // system("pause");
+                    // cout<< "\n";
+                    // cout << "token "<< token <<endl;
+                    // cout<< "\n";
+                    // cout<< "posfija"<<endl;
+                    // postfija->imprimir();
+                    while(!(r->esUnParentesisInicial(conversion->tope()))){
+                        // cout <<"operadores: " <<endl;
+                        // conversion->imprimir();
+                        // cout << conversion ->tope() << " tope fila operadores"<<endl;
+                        // system("pause");
+                        postfija->push(conversion->pop());
+                    }
+
+                    conversion->pop();
+                    //cout<< "sali del while parentesis"<<endl;
                 }
 
             }
 
         }
 
+        //cout<< "Sali del while"<<endl;
+
         if(!(conversion->estaVacia())){
+            //cout<< "Entre al if"<<endl;
             while(!(conversion->estaVacia())){
-                postfija->push(conversion->pop());            
+                if(!(r->esUnParentesisInicial(conversion->tope()))){
+                    //cout<< "Entre a la condicion de parentesis"<<endl;
+                    postfija->push(conversion->pop());      
+                }     
             }
             //cout<< "Llegue a la condicion de impresion 1"<<endl;
             postfija->imprimir();
@@ -313,22 +357,22 @@ using namespace std;
      * 
      * @return el tipo de operador.
      */
-    int Proceso::tipoOperador(const string &a){
+    // int Proceso::tipoOperador(const string &a){
         
-        if(r->esUnBinario(a)){
-            return 1;
-        }else if(r->noEsBinario(a)){
-            return 2;
-        }else if(r->esUnFormatoEspecial(a)){
-            return 3;
-        }else if(r->esUnParentesisInicial(a)){
-            return 4;
-        }else if(r->esUnParentesisFinal(a)){
-            return 5;
-        }
+    //     if(r->esUnBinario(a)){
+    //         return 1;
+    //     }else if(r->noEsBinario(a)){
+    //         return 2;
+    //     }else if(r->esUnFormatoEspecial(a)){
+    //         return 3;
+    //     }else if(r->esUnParentesisInicial(a)){
+    //         return 4;
+    //     }else if(r->esUnParentesisFinal(a)){
+    //         return 5;
+    //     }
 
-        return 0; 
-    }
+    //     return 0; 
+    // }
 
     /**
      * Devuelve el valor de la variable numero.
@@ -352,13 +396,15 @@ using namespace std;
         return 4;
     }
 
-    int Proceso::pParentesis(){
+    int Proceso::pSigno(){
         return 5;
     }
 
-    int Proceso::pSigno(){
-        return 6;
+    int Proceso::pParentesis(){
+        return -1;
     }
+
+    
     
     /**
      * Reemplaza todas las apariciones de una cadena con otra cadena
@@ -396,59 +442,59 @@ using namespace std;
      * 
      * @return un valor booleano.
      */
-    bool Proceso::buscoSignos(string& str){
+    // bool Proceso::buscoSignos(string& str){
 
-        if (str.find("++") != string::npos) {
-            return false;
-        }else if(str.find("--") != string::npos){
-            return false;
-        }else if(str.find("-+") != string::npos){
-            return false;
-        }else if(str.find("+-") != string::npos){
-            return false;
-        }else if(str.find("**") != string::npos){
-            return false;
-        }else if(str.find("//") != string::npos){
-            return false;
-        }else if(str.find("^^") != string::npos){
-            return false;
-        }else if(str.find("*/") != string::npos){
-            return false;
-        }else if(str.find("/*") != string::npos){
-            return false;
-        }else if(str.find("^*") != string::npos){
-            return false;
-        }else if(str.find("*^") != string::npos){
-            return false;
-        }else if(str.find("-*") != string::npos){
-            return false;
-        }else if(str.find("*-") != string::npos){
-            return false;
-        }else if(str.find("+*") != string::npos){
-            return false;
-        }else if(str.find("*+") != string::npos){
-            return false;
-        }else if(str.find("/+") != string::npos){
-            return false;
-        }else if(str.find("+/") != string::npos){
-            return false;
-        }else if(str.find("/-") != string::npos){
-            return false;
-        }else if(str.find("-/") != string::npos){
-            return false;
-        }else if(str.find("/^") != string::npos){
-            return false;
-        }else if(str.find("^/") != string::npos){
-            return false;
-        }else if(str.find("^+") != string::npos){
-            return false;
-        }else if(str.find("+^") != string::npos){
-            return false;
-        }else if(str.find("^-") != string::npos){
-            return false;
-        }else if(str.find("-^") != string::npos){
-            return false;
-        }
+    //     if (str.find("++") != string::npos) {
+    //         return false;
+    //     }else if(str.find("--") != string::npos){
+    //         return false;
+    //     }else if(str.find("-+") != string::npos){
+    //         return false;
+    //     }else if(str.find("+-") != string::npos){
+    //         return false;
+    //     }else if(str.find("**") != string::npos){
+    //         return false;
+    //     }else if(str.find("//") != string::npos){
+    //         return false;
+    //     }else if(str.find("^^") != string::npos){
+    //         return false;
+    //     }else if(str.find("*/") != string::npos){
+    //         return false;
+    //     }else if(str.find("/*") != string::npos){
+    //         return false;
+    //     }else if(str.find("^*") != string::npos){
+    //         return false;
+    //     }else if(str.find("*^") != string::npos){
+    //         return false;
+    //     }else if(str.find("-*") != string::npos){
+    //         return false;
+    //     }else if(str.find("*-") != string::npos){
+    //         return false;
+    //     }else if(str.find("+*") != string::npos){
+    //         return false;
+    //     }else if(str.find("*+") != string::npos){
+    //         return false;
+    //     }else if(str.find("/+") != string::npos){
+    //         return false;
+    //     }else if(str.find("+/") != string::npos){
+    //         return false;
+    //     }else if(str.find("/-") != string::npos){
+    //         return false;
+    //     }else if(str.find("-/") != string::npos){
+    //         return false;
+    //     }else if(str.find("/^") != string::npos){
+    //         return false;
+    //     }else if(str.find("^/") != string::npos){
+    //         return false;
+    //     }else if(str.find("^+") != string::npos){
+    //         return false;
+    //     }else if(str.find("+^") != string::npos){
+    //         return false;
+    //     }else if(str.find("^-") != string::npos){
+    //         return false;
+    //     }else if(str.find("-^") != string::npos){
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }

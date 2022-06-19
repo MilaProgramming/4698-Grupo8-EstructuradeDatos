@@ -10,11 +10,9 @@ int main(){
 
     Proceso *p = new Proceso();
 
-    while (true){
-        p->recibirExpresion();
-    }
-
-    //p->convertirPostfija();
+  
+    p->recibirExpresion();
+    p->convertirPostfija();
  
     return 0;
 }
