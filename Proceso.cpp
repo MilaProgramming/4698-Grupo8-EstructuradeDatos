@@ -23,20 +23,10 @@ using namespace std;
         return prefija;
     }
 
-    
     void Proceso::setPrefija(Pila<string> *pre) {
         prefija = pre;
     }
 
-    bool Proceso::getCalculable(){
-        return calculable;
-    }
-
-    void Proceso::setCalculable(bool calc) {
-        this->calculable = calc;
-    }
-
-   
     /**
      * La función recibe una cadena del usuario, luego usa una expresión regular para dividir la cadena en tokens
      * y luego empuja esos tokens en una pila una cadena del usuario. Despues, la pila de cadenas se empuja a otra pila, que 
@@ -68,7 +58,6 @@ using namespace std;
             if(r->compararLongitudes(longitud)){
                 cout<< "\nExpresion leida con exito\n"<<endl;
                 reemplazoMenos(input);
-                //cout << input <<endl;
                 infija->imprimirT();
                 return true;
             }else{
@@ -90,16 +79,13 @@ using namespace std;
 
             /* Creando una nueva cadena llamada token y asignándole el valor de la parte superior de la
             pila. Ademas, elimino el valor de la pila infija*/
-            //cout << infija->getLongitud() << "longitud inicial" <<endl;
+
             string token{infija->pop()};
-            //cout << infija->getLongitud() << "longitud luego del pop" <<endl;
-            //system("pause");
+
 
             if(r->esUnNumero(token)){
-                //cout << token <<" token que es numero" <<endl;
                 postfija ->push(token);
-                //system("pause");
-                
+
             }else{
 
                 /**
@@ -133,7 +119,7 @@ using namespace std;
                 * ^ rt -> 3
                 * Trigonometricas, logaritmicas -> 4
                 * ~ -> 5
-                * () -> 6
+                * () -> -1
                 * 
                 */
 
@@ -143,10 +129,6 @@ using namespace std;
                 * token.
                 */
 
-                // cout << token << " " << r->esUnBinario(token)<<endl;
-                // cout << token << " " << r->noEsBinario(token)<<endl;
-                // cout << token << " " << r->esUnFormatoEspecial(token)<<endl;
-                // system("pause");
                 if(r->esUnBinario(token) || r->noEsBinario(token) || r->esUnFormatoEspecial(token)){
 
                     int cont{0};
@@ -154,87 +136,51 @@ using namespace std;
 
                     while (cont == comparador){
                         if(conversion->estaVacia() || prioridades(operadores(token)) > prioridades(operadores(conversion->tope()))){
-                            // cout << token <<" token que es de pila vacia o de operador de mayor prioridad" <<endl;
-                            // system("pause");
                             conversion -> push(token);
                             cont ++;
                         }else if(prioridades(operadores(token)) <= prioridades(operadores(conversion->tope()))){
-                            // cout << token <<" token de operador de menor prioridad" <<endl;
-                            // system("pause");
                             postfija->push(conversion->pop());
-                            // cout<< "\n";
-                            // cout <<"posfija: " <<endl;
-                            // postfija->imprimir();
-                            // cout<< "\n";
-                            // cout <<"operadores: " <<endl;
-                            // conversion->imprimir();
-                            // cout<< "\n";
                         }
-                        //cout << cont <<" contador"<<endl;
-                        //cout << comparador <<" comparador"<<endl;
-                        //system("pause");
                     }
 
                     comparador++;
 
                 }else if(r->esUnParentesisInicial(token)){
-                    // cout << "token "<< token <<endl;
-                    // cout << "Parentesis inicial" <<endl;
-                    // system("pause");
-                    // cout<< "\n";
                     conversion -> push(token);
-                    // cout <<"operadores: " <<endl;
-                    // conversion->imprimir();
-                    // cout<< "posfija: "<<endl;
-                    // cout<< "\n";
-                    // postfija->imprimir();
-                    // cout<< "\n";
+
                 }else if(r->esUnParentesisFinal(token)){
 
-                    // cout << "Parentesis final" <<endl;
-                    // system("pause");
-                    // cout<< "\n";
-                    // cout << "token "<< token <<endl;
-                    // cout<< "\n";
-                    // cout<< "posfija"<<endl;
-                    // postfija->imprimir();
                     while(!(r->esUnParentesisInicial(conversion->tope()))){
-                        // cout <<"operadores: " <<endl;
-                        // conversion->imprimir();
-                        // cout << conversion ->tope() << " tope fila operadores"<<endl;
-                        // system("pause");
                         postfija->push(conversion->pop());
                     }
 
                     conversion->pop();
-                    //cout<< "sali del while parentesis"<<endl;
                 }
 
             }
 
         }
 
-        //cout<< "Sali del while"<<endl;
-
+       
         if(!(conversion->estaVacia())){
-            //cout<< "Entre al if"<<endl;
+
             while(!(conversion->estaVacia())){
                 if(!(r->esUnParentesisInicial(conversion->tope()))){
-                    //cout<< "Entre a la condicion de parentesis"<<endl;
                     postfija->push(conversion->pop());      
                 }     
             }
-            //cout<< "Llegue a la condicion de impresion 1"<<endl;
             postfija->imprimir();
-            //system("pause");
         }else{
-            //cout<< "Llegue a la condicion de impresion"<<endl;
             postfija->imprimir();
-            //system("pause");
         }
+
     }
 
+    void Proceso::resolver(){
+        Pila<string> *solucion = postfija;
 
+        cout<< postfija->tope()<<endl;
+    }
 
     /**
      * Toma una cadena como parámetro y devuelve un número entero
@@ -320,8 +266,8 @@ using namespace std;
      * * / -> prioridad 2
      * ^ rt -> 3
      * Trigonometricas, logaritmicas -> 4
-     * () -> 5
-     * ~ -> 6
+     * () -> -1
+     * ~ -> 5
      * 
      * @param operador 1 = +, 2 = -, 3 = *, 4 = /
      * 
@@ -345,34 +291,6 @@ using namespace std;
 
         return 0;
     }
-
-    /** Binaridad
-     * 
-     * binario -> 1
-     * no binario -> 2
-     * parentesis inicial -> 3
-     * parentesis final -> 4
-     * 
-     * @param a La cadena a evaluar
-     * 
-     * @return el tipo de operador.
-     */
-    // int Proceso::tipoOperador(const string &a){
-        
-    //     if(r->esUnBinario(a)){
-    //         return 1;
-    //     }else if(r->noEsBinario(a)){
-    //         return 2;
-    //     }else if(r->esUnFormatoEspecial(a)){
-    //         return 3;
-    //     }else if(r->esUnParentesisInicial(a)){
-    //         return 4;
-    //     }else if(r->esUnParentesisFinal(a)){
-    //         return 5;
-    //     }
-
-    //     return 0; 
-    // }
 
     /**
      * Devuelve el valor de la variable numero.
@@ -403,9 +321,7 @@ using namespace std;
     int Proceso::pParentesis(){
         return -1;
     }
-
-    
-    
+ 
     /**
      * Reemplaza todas las apariciones de una cadena con otra cadena
      * 
@@ -434,67 +350,4 @@ using namespace std;
         reemplazaString(str, "~", "-");
     }
 
-    /**
-     * Comprueba si hay dos signos consecutivos en una cadena
-     * Cubro basicos errores de sintaxis
-     * 
-     * @param str La cadena a comprobar
-     * 
-     * @return un valor booleano.
-     */
-    // bool Proceso::buscoSignos(string& str){
-
-    //     if (str.find("++") != string::npos) {
-    //         return false;
-    //     }else if(str.find("--") != string::npos){
-    //         return false;
-    //     }else if(str.find("-+") != string::npos){
-    //         return false;
-    //     }else if(str.find("+-") != string::npos){
-    //         return false;
-    //     }else if(str.find("**") != string::npos){
-    //         return false;
-    //     }else if(str.find("//") != string::npos){
-    //         return false;
-    //     }else if(str.find("^^") != string::npos){
-    //         return false;
-    //     }else if(str.find("*/") != string::npos){
-    //         return false;
-    //     }else if(str.find("/*") != string::npos){
-    //         return false;
-    //     }else if(str.find("^*") != string::npos){
-    //         return false;
-    //     }else if(str.find("*^") != string::npos){
-    //         return false;
-    //     }else if(str.find("-*") != string::npos){
-    //         return false;
-    //     }else if(str.find("*-") != string::npos){
-    //         return false;
-    //     }else if(str.find("+*") != string::npos){
-    //         return false;
-    //     }else if(str.find("*+") != string::npos){
-    //         return false;
-    //     }else if(str.find("/+") != string::npos){
-    //         return false;
-    //     }else if(str.find("+/") != string::npos){
-    //         return false;
-    //     }else if(str.find("/-") != string::npos){
-    //         return false;
-    //     }else if(str.find("-/") != string::npos){
-    //         return false;
-    //     }else if(str.find("/^") != string::npos){
-    //         return false;
-    //     }else if(str.find("^/") != string::npos){
-    //         return false;
-    //     }else if(str.find("^+") != string::npos){
-    //         return false;
-    //     }else if(str.find("+^") != string::npos){
-    //         return false;
-    //     }else if(str.find("^-") != string::npos){
-    //         return false;
-    //     }else if(str.find("-^") != string::npos){
-    //         return false;
-    //     }
-
-    //     return true;
-    // }
+    

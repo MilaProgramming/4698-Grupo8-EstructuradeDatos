@@ -56,4 +56,10 @@ class Calculadora{
         double ln10(double a);
 
         double logc(double a, double b);
+
+        bool esCero(double a);
+
+        bool esMenorQueCero(double a);
+
+        bool rangoArc(double a);
 };

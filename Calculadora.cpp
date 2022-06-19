@@ -89,3 +89,17 @@ double Calculadora::ln10(double a){
 double Calculadora::logc(double a, double b){
     return log(a)/log(b);
 }
+
+//?Excepciones
+
+bool Calculadora::esCero(double a){
+    return a == 0;
+}
+
+bool Calculadora::esMenorQueCero(double a){
+    return a < 0;
+}
+
+bool Calculadora::rangoArc(double a){
+    return a >= -1 && a<=1;
+}
