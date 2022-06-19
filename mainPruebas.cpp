@@ -11,6 +11,7 @@ int main(){
     Proceso *p = new Proceso();
 
     p->recibirExpresion();
+    p->convertirPostfija();
  
     return 0;
 }

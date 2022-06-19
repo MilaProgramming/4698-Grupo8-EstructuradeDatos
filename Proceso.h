@@ -54,8 +54,6 @@ class Proceso{
 
     int pParentesis();
 
-    int pNunmero();
-
     int pTrigonometricasLog();
 
     int operadores(const string &a);
@@ -69,5 +67,7 @@ class Proceso{
     bool buscoSignos(string& str);
 
     void reemplazoMenos(string& str);
+
+    int pSigno();
 
 };

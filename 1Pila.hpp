@@ -50,6 +50,7 @@ template <typename T>
                     cout<< "\nStack underflow"<<endl;
                 }else if(longitud == 1){
                     valor = primero->getValor();
+                    primero = nullptr;
                     ultimo = nullptr;
                     longitud--;
                     return valor;
@@ -66,13 +67,13 @@ template <typename T>
 
             void imprimir(){
                 
-                cout<< "Entro funcion" <<endl;
+                //cout<< "Entro funcion" <<endl;
 
                 if(primero == nullptr) cout<<"\nStack underflow"<<endl;
                 else{
 
-                    cout<< ultimo->getValor() <<endl;
-                    cout<< "Entro" <<endl;
+                    //cout<< ultimo->getValor() <<endl;
+                    //cout<< "Entro" <<endl;
 
                     Nodo<T> *n = primero;
                     Pila<T> *pNueva = new Pila<T>();
@@ -92,7 +93,7 @@ template <typename T>
                         np = np->getNodo();
                     }
 
-                    cout<< "Final" <<endl;
+                    //cout<< "Final" <<endl;
                 }
             }
 
@@ -113,6 +114,10 @@ template <typename T>
 
             T tope(){
                 return this->primero->getValor();
+            }
+
+            int getLongitud(){
+                return this->longitud;
             }
 
     };    

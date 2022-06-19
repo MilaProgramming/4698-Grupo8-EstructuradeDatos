@@ -63,5 +63,9 @@ class Regex{
         bool esUnExponente(const string &a);
 
         bool esUnaRaiz(const string &a);
+
+        bool esUnSigno(const string &a);
+
+        bool esUnBinario(const string &a);
       
 };

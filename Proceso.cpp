@@ -39,13 +39,12 @@ using namespace std;
 
         string input{"0"};
 
-       /* Obtener la entrada del usuario. */
+        /*Obtener la entrada del usuario. */
         getline(cin,input);
         reemplazoSignos(input);
 
         if(buscoSignos(input)){
 
-            
             int longitud = input.length();
 
             Pila<string> *fragmento= r->fragmento(input);
@@ -61,7 +60,7 @@ using namespace std;
             if(r->compararLongitudes(longitud)){
                 cout<< "\nExpresion leida con exito"<<endl;
                 reemplazoMenos(input);
-                cout << input <<endl;
+                //cout << input <<endl;
                 //infija->imprimirT();
                 return true;
             }else{
@@ -77,64 +76,118 @@ using namespace std;
 
     void Proceso::convertirPostfija(){
 
-        Nodo<string> *it = infija->getPrimero();
         Pila<string> *conversion = new Pila<string>();
+        //cout << "Estoy en el inicio de convertir"<<endl;
+        /* Comprobando si la pila está vacía. */
+        while(!(infija->estaVacia())){
 
-       /* Iterando a través de la expresión de infijo y empujando los tokens a una expresión de sufijo. */
-        while(it != nullptr){
-
-            string token{it->getValor()};
+            /* Creando una nueva cadena llamada token y asignándole el valor de la parte superior de la
+            pila. Ademas, elimino el valor de la pila infija*/
+            //cout << infija->getLongitud() << "longitud inicial" <<endl;
+            string token{infija->pop()};
+            //cout << infija->getLongitud() << "longitud luego del pop" <<endl;
+            //system("pause");
 
             if(r->esUnNumero(token)){
+                //cout << token <<" token que es numero" <<endl;
                 postfija ->push(token);
-                it = it->getNodo();
+               // system("pause");
+                
             }else{
 
-                //Operador actual
-                int op{operadores(token)};
+                /**
+                 * Operador actual 
+                 * + -> 1
+                 * - -> 2
+                 * * -> 3
+                 * / -> 4
+                 * ~ (signo) -> 5
+        
+                 * Prioridades de los operadores respectivos
+                 * 
+                 * + - -> prioridad 5
+                 * * / -> prioridad 4
+                 */
 
-                
-                //Tope de la pila conversion. Que tiene los operandos
-                string tope; //Tope de la pila de operadores.
-                int pConversion; //No. de operador identificado.
-
-                if(!(conversion->estaVacia())){
-                    string tope{conversion->tope()};
-                    int pConversion{operadores(conversion->tope())};
-                }else{
-                    string tope{"!"};
-                    int pConversion{0};
+                /**
+                 * Si la pila de conversion esta vacia
+                 * o si el operador en su tope tiene mayor prioridad que el de 
+                 * token.
+                 */
+                if(conversion->estaVacia() || prioridades(operadores(token)) < prioridades(operadores(conversion->tope()))){
+                    //cout << token <<" token que es de pila vacia o de operador de menor prioridad" <<endl;
+                    conversion -> push(token);
+                }else if(prioridades(operadores(token)) >= prioridades(operadores(conversion->tope())) && r->esUnBinario(token)){
+                    //cout << token <<" token de operador de mayor prioridad" <<endl;
+                    postfija->push(conversion->pop());
+                    conversion->push(token);
                 }
-
-                //Prioridades de los operadores respectivos
-                int p1{prioridades(op)};
-                int p2{prioridades(pConversion)};
-
-                
-                
-               it = it->getNodo();
+       
             }
         
+        }
+
+        if(!(conversion->estaVacia())){
+            while(!(conversion->estaVacia())){
+                postfija->push(conversion->pop());            
+            }
+             //cout<< "Llegue a la condicion de impresion 1"<<endl;
+            postfija->imprimir();
+            //system("pause");
+        }else{
+            //cout<< "Llegue a la condicion de impresion"<<endl;
+            postfija->imprimir();
+            //system("pause");
         }
     }
 
 
 
+    /**
+     * Toma una cadena como parámetro y devuelve un número entero
+     * + -> 1
+     * - -> 2
+     * * -> 3
+     * / -> 4
+     * ~ (signo) -> 5
+     * @param a La cadena a comprobar
+     * 
+     * @return El valor devuelto es el resultado de la operación.
+     */
     int Proceso::operadores(const string &a){
 
         if(r->esUnMas(a)){
             return 1;
         }else if(r->esUnMenos(a)){
             return 2;
+        }else if(r->esUnaMultiplicacion(a)){
+            return 3;
+        }else if(r->esUnaDivision(a)){
+            return 4;
+        }else if(r->esUnSigno(a)){
+            return 5;
         }
 
         return 0;
     }
 
+
+    /**
+     * Devuelve la prioridad del operador
+     * 
+     * + - -> prioridad 5
+     * * / -> prioridad 4
+     * 
+     * @param operador 1 = +, 2 = -, 3 = *, 4 = /
+     * 
+     * @return El valor de retorno es la prioridad del operador.
+     */
     int Proceso::prioridades(int operador){
 
         if(operador == 1 || operador == 2){
             return pSumaResta();
+        }else if(operador == 3 || operador == 4){
+            return pMultiplicacionDivision();
         }
 
         return 0;
@@ -145,16 +198,13 @@ using namespace std;
      * 
      * @return El valor devuelto es el valor de la variable numero.
     */
-    int Proceso::pNumero(){
-        return 0;
-    }
 
     int Proceso::pSumaResta(){
-        return 5;
+        return 1;
     }
 
     int Proceso::pMultiplicacionDivision(){
-        return 4;
+        return 2;
     } 
 
     int Proceso::pExponenteRaiz(){
@@ -162,13 +212,24 @@ using namespace std;
     }
 
     int Proceso::pTrigonometricasLog(){
-        return 2;
+        return 4;
     }
 
     int Proceso::pParentesis(){
-        return 1;
+        return 5;
+    }
+
+    int Proceso::pSigno(){
+        return 6;
     }
     
+    /**
+     * Reemplaza todas las apariciones de una cadena con otra cadena
+     * 
+     * @param subject La cadena que se va a buscar y reemplazar.
+     * @param search La cadena a buscar.
+     * @param replace La cadena con la que reemplazar la cadena de búsqueda.
+     */
     void Proceso::reemplazaString(string& subject, const string& search, const string& replace) {
         size_t pos = 0;
         while ((pos = subject.find(search, pos)) != std::string::npos) {
@@ -177,6 +238,11 @@ using namespace std;
         }
     }
 
+   /**
+    * Reemplaza todas las instancias de la cadena "(-" con la cadena "(~" en la cadena str
+    * 
+    * @param str La cadena que se va a modificar.
+    */
     void Proceso::reemplazoSignos(string& str){
         reemplazaString(str, "(-", "(~");
     }
@@ -185,6 +251,14 @@ using namespace std;
         reemplazaString(str, "~", "-");
     }
 
+    /**
+     * Comprueba si hay dos signos consecutivos en una cadena
+     * Cubro basicos errores de sintaxis
+     * 
+     * @param str La cadena a comprobar
+     * 
+     * @return un valor booleano.
+     */
     bool Proceso::buscoSignos(string& str){
 
         if (str.find("++") != string::npos) {
@@ -194,6 +268,8 @@ using namespace std;
         }else if(str.find("-+") != string::npos){
             return false;
         }else if(str.find("+-") != string::npos){
+            return false;
+        }else if(str.find("**") != string::npos){
             return false;
         }
 

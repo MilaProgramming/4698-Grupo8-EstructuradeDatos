@@ -55,8 +55,12 @@ bool Regex::esUnNumero(const string &a){
     return regex_match(a,r);
 }
 
-bool Regex::esUnOperando(const string &a){
-    return esUnMas(a) || esUnMenos(a) || esUnaMultiplicacion(a) || esUnaDivision(a) || esUnExponente(a) || esUnaRaiz(a) ||esUnSeno(a) || esUnCoseno(a) || esUnTangente(a) || esUnCosecante(a) || esUnSecante(a) || esUnCotangente(a) || esUnSenh(a) || esUnCosh(a) || esUnTanh(a) || esUnln(a) || esUnlog10(a) || esUnlog(a);
+// bool Regex::esUnOperando(const string &a){
+//     return esUnMas(a) || esUnMenos(a) || esUnaMultiplicacion(a) || esUnaDivision(a) || esUnExponente(a) || esUnaRaiz(a) ||esUnSeno(a) || esUnCoseno(a) || esUnTangente(a) || esUnCosecante(a) || esUnSecante(a) || esUnCotangente(a) || esUnSenh(a) || esUnCosh(a) || esUnTanh(a) || esUnln(a) || esUnlog10(a) || esUnlog(a);
+// }
+
+bool Regex::esUnBinario(const string &a){
+    return esUnMas(a) || esUnMenos(a) || esUnaMultiplicacion(a) || esUnaDivision(a)|| esUnExponente(a) || esUnaRaiz(a); 
 }
 
 bool Regex::esUnMas(const string &a){
@@ -66,6 +70,11 @@ bool Regex::esUnMas(const string &a){
 
 bool Regex::esUnMenos(const string &a){
     const regex r("[-]");
+    return regex_match(a,r);
+}
+
+bool Regex::esUnSigno(const string &a){
+    const regex r("[~]");
     return regex_match(a,r);
 }
 
