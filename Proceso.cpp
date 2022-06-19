@@ -34,8 +34,7 @@ using namespace std;
      * @return un valor booleano.
      */
     bool Proceso::recibirExpresion(){
-
-        string input{"0"};
+         string input{"0"};
 
         /*Obtener la entrada del usuario. */
         getline(cin,input);
@@ -58,6 +57,7 @@ using namespace std;
             if(r->compararLongitudes(longitud)){
                 cout<< "\nExpresion leida con exito\n"<<endl;
                 reemplazoMenos(input);
+                //cout << input <<endl;
                 infija->imprimirT();
                 return true;
             }else{
@@ -73,19 +73,22 @@ using namespace std;
 
     void Proceso::convertirPostfija(){
 
-        Pila<string> *conversion = new Pila<string>();
+       Pila<string> *conversion = new Pila<string>();
         /* Comprobando si la pila está vacía. */
         while(!(infija->estaVacia())){
 
             /* Creando una nueva cadena llamada token y asignándole el valor de la parte superior de la
             pila. Ademas, elimino el valor de la pila infija*/
-
+            //cout << infija->getLongitud() << "longitud inicial" <<endl;
             string token{infija->pop()};
-
+            //cout << infija->getLongitud() << "longitud luego del pop" <<endl;
+            //system("pause");
 
             if(r->esUnNumero(token)){
+                //cout << token <<" token que es numero" <<endl;
                 postfija ->push(token);
-
+                //system("pause");
+                
             }else{
 
                 /**
@@ -119,7 +122,7 @@ using namespace std;
                 * ^ rt -> 3
                 * Trigonometricas, logaritmicas -> 4
                 * ~ -> 5
-                * () -> -1
+                * () -> 6
                 * 
                 */
 
@@ -129,6 +132,10 @@ using namespace std;
                 * token.
                 */
 
+                // cout << token << " " << r->esUnBinario(token)<<endl;
+                // cout << token << " " << r->noEsBinario(token)<<endl;
+                // cout << token << " " << r->esUnFormatoEspecial(token)<<endl;
+                // system("pause");
                 if(r->esUnBinario(token) || r->noEsBinario(token) || r->esUnFormatoEspecial(token)){
 
                     int cont{0};
@@ -136,42 +143,83 @@ using namespace std;
 
                     while (cont == comparador){
                         if(conversion->estaVacia() || prioridades(operadores(token)) > prioridades(operadores(conversion->tope()))){
+                            // cout << token <<" token que es de pila vacia o de operador de mayor prioridad" <<endl;
+                            // system("pause");
                             conversion -> push(token);
                             cont ++;
                         }else if(prioridades(operadores(token)) <= prioridades(operadores(conversion->tope()))){
+                            // cout << token <<" token de operador de menor prioridad" <<endl;
+                            // system("pause");
                             postfija->push(conversion->pop());
+                            // cout<< "\n";
+                            // cout <<"posfija: " <<endl;
+                            // postfija->imprimir();
+                            // cout<< "\n";
+                            // cout <<"operadores: " <<endl;
+                            // conversion->imprimir();
+                            // cout<< "\n";
                         }
+                        //cout << cont <<" contador"<<endl;
+                        //cout << comparador <<" comparador"<<endl;
+                        //system("pause");
                     }
 
                     comparador++;
 
                 }else if(r->esUnParentesisInicial(token)){
+                    // cout << "token "<< token <<endl;
+                    // cout << "Parentesis inicial" <<endl;
+                    // system("pause");
+                    // cout<< "\n";
                     conversion -> push(token);
-
+                    // cout <<"operadores: " <<endl;
+                    // conversion->imprimir();
+                    // cout<< "posfija: "<<endl;
+                    // cout<< "\n";
+                    // postfija->imprimir();
+                    // cout<< "\n";
                 }else if(r->esUnParentesisFinal(token)){
 
+                    // cout << "Parentesis final" <<endl;
+                    // system("pause");
+                    // cout<< "\n";
+                    // cout << "token "<< token <<endl;
+                    // cout<< "\n";
+                    // cout<< "posfija"<<endl;
+                    // postfija->imprimir();
                     while(!(r->esUnParentesisInicial(conversion->tope()))){
+                        // cout <<"operadores: " <<endl;
+                        // conversion->imprimir();
+                        // cout << conversion ->tope() << " tope fila operadores"<<endl;
+                        // system("pause");
                         postfija->push(conversion->pop());
                     }
 
                     conversion->pop();
+                    //cout<< "sali del while parentesis"<<endl;
                 }
 
             }
 
         }
 
-       
-        if(!(conversion->estaVacia())){
+        //cout<< "Sali del while"<<endl;
 
+        if(!(conversion->estaVacia())){
+            //cout<< "Entre al if"<<endl;
             while(!(conversion->estaVacia())){
                 if(!(r->esUnParentesisInicial(conversion->tope()))){
+                    //cout<< "Entre a la condicion de parentesis"<<endl;
                     postfija->push(conversion->pop());      
                 }     
             }
+            //cout<< "Llegue a la condicion de impresion 1"<<endl;
             postfija->imprimir();
+            //system("pause");
         }else{
+            //cout<< "Llegue a la condicion de impresion"<<endl;
             postfija->imprimir();
+            //system("pause");
         }
 
     }
