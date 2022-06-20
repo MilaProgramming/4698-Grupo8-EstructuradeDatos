@@ -14,7 +14,7 @@ template <typename T>
             Nodo();
 
             ~Nodo(){
-                free(this);
+      
             }    
 
             void setValor(T v){

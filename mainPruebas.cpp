@@ -8,13 +8,19 @@ using namespace std;
 
 int main(){
 
-    Proceso *p = new Proceso();
 
+
+   
     while(true){
+
+        Proceso *p = new Proceso();
         p->recibirExpresion();
         p->convertirPostfija();
         p->resolver();
+
+        delete p;
     }
+   
  
     return 0;
 }

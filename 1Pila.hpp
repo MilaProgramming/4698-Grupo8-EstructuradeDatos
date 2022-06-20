@@ -18,7 +18,7 @@ template <typename T>
             }
 
             ~Pila(){
-                free(this);
+                
             }
 
             bool estaVacia(){
@@ -126,6 +126,40 @@ template <typename T>
 
             int getLongitud(){
                 return this->longitud;
+            }
+
+            T* convertiraArray(){
+
+                revertir();
+                
+                T* array = new T[longitud];
+                Nodo<T> *actual = primero;
+                int indice=0;
+                while (actual != nullptr){
+                    array[indice++] = actual -> getValor();
+                    actual = actual ->getNodo();
+                }
+
+                return array;
+            }
+
+            void revertir(){
+                if (estaVacia()) return;
+
+                Nodo<T> *previo = primero;
+                Nodo<T> *actual = primero -> getNodo();
+            
+                while(actual != nullptr){
+                    Nodo<T> *siguiente  = actual ->getNodo();
+                    actual -> setNodo(previo);
+                    previo = actual;
+                    actual = siguiente; 
+                }
+
+                ultimo = primero;
+                ultimo -> setNodo(nullptr);
+                primero = previo;
+            
             }
 
     };    

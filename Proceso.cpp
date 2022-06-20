@@ -169,22 +169,66 @@ using namespace std;
                     postfija->push(conversion->pop());      
                 }     
             }
-            postfija->imprimir();
+
+            int l{postfija->getLongitud()};
+            Pila<string> *m = new Pila<string>();
+            Nodo<string> *n = postfija->getPrimero();
+
+            while(l > 0){
+
+                if(r->esUnSigno(n->getValor())){
+                    m->push("-");
+                }else{
+                    m->push(n->getValor());
+                }    
+
+                n = n ->getNodo();
+                l--;
+            }
+            
+    
+            m ->imprimirT();    
+            //postfija->imprimir();
         }else{
-            postfija->imprimir();
+
+            int l{postfija->getLongitud()};
+            Pila<string> *m = new Pila<string>();
+            Nodo<string> *n = postfija->getPrimero();
+
+            while(l > 0){
+
+                if(r->esUnSigno(n->getValor())){
+                    m->push("-");
+                }else{
+                    m->push(n->getValor());
+                }    
+
+                n = n ->getNodo();
+                l--;
+            }
+            
+    
+            m ->imprimirT();    
+            //postfija->imprimir();
         }
 
     }
 
     void Proceso::resolver(){
 
-        Pila<string> *aux = postfija;
-        Pila<string> *solucion = new Pila<string>();
-        Pila<string> *resultado = new Pila<string>();
+            int l{postfija->getLongitud()};
+            
+            Pila<string> *solucion = new Pila<string>();
+            Pila<string> *resultado = new Pila<string>();
+            Nodo<string> *n = postfija->getPrimero();
 
-        while(!(aux->estaVacia())){
-            solucion->push(aux->pop());
-        }
+            while(l > 0){
+
+                solucion->push(n->getValor());
+
+                n = n ->getNodo();
+                l--;
+            }
 
 
         while(!(solucion->estaVacia())){
@@ -524,6 +568,7 @@ using namespace std;
 
         resultado->imprimir();
     }
+
 
     /**
      * Toma una cadena como parámetro y devuelve un número entero

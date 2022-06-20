@@ -27,7 +27,7 @@ class Proceso{
     int pNumero();
 
     ~Proceso(){
-        free(this);
+        
     }
 
     Pila<string> *getInfija();
