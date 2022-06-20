@@ -186,33 +186,42 @@ using namespace std;
             solucion->push(aux->pop());
         }
 
-        cout << "\n";
-        cout << "Tope de la pila solucion"<<endl;
-        cout<< solucion->tope()<<endl;
 
         while(!(solucion->estaVacia())){
 
             string token{solucion->pop()};
 
-            cout << "\n";
-            cout << "Pila Solucion"<<endl;
-            solucion->imprimir();
-            cout << "\n";
 
             if(r->esUnNumero(token)){
 
+                if(r->esUnPi(token)){
+
+                    double p = pi();
+                    ostringstream aux;
+                    aux.precision(6);
+                    aux << fixed << p;
+                    string r = aux.str();
+
+                    resultado->push(r);
+
+                }else if (r->esUne(token)){
+
+                    double p = e();
+                    ostringstream aux;
+                    aux.precision(6);
+                    aux << fixed << p;
+                    string r = aux.str();
+
+                    resultado->push(r);
+                }else{
                 resultado->push(token);
-                cout << "Es un numero";
-                resultado->imprimir();
-                system("pause");
+                }
+
 
             }else if(r ->esUnBinario(token)){
 
                 string segundo{resultado->pop()};
                 string primero{resultado->pop()};
-                cout << "\n";
-                cout<< "Numero 1 " << primero << "Numero 2 " << segundo <<endl;
-                resultado->imprimir();
 
                 double a{stod(primero)};
                 double b{stod(segundo)};
@@ -222,7 +231,7 @@ using namespace std;
                     double p = c->suma(a,b);
 
                     ostringstream aux;
-                    aux.precision(2);
+                    aux.precision(6);
                     aux << fixed << p;
                     string r = aux.str();
 
@@ -233,7 +242,7 @@ using namespace std;
                     double p = c->resta(a,b);
                    
                     ostringstream aux;
-                    aux.precision(2);
+                    aux.precision(6);
                     aux << fixed << p;
                     string r = aux.str();
 
@@ -242,9 +251,8 @@ using namespace std;
                 }else if(r->esUnaMultiplicacion(token)){
 
                     double p = c->multiplica(a,b);
-
                     ostringstream aux;
-                    aux.precision(2);
+                    aux.precision(6);
                     aux << fixed << p;
                     string r = aux.str();
 
@@ -256,11 +264,12 @@ using namespace std;
                         double p = c->division(a,b);
 
                         ostringstream aux;
-                        aux.precision(2);
+                        aux.precision(6);
                         aux << fixed << p;
                         string r = aux.str();
 
                         resultado->push(r);
+   
                     }else{
                         cout<< "Division por 0" << endl;
                         solucion->setPrimero(nullptr);
@@ -271,7 +280,7 @@ using namespace std;
                     double p = c->exponente(a,b);
 
                     ostringstream aux;
-                    aux.precision(2);
+                    aux.precision(6);
                     aux << fixed << p;
                     string r = aux.str();
 
@@ -279,15 +288,36 @@ using namespace std;
 
                 }else if (r->esUnaRaiz(token)){
 
-                    if(b != 0){
-                        double p = c->division(a,b);
-                        
-                        ostringstream aux;
-                        aux.precision(2);
-                        aux << fixed << p;
-                        string r = aux.str();
+                    if(b != 0 ){
 
-                        resultado->push(r);
+                        if(b == 2){
+                            if(a >= 0){
+
+                                double p = c->raiz(a,b);
+
+                                ostringstream aux;
+                                aux.precision(6);
+                                aux << fixed << p;
+                                string r = aux.str();
+
+                                resultado->push(r);
+
+                            }else{
+                                cout<< "Raiz cuadrada de un negativo." << endl;
+                                solucion->setPrimero(nullptr);
+                            }
+                        }else{
+
+                            double p = c->raiz(b,a);
+                        
+                            ostringstream aux;
+                            aux.precision(6);
+                            aux << fixed << p;
+                            string r = aux.str();
+
+                            resultado->push(r);
+                        }
+                
                     }else{
                         cout<< "Raiz de 0. No se permite" << endl;
                         solucion->setPrimero(nullptr);
@@ -298,7 +328,7 @@ using namespace std;
                         double p = c->logc(a,b);
 
                         ostringstream aux;
-                        aux.precision(2);
+                        aux.precision(6);
                         aux << fixed << p;
                         string r = aux.str();
 
@@ -319,7 +349,7 @@ using namespace std;
                     double p = c->sen(a);
 
                     ostringstream aux;
-                    aux.precision(2);
+                    aux.precision(6);
                     aux << fixed << p;
                     string r = aux.str();
 
@@ -330,7 +360,7 @@ using namespace std;
                     double p = c->cs(a);
 
                     ostringstream aux;
-                    aux.precision(2);
+                    aux.precision(6);
                     aux << fixed << p;
                     string r = aux.str();
 
@@ -342,7 +372,7 @@ using namespace std;
                         double p = c->tg(a);
 
                         ostringstream aux;
-                        aux.precision(2);
+                        aux.precision(6);
                         aux << fixed << p;
                         string r = aux.str();
 
@@ -358,7 +388,7 @@ using namespace std;
                         double p = c->csen(a);
 
                         ostringstream aux;
-                        aux.precision(2);
+                        aux.precision(6);
                         aux << fixed << p;
                         string r = aux.str();
 
@@ -374,7 +404,7 @@ using namespace std;
                         double p = c->scs(a);
 
                         ostringstream aux;
-                        aux.precision(2);
+                        aux.precision(6);
                         aux << fixed << p;
                         string r = aux.str();
 
@@ -390,7 +420,7 @@ using namespace std;
                         double p = c->ctg(a);
 
                         ostringstream aux;
-                        aux.precision(2);
+                        aux.precision(6);
                         aux << fixed << p;
                         string r = aux.str();
 
@@ -406,7 +436,7 @@ using namespace std;
                         double p = c->ln(a);
 
                         ostringstream aux;
-                        aux.precision(2);
+                        aux.precision(6);
                         aux << fixed << p;
                         string r = aux.str();
 
@@ -422,7 +452,7 @@ using namespace std;
                         double p = c->ln10(a);
 
                         ostringstream aux;
-                        aux.precision(2);
+                        aux.precision(6);
                         aux << fixed << p;
                         string r = aux.str();
 
@@ -438,7 +468,7 @@ using namespace std;
                         double p = c->arcsen(a);
 
                         ostringstream aux;
-                        aux.precision(2);
+                        aux.precision(6);
                         aux << fixed << p;
                         string r = aux.str();
 
@@ -454,7 +484,7 @@ using namespace std;
                         double p = c->arccos(a);
 
                         ostringstream aux;
-                        aux.precision(2);
+                        aux.precision(6);
                         aux << fixed << p;
                         string r = aux.str();
 
@@ -470,7 +500,7 @@ using namespace std;
                         double p = c->arctan(a);
 
                         ostringstream aux;
-                        aux.precision(2);
+                        aux.precision(6);
                         aux << fixed << p;
                         string r = aux.str();
 
@@ -493,7 +523,6 @@ using namespace std;
         }
 
         resultado->imprimir();
-        system("pause");
     }
 
     /**
@@ -664,4 +693,10 @@ using namespace std;
         reemplazaString(str, "~", "-");
     }
 
-    
+    double Proceso::pi(){
+        return 3.14159265;
+    }
+
+    double Proceso::e(){
+        return 2.71827;
+    }

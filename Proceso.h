@@ -73,5 +73,9 @@ class Proceso{
 
     void resolver();
 
+    double pi();
+
+    double e();
+
 
 };

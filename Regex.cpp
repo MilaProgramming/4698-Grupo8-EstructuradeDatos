@@ -253,3 +253,13 @@ bool Regex::esUnlog(const string &a){
     const regex r("log");
     return regex_match(a,r);
 }
+
+bool Regex::esUnPi(const string &a){
+    const regex r("pi");
+    return regex_match(a,r);
+}
+
+bool Regex::esUne(const string &a){
+    const regex r("e");
+    return regex_match(a,r);
+}

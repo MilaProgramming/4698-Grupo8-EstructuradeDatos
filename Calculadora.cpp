@@ -27,6 +27,11 @@ double Calculadora::exponente(double a, double b){
 
 //!exepcion de 0
 double Calculadora::raiz(double a, double b){
+    // cout << 1/b <<endl;
+    // cout << a << endl;
+
+    // cout <<  pow(a,1/b) <<endl;
+    // system("pause");
     return pow(a,1/b);
 }
 

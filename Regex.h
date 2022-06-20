@@ -91,5 +91,9 @@ class Regex{
         bool esUnArcCos(const string &a);
 
         bool esUnArcTan(const string &a);
+
+        bool esUnPi(const string &a);
+
+        bool esUne(const string &a);
       
 };
