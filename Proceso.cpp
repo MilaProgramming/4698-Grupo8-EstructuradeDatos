@@ -28,6 +28,10 @@ using namespace std;
         prefija = pre;
     }
 
+    bool Proceso::estaVacia(){
+        return infija->estaVacia();
+    }
+
     /**
      * La función recibe una cadena del usuario, luego usa una expresión regular para dividir la cadena en tokens
      * y luego empuja esos tokens en una pila una cadena del usuario. Despues, la pila de cadenas se empuja a otra pila, que 
@@ -35,56 +39,87 @@ using namespace std;
      * @return un valor booleano.
      */
     bool Proceso::recibirExpresion(){
+
         string input{"0"};
 
         /*Obtener la entrada del usuario. */
         getline(cin,input);
         reemplazoSignos(input);
 
-        if(r->excepcionesBinarios(input) && r->excepciones(input) && r->excepcionesParentesis(input)){
+        if(!(infija->estaVacia())){
+            infija->vaciar();
+            postfija->vaciar();
+            prefija->vaciar();
+        }
 
-            int longitud = input.length();
+        if(!(input.empty())){
 
-            Pila<string> *fragmento= r->fragmento(input);
+            if(r->excepcionesBinarios(input) && r->excepciones(input) && r->excepcionesParentesis(input)){
+        
+                int longitud = input.length();
 
-            /* Empujando los valores de la pila de fragmentos en la pila infija. */
-            Nodo<string> *n = fragmento->getPrimero();
-            while(n != nullptr){        
-                infija->push(n->getValor());
-                n = n->getNodo();
-            }
+                Pila<string> *fragmento= r->fragmento(input);
 
-            /* Comprobando si la longitud de la entrada es la misma que la longitud de la pila. */
-            if(r->compararLongitudes(longitud)){
-                cout<< "\nExpresion leida con exito\n"<<endl;
-                reemplazoMenos(input);
-                cout << input <<endl;
-                //infija->imprimirT();
-                return true;
+                /* Empujando los valores de la pila de fragmentos en la pila infija. */
+                Nodo<string> *n = fragmento->getPrimero();
+                while(n != nullptr){        
+                    infija->push(n->getValor());
+                    n = n->getNodo();
+                }
+
+                /* Comprobando si la longitud de la entrada es la misma que la longitud de la pila. */
+                if(r->compararLongitudes(longitud)){
+                    cout<< "\nExpresion leida con exito\n"<<endl;
+                    reemplazoMenos(input);
+                    cout << input <<endl;
+                    //infija->imprimirT();
+                    return true;
+                }else{
+                    cout<< "\nOcurrio un error con su expresion. Ha cometido un error de sintaxis"<<endl;
+                    infija->vaciar();
+                }
             }else{
                 cout<< "\nOcurrio un error con su expresion. Ha cometido un error de sintaxis"<<endl;
+                if(!(r->excepcionesParentesis(input))){
+                    cout<< "El numero de parentesis no se corresponde" <<endl;
+                }
+                infija->vaciar();
+                postfija->vaciar();
+                prefija->vaciar();
             }
-
         }else{
-            cout<< "\nOcurrio un error con su expresion. Ha cometido un error de sintaxis"<<endl;
+            cout<< "\nOcurrio un error con su expresion. La ha enviado vacia"<<endl;
         }
 
         return false;
     }
 
-    void Proceso::convertirPostfija(){
+    Pila<string>* Proceso::convertirPostfija(Pila<string> * inf){
 
         Pila<string> *conversion = new Pila<string>();
+        Pila<string> *posf = new Pila<string>();
+        Pila<string> *input = new Pila<string>();
+        Nodo<string> *n = inf->getPrimero();
+
+        while(n!= nullptr){
+            input->push(n->getValor());
+            n = n ->getNodo();
+        }
+
+        input->revertir();
+
+
         /* Comprobando si la pila está vacía. */
 
-        while(!(infija->estaVacia())){
+
+        while(!(input->estaVacia())){
 
             /* Creando una nueva cadena llamada token y asignándole el valor de la parte superior de la
             pila. Ademas, elimino el valor de la pila infija*/
-            string token{infija->pop()};
+            string token{input->pop()};
 
             if(r->esUnNumero(token)){
-                postfija ->push(token);
+                posf ->push(token);
             }else{
 
                 /**
@@ -138,7 +173,7 @@ using namespace std;
                             conversion -> push(token);
                             cont ++;
                         }else if(prioridades(operadores(token)) <= prioridades(operadores(conversion->tope()))){
-                            postfija->push(conversion->pop());
+                            posf->push(conversion->pop());
                         }
 
                     }
@@ -152,7 +187,7 @@ using namespace std;
                 }else if(r->esUnParentesisFinal(token)){
 
                     while(!(r->esUnParentesisInicial(conversion->tope()))){
-                        postfija->push(conversion->pop());
+                        posf->push(conversion->pop());
                     }
 
                     conversion->pop();
@@ -166,61 +201,44 @@ using namespace std;
         if(!(conversion->estaVacia())){
             while(!(conversion->estaVacia())){
                 if(!(r->esUnParentesisInicial(conversion->tope()))){
-                    postfija->push(conversion->pop());      
+                    posf->push(conversion->pop());      
                 }     
             }
 
-            int l{postfija->getLongitud()};
-            Pila<string> *m = new Pila<string>();
-            Nodo<string> *n = postfija->getPrimero();
-
-            while(l > 0){
-
-                if(r->esUnSigno(n->getValor())){
-                    m->push("-");
-                }else{
-                    m->push(n->getValor());
-                }    
-
-                n = n ->getNodo();
-                l--;
-            }
-            
-    
-            m ->imprimirT();    
-            //postfija->imprimir();
-        }else{
-
-            int l{postfija->getLongitud()};
-            Pila<string> *m = new Pila<string>();
-            Nodo<string> *n = postfija->getPrimero();
-
-            while(l > 0){
-
-                if(r->esUnSigno(n->getValor())){
-                    m->push("-");
-                }else{
-                    m->push(n->getValor());
-                }    
-
-                n = n ->getNodo();
-                l--;
-            }
-            
-    
-            m ->imprimirT();    
-            //postfija->imprimir();
         }
 
+        return posf;
     }
 
-    void Proceso::resolver(){
+    void Proceso::imprimirNotacion(Pila<string> * p){
 
-            int l{postfija->getLongitud()};
+        int l{p->getLongitud()};
+        Pila<string> *m = new Pila<string>();
+        Nodo<string> *n = p->getPrimero();
+
+            while(l > 0){
+
+                if(r->esUnSigno(n->getValor())){
+                    m->push("-");
+                }else{
+                    m->push(n->getValor());
+                }    
+
+                n = n ->getNodo();
+                l--;
+            }
+            
+        cout << "\n";
+        m ->imprimirT();    
+    }
+
+    void Proceso::resolverPost(Pila<string> * p){
+
+            int l{p->getLongitud()};
             
             Pila<string> *solucion = new Pila<string>();
             Pila<string> *resultado = new Pila<string>();
-            Nodo<string> *n = postfija->getPrimero();
+            Nodo<string> *n = p->getPrimero();
 
             while(l > 0){
 
@@ -569,6 +587,414 @@ using namespace std;
         resultado->imprimir();
     }
 
+    void Proceso::resolverPre(Pila<string> * p){
+        
+            int l{p->getLongitud()};
+            
+            Pila<string> *solucion = new Pila<string>();
+            Pila<string> *resultado = new Pila<string>();
+            Nodo<string> *n = p->getPrimero();
+
+            while(l > 0){
+
+                solucion->push(n->getValor());
+
+                n = n ->getNodo();
+                l--;
+            }
+
+        solucion->revertir();
+
+
+        while(!(solucion->estaVacia())){
+
+            string token{solucion->pop()};
+
+
+            if(r->esUnNumero(token)){
+
+                if(r->esUnPi(token)){
+
+                    double p = pi();
+                    ostringstream aux;
+                    aux.precision(6);
+                    aux << fixed << p;
+                    string r = aux.str();
+
+                    resultado->push(r);
+
+                }else if (r->esUne(token)){
+
+                    double p = e();
+                    ostringstream aux;
+                    aux.precision(6);
+                    aux << fixed << p;
+                    string r = aux.str();
+
+                    resultado->push(r);
+                }else{
+                resultado->push(token);
+                }
+
+
+            }else if(r ->esUnBinario(token)){
+
+                string segundo{resultado->pop()};
+                string primero{resultado->pop()};
+
+                double a{stod(primero)};
+                double b{stod(segundo)};
+
+                if(r->esUnMas(token)){
+
+                    double p = c->suma(a,b);
+
+                    ostringstream aux;
+                    aux.precision(6);
+                    aux << fixed << p;
+                    string r = aux.str();
+
+                    resultado->push(r);
+
+                }else if(r->esUnMenos(token)){
+
+                    double p = c->resta(a,b);
+                   
+                    ostringstream aux;
+                    aux.precision(6);
+                    aux << fixed << p;
+                    string r = aux.str();
+
+                    resultado->push(r);
+
+                }else if(r->esUnaMultiplicacion(token)){
+
+                    double p = c->multiplica(a,b);
+                    ostringstream aux;
+                    aux.precision(6);
+                    aux << fixed << p;
+                    string r = aux.str();
+
+                    resultado->push(r);
+
+                }else if(r->esUnaDivision(token)){
+
+                    if(b != 0){
+                        double p = c->division(a,b);
+
+                        ostringstream aux;
+                        aux.precision(6);
+                        aux << fixed << p;
+                        string r = aux.str();
+
+                        resultado->push(r);
+   
+                    }else{
+                        cout<< "Division por 0" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+
+                }else if (r->esUnExponente(token)){
+
+                    double p = c->exponente(a,b);
+
+                    ostringstream aux;
+                    aux.precision(6);
+                    aux << fixed << p;
+                    string r = aux.str();
+
+                    resultado->push(r);
+
+                }else if (r->esUnaRaiz(token)){
+
+                    if(b != 0 ){
+
+                        if(b == 2){
+                            if(a >= 0){
+
+                                double p = c->raiz(a,b);
+
+                                ostringstream aux;
+                                aux.precision(6);
+                                aux << fixed << p;
+                                string r = aux.str();
+
+                                resultado->push(r);
+
+                            }else{
+                                cout<< "Raiz cuadrada de un negativo." << endl;
+                                solucion->setPrimero(nullptr);
+                            }
+                        }else{
+
+                            double p = c->raiz(b,a);
+                        
+                            ostringstream aux;
+                            aux.precision(6);
+                            aux << fixed << p;
+                            string r = aux.str();
+
+                            resultado->push(r);
+                        }
+                
+                    }else{
+                        cout<< "Raiz de 0. No se permite" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+
+                }else if(r->esUnlog(token)){
+                    if(a > 0 && b>1){
+                        double p = c->logc(a,b);
+
+                        ostringstream aux;
+                        aux.precision(6);
+                        aux << fixed << p;
+                        string r = aux.str();
+
+                        resultado->push(r);
+                    }else{
+                        cout<< "Logaritmo con bases invalida. No se permite" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+                }
+
+            }else if (r->noEsBinario(token)){
+
+                string numero{resultado->pop()};
+                double a{stod(numero)};
+
+                if(r->esUnSeno(token)){
+
+                    double p = c->sen(a);
+
+                    ostringstream aux;
+                    aux.precision(6);
+                    aux << fixed << p;
+                    string r = aux.str();
+
+                    resultado->push(r);
+
+                }else if(r->esUnCoseno(token)){
+
+                    double p = c->cs(a);
+
+                    ostringstream aux;
+                    aux.precision(6);
+                    aux << fixed << p;
+                    string r = aux.str();
+
+                    resultado->push(r);
+                    
+                }else if(r->esUnTangente(token)){
+
+                    if(c->cs(a) != 0){
+                        double p = c->tg(a);
+
+                        ostringstream aux;
+                        aux.precision(6);
+                        aux << fixed << p;
+                        string r = aux.str();
+
+                        resultado->push(r);
+                    }else{
+                        cout<< "Dominio invalido de la tangente" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+                    
+                }else if(r->esUnCosecante(token)){
+
+                    if(c->sen(a) != 0){
+                        double p = c->csen(a);
+
+                        ostringstream aux;
+                        aux.precision(6);
+                        aux << fixed << p;
+                        string r = aux.str();
+
+                        resultado->push(r);
+                    }else{
+                        cout<< "Dominio invalido de la cosecante" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+                    
+                }else if(r->esUnSecante(token)){
+
+                    if(c->cs(a) != 0){
+                        double p = c->scs(a);
+
+                        ostringstream aux;
+                        aux.precision(6);
+                        aux << fixed << p;
+                        string r = aux.str();
+
+                        resultado->push(r);
+                    }else{
+                        cout<< "Dominio invalido de la secante" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+                    
+                }else if(r->esUnCotangente(token)){
+
+                    if(c->sen(a) != 0){
+                        double p = c->ctg(a);
+
+                        ostringstream aux;
+                        aux.precision(6);
+                        aux << fixed << p;
+                        string r = aux.str();
+
+                        resultado->push(r);
+                    }else{
+                        cout<< "Dominio invalido de la cotangente" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+                    
+                }else if(r->esUnln(token)){
+
+                    if(a > 0){
+                        double p = c->ln(a);
+
+                        ostringstream aux;
+                        aux.precision(6);
+                        aux << fixed << p;
+                        string r = aux.str();
+
+                        resultado->push(r);
+                    }else{
+                        cout<< "Dominio invalido del logaritmo neperiano" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+                    
+                }else if(r->esUnlog10(token)){
+
+                    if(a > 0){
+                        double p = c->ln10(a);
+
+                        ostringstream aux;
+                        aux.precision(6);
+                        aux << fixed << p;
+                        string r = aux.str();
+
+                        resultado->push(r);
+                    }else{
+                        cout<< "Dominio invalido del logaritmo base 10" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+                    
+                }else if(r->esUnArcSen(token)){
+
+                    if(a >= -1 && a <=1){
+                        double p = c->arcsen(a);
+
+                        ostringstream aux;
+                        aux.precision(6);
+                        aux << fixed << p;
+                        string r = aux.str();
+
+                        resultado->push(r);
+                    }else{
+                        cout<< "Dominio invalido del arc seno" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+                    
+                }else if(r->esUnArcCos(token)){
+
+                    if(a >= -1 && a <=1){
+                        double p = c->arccos(a);
+
+                        ostringstream aux;
+                        aux.precision(6);
+                        aux << fixed << p;
+                        string r = aux.str();
+
+                        resultado->push(r);
+                    }else{
+                        cout<< "Dominio invalido del arc coseno" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+                    
+                }else if(r->esUnArcTan(token)){
+
+                    if(a >= -1 && a <=1){
+                        double p = c->arctan(a);
+
+                        ostringstream aux;
+                        aux.precision(6);
+                        aux << fixed << p;
+                        string r = aux.str();
+
+                        resultado->push(r);
+                    }else{
+                        cout<< "Dominio invalido del arc tangente" << endl;
+                        solucion->setPrimero(nullptr);
+                    }
+                    
+                }
+
+            }else if(r->esUnSigno(token)){
+
+                string negado{resultado->pop()};
+                negado = "-" + negado;
+                resultado->push(negado);
+
+            }
+
+        }
+
+        resultado->imprimir();
+
+    }
+
+    Pila<string>* Proceso::convertirPrefija(Pila<string>* inf){
+
+        // cout<< "infija"<<endl;
+        // infija->imprimir();
+        // cout<< "prefija"<<endl;
+        //pre->imprimir();
+
+        Pila<string> *pre = new Pila<string>();
+        Nodo<string> *pos = inf->getPrimero();
+
+        while (pos != nullptr){
+
+            if(r->esUnParentesisInicial(pos->getValor())){
+
+                pre -> push(")");
+        
+            }else if(r->esUnParentesisFinal(pos->getValor())){
+
+                pre -> push("(");
+
+            }else{
+    
+                pre -> push(pos->getValor());
+            }
+
+            pos = pos ->getNodo();
+        }
+
+        // cout<< "prefija"<<endl;
+        // pre->imprimir();
+
+        // cout << "\n";
+        // pre->imprimirT();
+        // cout<< pre->tope()<<endl;
+
+        pre = convertirPostfija(pre);
+
+        // cout << "\n";
+        // cout<< "\nprefija luego de convertir"<<endl;
+        // pre->imprimir();
+
+        pre -> revertir();
+
+        // cout<< "\nprefija luego de revertir"<<endl;
+        // pre->imprimir();
+        
+        // imprimirNotacion(pre);
+
+        return pre;
+    }
 
     /**
      * Toma una cadena como parámetro y devuelve un número entero

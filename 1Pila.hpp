@@ -25,6 +25,13 @@ template <typename T>
                 return primero == nullptr;
             }
 
+            void vaciar(){
+
+                while(longitud > 0){
+                    this->pop();
+                }
+            }
+
             Nodo<T>* getPrimero(){
                 return this->primero;
             }

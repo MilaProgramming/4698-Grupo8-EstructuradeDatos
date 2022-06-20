@@ -41,9 +41,9 @@ class Proceso{
 
     bool recibirExpresion();
 
-    void convertirPostfija();
+    Pila<string>* convertirPostfija(Pila<string> * posf);
 
-    void convertirPrefija();
+    Pila<string>* convertirPrefija(Pila<string> * pre);
 
     bool esPrioritario(string &uno, string &dos);
 
@@ -71,11 +71,15 @@ class Proceso{
 
     int pSigno();
 
-    void resolver();
+    void resolverPost(Pila<string> * p);
+    void resolverPre(Pila<string> * p);
 
     double pi();
 
     double e();
 
+    void imprimirNotacion(Pila<string> * p);
+
+    bool estaVacia();
 
 };

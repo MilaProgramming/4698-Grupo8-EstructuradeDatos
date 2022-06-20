@@ -9,11 +9,11 @@
  * @return Un puntero a un objeto Pila<string>.
  */
 Pila<string>* Regex::fragmento(const string &s){
-
+    longitud = 0;
     Pila<string> *frag = new Pila<string>();
 
    /* Una expresión regular que coincida con lo siguiente: */
-    regex r("([0-9]+([.][0-9]*)?|[.][0-9]+|e|pi)|[+\\-~^*/]|arcsin|arcsen|arccos|arctan|cos|tan|sinh|senh|sin|sen|cosh|tanh|csc|sec|ctg|ln|log10|log|[(]|[)]|rt");
+    regex r("([0-9]+([.][0-9]*)?|[.][0-9]+|e|pi)|[+\\-~^*/]|arcsin|arcsen|arcos|arctan|cos|tanh|sinh|senh|sin|sen|cosh|tan|csc|sec|ctg|ln|log10|log|[(]|[)]|rt");
 
     for (
     std::sregex_iterator i = std::sregex_iterator(s.begin(), s.end(), r);
@@ -95,6 +95,8 @@ bool Regex::excepcionesBinarios(const string &s){
  * @return un valor booleano.
  */
 bool Regex::compararLongitudes(int l){
+    // cout<< l <<endl;
+    // cout << longitud <<endl;
     return l == longitud;
 }
 
@@ -127,7 +129,7 @@ bool Regex::esUnBinario(const string &a){
 }
 
 bool Regex::noEsBinario(const string &a){
-    return esUnSeno(a) || esUnCoseno(a) || esUnTangente(a) || esUnCosecante(a) || esUnSecante(a) || esUnCotangente(a) || esUnSenh(a) || esUnCosh(a) || esUnTanh(a) || esUnln(a) || esUnlog10(a);
+    return esUnSeno(a) || esUnCoseno(a) || esUnTangente(a) || esUnCosecante(a) || esUnSecante(a) || esUnCotangente(a) || esUnSenh(a) || esUnCosh(a) || esUnTanh(a) || esUnln(a) || esUnlog10(a) || esUnArcSen(a) || esUnArcCos(a) || esUnArcTan(a);
 }
 
 bool Regex::esUnFormatoEspecial(const string &a){

@@ -9,14 +9,17 @@ using namespace std;
 int main(){
 
 
-
-   
     while(true){
 
         Proceso *p = new Proceso();
         p->recibirExpresion();
-        p->convertirPostfija();
-        p->resolver();
+        p->setPostfija(p->convertirPostfija(p->getInfija()));
+        p->imprimirNotacion(p->getPostfija());
+        p->setPrefija(p->convertirPrefija(p->getInfija()));
+        p->imprimirNotacion(p->getPrefija());
+        cout << "\n";
+        p->resolverPost(p->getPostfija());
+        p->resolverPre(p->getPrefija());
 
         delete p;
     }
