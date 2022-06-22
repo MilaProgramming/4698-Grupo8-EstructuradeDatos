@@ -227,7 +227,7 @@ bool Regex::esUnTanh(const string &a){
 }
 
 bool Regex::esUnArcSen(const string &a){
-    const regex r("arcsin|arcsin");
+    const regex r("arcsin|arcsen");
     return regex_match(a,r);
 }
 

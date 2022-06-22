@@ -44,7 +44,9 @@ using namespace std;
 
         /*Obtener la entrada del usuario. */
         getline(cin,input);
+        eliminarEspacios(input);
         reemplazoSignos(input);
+        //cout<< input <<endl;
 
         if(!(infija->estaVacia())){
             infija->vaciar();
@@ -163,7 +165,7 @@ using namespace std;
                 * token.
                 */
 
-                if(r->esUnBinario(token) || r->noEsBinario(token) || r->esUnFormatoEspecial(token)){
+                if(r->esUnBinario(token) || r->esUnFormatoEspecial(token)){
 
                     int cont{0};
                     int comparador{0};
@@ -180,6 +182,16 @@ using namespace std;
 
                     comparador++;
 
+                }else if(r->noEsBinario(token)){
+
+                    if(r->esUnNumero(input->tope())){
+                        string aux{token};
+                        posf->push(input->pop());
+                        posf->push(aux);
+                    }else{
+                        conversion->push(token);
+                    }
+
                 }else if(r->esUnParentesisInicial(token)){
 
                     conversion -> push(token);
@@ -191,6 +203,10 @@ using namespace std;
                     }
 
                     conversion->pop();
+
+                    if( !(conversion->estaVacia()) && r->noEsBinario(conversion->tope())){
+                        posf->push(conversion->pop());
+                    }
                 }
 
             }
@@ -253,6 +269,7 @@ using namespace std;
 
             string token{solucion->pop()};
 
+            cout<< "tope " << token<<endl; 
 
             if(r->esUnNumero(token)){
 
@@ -404,6 +421,7 @@ using namespace std;
             }else if (r->noEsBinario(token)){
 
                 string numero{resultado->pop()};
+                cout<< "tope de resultado (numero) " << numero<<endl; 
                 double a{stod(numero)};
 
                 if(r->esUnSeno(token)){
@@ -1149,6 +1167,10 @@ using namespace std;
             subject.replace(pos, search.length(), replace);
             pos += replace.length();
         }
+    }
+
+    void Proceso::eliminarEspacios(string& str){
+        str.erase(remove(str.begin(), str.end(), ' '), str.end());
     }
 
    /**

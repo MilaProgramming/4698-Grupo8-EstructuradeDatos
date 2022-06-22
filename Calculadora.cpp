@@ -79,14 +79,17 @@ double Calculadora::tgh(double a){
 }
 
 double Calculadora::arcsen(double a){
+    cout<< "arcsin " << asin(a)<<endl; 
     return asin(a);
 }
 
 double Calculadora::arccos(double a){
+    cout<< "arccos " << acos(a)<<endl; 
     return acos(a);
 }
 
 double Calculadora::arctan(double a){
+     cout<< "arctan " << atan(a)<<endl; 
     return atan(a);
 }
 

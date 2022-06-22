@@ -82,4 +82,6 @@ class Proceso{
 
     bool estaVacia();
 
+    void eliminarEspacios(string& str);
+
 };
