@@ -26,6 +26,9 @@ class CuadradoMagico{
         //!
     
         //! Metodos Generales
+        /**
+         * Establece todos los valores en la matriz a 0
+         */
         void encerar(){
 
             for(int i = 0; i < 3; i++){
@@ -36,6 +39,9 @@ class CuadradoMagico{
 
         }
 
+        /**
+         * Imprime el contenido de la matriz.
+         */
         void imprimir(){
 
             for(int i = 0; i < 3; i++){
@@ -47,6 +53,11 @@ class CuadradoMagico{
             cout <<endl;
         }
 
+       /**
+        * Abre un archivo, escribe en él y lo cierra.
+        * 
+        * @param metodo Numero de metodo
+        */
         void exportarTxt(int metodo){
 
             archivo.open("cuadradoMagico.txt", fstream::app);
@@ -72,10 +83,25 @@ class CuadradoMagico{
         //! 
 
         //!Metodo I
+        /**
+         * Comprueba si la plaza está ocupada.
+         * 
+         * @param i fila
+         * @param j columna
+         * 
+         * @return El valor de verdad.
+         */
         bool estaOcupado(int i, int j){
             return *(*(cuadrado + i) + j) != 0;
         }
 
+        /**
+         * Toma dos punteros a números enteros, y si los números enteros son menores que cero o mayores
+         * o iguales al tamaño de la matriz, los establece en el valor correcto
+         * 
+         * @param i el índice de la fila
+         * @param j columna
+         */
         void corregirIndices(int *i, int *j){
             
             if(*i < 0 && *j >= n){
@@ -98,12 +124,21 @@ class CuadradoMagico{
 
         //!Metodo II
 
+        /**
+         * Toma un puntero a una matriz de enteros y llena la matriz con los números de 0 a n^2-1
+         */
         void generarVector(){
             for(int i=0;i<pow(n,2);i++){
                 *(numeros+i)=inicio+i;
             }	
 	    }
 
+        /**
+         * Crea una nueva matriz de tamaño 4, luego itera a través de la matriz de tamaño n^2, y si el
+         * número es par, lo agrega a la nueva matriz.
+         * 
+         * @return un puntero a una matriz de enteros.
+         */
         int* obtenerPares(){
             int* pares=new int[4];
             int aux=0;
@@ -116,6 +151,12 @@ class CuadradoMagico{
             return pares;	
         }
 
+        /**
+         * Crea una nueva matriz de 4 enteros, luego itera a través de la matriz de 9 enteros, y si el
+         * número es impar, lo agrega a la nueva matriz.
+         * 
+         * @return El puntero al primer elemento de la matriz.
+         */
         int* obtenerImpares(){
          
             int* impares = new int[4];
@@ -131,6 +172,9 @@ class CuadradoMagico{
             return impares;
         }
 
+        /**
+         * Es una función que calcula el número mágico de un cuadrado mágico.
+         */
         void obtenerNumeroMagico(){
             for(int i=0;i<pow(n,2);i++){
                 numeroMagico+=*(numeros+i);						
@@ -138,6 +182,9 @@ class CuadradoMagico{
             numeroMagico=numeroMagico/n;
 	    }
 
+        /**
+         * Establece todos los elementos de la matriz a cero
+         */
         void encerarNumeros(){
             for(int i=0;i<pow(n,2);i++){
                 *(numeros+i)=0;
@@ -147,6 +194,10 @@ class CuadradoMagico{
 
         //!Metodo II
 
+       /**
+        * Genera un vector de 11 elementos, donde el 3er y 7mo elementos son 0, y el resto son los
+        * números del 1 al 10
+        */
         void generarVect(){
 
             for(int i=0;i<11;i++){
@@ -158,6 +209,9 @@ class CuadradoMagico{
 		    }	
         }
 
+       /**
+        * Esta función imprime la matriz
+        */
         void imprimirMatriz(){		
             for (int i = 0; i < f; i++) {
                 for (int j =0; j<c; j++) {
@@ -167,6 +221,9 @@ class CuadradoMagico{
             }	
 	    }
 
+       /**
+        * Pone a cero todos los elementos de la matriz.
+        */
         void encerarMatriz(){
             for (int i=0;i<f;i++){
                 for(int j=0;j<c;j++){
@@ -175,6 +232,9 @@ class CuadradoMagico{
             }	
 	    }
 
+        /**
+         * Llena una matriz de 5x5 con los números del 1 al 25 en forma de espiral
+         */
         void llenarMatriz(){
             int n=0,cont=0,cont1=1,cont2=0,fila,colum;
             for (int i = 0; i < f; i++) {
