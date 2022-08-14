@@ -1,3 +1,14 @@
+/****************************
+*          UNIVERSIDAD DE LAS FUERZAS ARMADAS ESPE
+*
+* AUTOR(es):  CALAPAQUI GENESIS,JARA ARIEL,RIVERA CAMILA,ROMAN MATEO.
+* FECHA DE Inicio:  13 DE AGOSTO DE 2022
+* FECHA DE Entrega: 14 DE AGOSTO DE 2022
+* Version: final
+* ESTRUCTURA DE DATOS
+* NRC: 4698
+*****************************/
+
 #pragma once
 #include <string>
 #include <functional>
