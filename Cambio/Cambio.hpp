@@ -111,6 +111,11 @@ class Cambio{
       this->cambio = num;
     }
 
+    void reiniciarCambio(){
+      this->longitudResultado = 0;
+
+    }
+
     void guardarArchivo(){
       
       fstream F;
@@ -235,6 +240,7 @@ class Cambio{
 
           }
         }
+        guardarArchivo();
       }
 
       // cout << parteEntera << endl;

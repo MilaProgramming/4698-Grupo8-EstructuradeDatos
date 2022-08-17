@@ -35,7 +35,8 @@ int main(int argc, char **argv) {
                 system("pause");
                 system("CLS");
             }else{
-                c.setCambio(valor);
+                Cambio aux(valor);
+                c=aux;
                 cont = false;
             }
 
