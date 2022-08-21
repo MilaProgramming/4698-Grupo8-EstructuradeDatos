@@ -10,6 +10,7 @@ class Sudoku{
     private:
         int longitudTablero{9};
         int **sudoku;
+        int **sudokuResuelto;
         Posicion p;
 
         //!Metodos para verificar
@@ -104,6 +105,7 @@ class Sudoku{
         void leerSudoku(string nombre){
 
             ifstream archivo(nombre);
+            int valor;
 
             if (!(archivo.is_open())){
                 cout << "Error al leer datos" << endl;
@@ -113,14 +115,17 @@ class Sudoku{
             for (int i = 0; i < longitudTablero; i++){
                 for (int j = 0; j < longitudTablero; j++){
 
-                    archivo >> sudoku[i][j];  
+                    archivo >> valor;
+                    sudoku[i][j] = valor;  
+                    sudokuResuelto[i][j] = valor;
+
                 }
             }
 
             // for (int i = 0; i < longitudTablero; i++){
             //     for (int j = 0; j < longitudTablero; j++){
 
-            //         cout << sudoku[i][j] << " ";  
+            //         cout << sudokuResuelto[i][j] << " ";  
             //     }
 
             //     cout << endl;
@@ -129,38 +134,89 @@ class Sudoku{
             archivo.close();
         }
 
-        void leerSudokuP(string nombre){
-
-            ifstream archivo(nombre);
-      
-            if (!(archivo.is_open())){
-                cout << "Error al leer datos" << endl;
-                return;
-            }
-            
-            cout << archivo.rdbuf();
-            
-            archivo.close();
-        }
-
         void imprimirBorde(){
-            cout << "+-----------------------------------+"<<endl;
+            cout <<  dye::light_red("  +-----------------------------------+")<<endl;
         }
 
         void imprimirSeparadorSeccion(){
-            cout << "|-----------+-----------+-----------|"<<endl;
+            cout << dye::light_red("  |-----------+-----------+-----------|")<<endl;
         }
 
         void imprimirSeparador(){
-            cout << "|---+---+---|---+---+---|---+---+---|"<<endl;
+            cout << "  "<<  dye::light_red("|")<< "---+---+---" << dye::light_red("|") << "---+---+---" << dye::light_red("|") <<"---+---+---"<< dye::light_red("|") <<endl;
+        }
+
+        void imprimirIndicaciones(){
+
+            p.irHacia(62,2);
+                cout << "+--------+" <<endl;
+            p.irHacia(62,3);
+                cout << "| " << dye::white('S') + dye::light_red('u') + dye::white('d') + dye::light_red('o') + dye::white('k') + dye::light_red('u') << " |" <<endl;
+            p.irHacia(62,4);
+                cout << "+--------+"<<endl;
+            p.irHacia(62,5);
+                cout << endl;
+            p.irHacia(44,6);
+                cout << "+------------------------------------------------+"<<endl;
+            p.irHacia(44,7);
+                cout << "|    					     |"<<endl;
+            p.irHacia(44,8);
+                cout << "|	    Bienvenido al juego del sudoku!	     |"<<endl;
+            p.irHacia(44,9);
+                cout << "|    					     |"<<endl;
+            p.irHacia(44,10);
+                cout << "|     Recuerda que para ganar se debe llenar     |"<<endl;
+            p.irHacia(44,11);
+                cout<< "|   todos los espacios vacios" << dye::light_red(" sin") << " repetir los    |"<<endl;
+            p.irHacia(44,12);
+                cout << "|    numeros del" << dye::light_red(" 1") << " al" << dye::light_red(" 9")<< ", en las filas, columnas  |"<<endl;
+            p.irHacia(44,13);
+                cout << "|          y respectivas secciones.		     |"<<endl;
+            p.irHacia(44,14);
+                cout << "|    					     |"<<endl;
+            p.irHacia(44,15);
+                cout<< "|	            Mucha suerte!		     |"<<endl;
+            p.irHacia(44,16);
+                cout << "|    					     |"<<endl;
+            p.irHacia(44,17);
+                cout << "+------------------------------------------------+"<<endl;
+
+            p.irHacia(4,21);
+                cout << "+----------------+"<<endl;
+            p.irHacia(4,22);
+                cout<< "| Para jugar...  | "<<endl;
+            p.irHacia(4,23);
+                cout << "+----------------+    +--------------------+ "<<endl;
+            p.irHacia(4,24);
+                cout << " 	|	          |   " << dye::grey("Arriba, Abajo") << ",   |        +--------------+       +-----+      +-------+"<<endl;
+            p.irHacia(4,25);
+                cout << "    +--------->       |" << dye::grey(" Izquierda, Derecha") <<" | -----> |  " << dye::grey("Backspace") <<"   | ----> |  " << dye::grey("P")<<"  | ---> |  "<< dye::light_red("ESC") <<"  |"<<endl;
+            p.irHacia(4,26);
+                cout << "		          +--------------------+	+--------------+       +-----+	    +-------+"<<endl;
+            p.irHacia(4,28);
+                cout << "                         "<< dye::on_grey(" Navegar tablero ") <<"              "<< dye::on_grey(" Borrar ") << "           "<< dye::on_grey(" Pista ") <<"       "<< dye::on_light_red(" SALIR ")<<endl;
+        }
+
+        void solucionar(){
+
+            //imprimirSudoku(sudoku);
+            if(solucionarSudoku(sudokuResuelto, 0, 0)){
+                imprimirSudoku(sudokuResuelto);
+            }else{
+                cout << " ~ No existe solucion ~" <<endl;
+            }
+
         }
 
     public:
 
-    Sudoku(string nombre): longitudTablero(9), sudoku(new int*[longitudTablero]){
+    Sudoku(string nombre): longitudTablero(9), sudoku(new int*[longitudTablero]), sudokuResuelto(new int*[longitudTablero]){
 
         for(int i = 0; i < longitudTablero; i++)
             *(sudoku + i) = new int[longitudTablero];
+        
+        for(int i = 0; i < longitudTablero; i++)
+            *(sudokuResuelto + i) = new int[longitudTablero];
 
         leerSudoku(nombre);
     }
@@ -170,18 +226,27 @@ class Sudoku{
 
     void imprimirSudoku(int ** array){
         
+        cout << "\n";
         imprimirBorde();
 
             for(int i = 0; i<longitudTablero; i++){
-                cout<<"|";
+                cout<< dye::light_red("  |");
                 for(int j = 0; j < longitudTablero; j++){
                     int algo{*(*(array + i) + j)};
 
                     if(algo == 0){
-                        cout<< " " << " " << " |";
+                        cout<< " " << " ";
                     }else{
-                        cout<< " " << algo << " |";
+                        cout<< " " << dye::white(algo);
                     }
+
+                    if(j == 2 || j == 5 || j == 8){
+                        cout << dye::light_red(" |");
+
+                    }else{
+                        cout << " |";
+                    }
+
                 }
 
                 cout<<endl;
@@ -197,51 +262,11 @@ class Sudoku{
 
     }
 
-    void imprimirIndicaciones(){
+    void empezar(){
 
-        p.irHacia(60,2);
-        cout << "+--------+" <<endl;
-        p.irHacia(60,3);
-        cout << "| " << dye::white('S') + dye::light_red('u') + dye::white('d') + dye::light_red('o') + dye::white('k') + dye::light_red('u') << " |" <<endl;
-        p.irHacia(60,4);
-        cout << "+--------+"<<endl;
-        p.irHacia(60,5);
-        cout << endl;
-        p.irHacia(42,6);
-        cout << "+------------------------------------------------+"<<endl;
-        p.irHacia(42,7);
-        cout << "|    					  	   |"<<endl;
-        p.irHacia(42,8);
-        cout << "|	    Bienvenido al juego del sudoku!	   |"<<endl;
-        p.irHacia(42,9);
-        cout << "|    					  	   |"<<endl;
-        p.irHacia(42,10);
-        cout << "|     Recuerda que para ganar se debe llenar	   |"<<endl;
-        p.irHacia(42,11);
-        cout<< "|   todos los espacios vacios" << dye::light_red(" sin") << " repetir los	   |"<<endl;
-        p.irHacia(42,12);
-        cout << "|    numeros del" << dye::light_red(" 1") << " al" << dye::light_red(" 9")<< ", en las filas, columnas  |"<<endl;
-        p.irHacia(42,13);
-        cout << "|          y respectivas secciones.		   |"<<endl;
-        p.irHacia(42,14);
-        cout << "|    					  	   |"<<endl;
-        p.irHacia(42,15);
-        cout<< "|	            Mucha suerte!		   |"<<endl;
-        p.irHacia(42,16);
-        cout << "|    					  	   |"<<endl;
-        p.irHacia(42,17);
-         cout << "+------------------------------------------------+"<<endl;
+        solucionar();
+        imprimirIndicaciones();
 
     }
 
-    void solucionar(){
-
-        //imprimirSudoku(sudoku);
-        if(solucionarSudoku(sudoku, 0, 0)){
-            imprimirSudoku(sudoku);
-        }else{
-            cout << " ~ No existe solucion ~" <<endl;
-        }
-
-    }
 };

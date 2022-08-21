@@ -6,11 +6,11 @@ using namespace std;
 int main(){
     
     Sudoku s("Sudokus/sudoku.txt");
-    s.solucionar();
+    s.empezar();
     Posicion p;
-    p.irHacia(45,5);
-    s.imprimirIndicaciones();
-    p.irHacia(0,20);
+    p.irHacia(4,4);
+    cout << "M" <<endl;
+    p.irHacia(0,29);
     cout<< " ";
 
     return 0;
