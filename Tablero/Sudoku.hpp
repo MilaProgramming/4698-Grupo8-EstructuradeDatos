@@ -1,11 +1,11 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <string.h>
 #include "../Graficos/posicion.hpp"
 #include "../Graficos/color.hpp"
 using namespace std;
-#pragma once
-   
+
 class Sudoku{
     private:
         int longitudTablero{9};
@@ -122,15 +122,6 @@ class Sudoku{
                 }
             }
 
-            // for (int i = 0; i < longitudTablero; i++){
-            //     for (int j = 0; j < longitudTablero; j++){
-
-            //         cout << sudokuResuelto[i][j] << " ";  
-            //     }
-
-            //     cout << endl;
-            // }
-
             archivo.close();
         }
 
@@ -208,9 +199,10 @@ class Sudoku{
 
         }
 
+
     public:
 
-    Sudoku(string nombre): longitudTablero(9), sudoku(new int*[longitudTablero]), sudokuResuelto(new int*[longitudTablero]){
+    Sudoku(string nombre): longitudTablero(9), sudoku(new int*[longitudTablero]), sudokuResuelto(new int*[longitudTablero]), p(0,0){
 
         for(int i = 0; i < longitudTablero; i++)
             *(sudoku + i) = new int[longitudTablero];
@@ -222,6 +214,10 @@ class Sudoku{
     }
     
     ~Sudoku(){
+    }
+
+    int **obtenerSudoku(){
+        return this->sudoku;
     }
 
     void imprimirSudoku(int ** array){
@@ -268,5 +264,53 @@ class Sudoku{
         imprimirIndicaciones();
 
     }
+
+    int &numeroPos(){
+        return *(*(sudoku + p.getFil()) + p.getCol()); 
+    }
+
+    void asignarNumPos(int num){
+        numeroPos() = num;
+    }
+
+    // void irDerecha(){
+
+    //     if(p.irDerecha()){
+    //         p.irHacia();
+
+    //         cout << "M" <<endl;
+    //     }
+    // }
+
+    // bool irIzquierda(){
+
+    //     if(x > 0){
+    //         this-> x-=1;
+    //         return true;
+    //     }
+
+    //     return false;
+    // }
+
+    // bool irArriba(){
+        
+    //     if(y > 0){
+    //         this-> y-=1;
+    //         return true;
+    //     }
+
+    //     return false;
+
+    // }
+
+    // bool irAbajo(){
+
+    //     if(y < 8){
+    //         this-> y+=1;
+    //         return true;
+    //     }
+
+    //     return false;
+    // }
 
 };
