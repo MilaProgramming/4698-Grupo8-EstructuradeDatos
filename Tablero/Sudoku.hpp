@@ -173,13 +173,41 @@ class Sudoku{
             p.irHacia(4,23);
                 cout << "+----------------+    +--------------------+ "<<endl;
             p.irHacia(4,24);
-                cout << " 	|	          |   " << dye::grey("Arriba, Abajo") << ",   |        +--------------+       +-----+      +-------+"<<endl;
+                cout << " 	|	          |   " << dye::grey("Arriba, Abajo") << ",   |        +--------------+       +-----------+      +-------+"<<endl;
             p.irHacia(4,25);
-                cout << "    +--------->       |" << dye::grey(" Izquierda, Derecha") <<" | -----> |  " << dye::grey("Backspace") <<"   | ----> |  " << dye::grey("P")<<"  | ---> |  "<< dye::light_red("ESC") <<"  |"<<endl;
+                cout << "    +--------->       |" << dye::grey(" Izquierda, Derecha") <<" | -----> |  " << dye::grey("Backspace") <<"   | ----> |  " << dye::grey("Espacio")<<"  | ---> |  "<< dye::light_red("ESC") <<"  |"<<endl;
             p.irHacia(4,26);
-                cout << "		          +--------------------+	+--------------+       +-----+	    +-------+"<<endl;
+                cout << "		          +--------------------+	+--------------+       +-----------+	  +-------+"<<endl;
             p.irHacia(4,28);
-                cout << "                         "<< dye::on_grey(" Navegar tablero ") <<"              "<< dye::on_grey(" Borrar ") << "           "<< dye::on_grey(" Pista ") <<"       "<< dye::on_light_red(" SALIR ")<<endl;
+                cout << "                         "<< dye::on_grey(" Navegar tablero ") <<"              "<< dye::on_grey(" Borrar ") << "              "<< dye::on_grey(" Pista ") <<"          "<< dye::on_light_red(" SALIR ")<<endl;
+        }
+   
+        void imprimirFinal(){
+            p.irHacia(44,12);
+            cout << "+----------------------+"<<endl;
+            p.irHacia(44,13);
+            cout<< "|     		   |";
+            p.irHacia(44,14);
+            cout << "|      "<< dye::red("GAME OVER") <<"       |";
+            p.irHacia(44,15);
+            cout << "|                      |";
+            p.irHacia(44,16);
+            cout<< "+----------------------+";
+        }
+
+        void imprimirGanador(){
+
+            p.irHacia(44,12);
+            cout << "+------------------------+"<<endl;
+            p.irHacia(44,13);
+            cout<< "|     		     |";
+            p.irHacia(44,14);
+            cout << "|      "<< dye::green("GANASTE! :D") <<"       |";
+            p.irHacia(44,15);
+            cout << "|                        |";
+            p.irHacia(44,16);
+            cout<< "+------------------------+";
+
         }
 
         void solucionar(){
@@ -214,7 +242,7 @@ class Sudoku{
             p.reiniciarCoordenadas();
         }
 
-        void despintarCastilla(){
+        void despintarCasilla(){
             
             int actual{numeroPos()};
         
@@ -230,6 +258,72 @@ class Sudoku{
             p.reiniciarCoordenadas();
         }
 
+        int &numeroPos(int **array){
+            return *(*(array + p.getFil()) + p.getCol()); 
+        }
+
+        void pintarCasillaVerde(){
+
+            int num{numeroPos()};
+
+            p.transformarCoordenadas();
+            p.irHacia(p.getCol()-1,p.getFil());
+
+
+            if(esCero(num)){
+                cout << dye::green_on_white("   ");
+            }else{
+                cout << dye::green_on_white(" ") << dye::green_on_white(num) << dye::green_on_white(" ");
+            }
+
+            p.reiniciarCoordenadas();
+        }
+
+        void pintarCasillaRojo(){
+
+            int num{numeroPos()};
+
+            p.transformarCoordenadas();
+            p.irHacia(p.getCol()-1,p.getFil());
+
+
+            if(esCero(num)){
+                cout << dye::red_on_white("   ");
+            }else{
+                cout << dye::red_on_white(" ") << dye::red_on_white(num) << dye::red_on_white(" ");
+            }
+
+            p.reiniciarCoordenadas();
+        }
+
+        void pintarCasillaAmarilo(){
+
+            int num{numeroPos()};
+
+            p.transformarCoordenadas();
+            p.irHacia(p.getCol()-1,p.getFil());
+
+
+            if(esCero(num)){
+                cout << dye::yellow_on_white("   ");
+            }else{
+                cout << dye::yellow_on_white(" ") << dye::yellow_on_white(num) << dye::yellow_on_white(" ");
+            }
+
+            p.reiniciarCoordenadas();
+        }
+
+        bool esCorrecto(){
+
+            for(int i = 0; i < longitudTablero; i++){
+                for(int j = 0; j < longitudTablero; j++){
+                    if(*(*(sudoku + i)+j) != *(*(sudokuResuelto + i)+j))
+                        return false;
+                }
+            }
+
+            return true;
+        }
 
     public:
 
@@ -293,6 +387,8 @@ class Sudoku{
 
         solucionar();
         imprimirIndicaciones();
+        pintarCasilla();
+        p.esconderCursor();
 
     }
 
@@ -310,7 +406,7 @@ class Sudoku{
             return;
         }
             
-            despintarCastilla();
+            despintarCasilla();
             p.irDerecha();
             p.irHacia();
 
@@ -325,7 +421,7 @@ class Sudoku{
             return;
         }
 
-            despintarCastilla();
+            despintarCasilla();
             p.irIzquierda();
             p.irHacia();
 
@@ -338,7 +434,7 @@ class Sudoku{
             return;
         }
 
-            despintarCastilla();
+            despintarCasilla();
             p.irArriba();
             p.irHacia();
 
@@ -348,14 +444,14 @@ class Sudoku{
 
     void irAbajo(){
 
-        despintarCastilla();
+        despintarCasilla();
 
         if(!(p.puedoAbajo())){
             return;
         }
             
             p.irAbajo();
-            despintarCastilla();
+            despintarCasilla();
             p.irHacia();
 
             pintarCasilla();
@@ -365,6 +461,55 @@ class Sudoku{
     void pausar(){
         p.irHacia(0,29);
         system("pause");
+    }
+
+    void pista(){
+
+        if(numeroPos() == 0){
+            //Asigno numero correcto. Lo pinto de amarillo.
+            asignarNumPos(numeroPos(sudokuResuelto));
+            pintarCasillaAmarilo();
+
+        }else{
+
+            if(numeroPos(sudoku) == numeroPos(sudokuResuelto)){
+                //Lo pinta en verde. Correcto
+                pintarCasillaVerde();
+
+            }else{
+                //lo pinta en rojo. Incorrecto
+                pintarCasillaRojo();
+            }
+
+        }
+
+    }
+    
+    void asignar(int num){
+        asignarNumPos(num);
+        pintarCasilla();
+    }
+
+    void borrar(){
+        asignarNumPos(0);
+        pintarCasilla();
+    }
+
+    void salir(){
+        system("CLS");
+        imprimirFinal();
+    }
+
+    bool gano(){
+
+        if(!(esCorrecto())){
+            return false;
+        }
+
+        system("CLS");
+        imprimirGanador();
+
+        return true;
     }
 
 };
