@@ -36,6 +36,16 @@ class Posicion{
 
     }
 
+    void transformarCoordenadas(){
+        this->col =  4 + 4*col;
+        this->fil = 2 + 2*fil;
+    }
+
+    void reiniciarCoordenadas(){
+        this->col =  (col - 4)/4;
+        this->fil = (fil-2)/2;
+    }
+
     int getCol(){
         return this->col;
     }
@@ -44,30 +54,56 @@ class Posicion{
         return this->fil;
     }
 
-    bool irDerecha(){
+    void irAbajoL(){
+        this-> fil+=1;
+    }
 
-        if(col < 8){
+    void irIzquierdaL(){
+        this-> col-=1;
+    }
+
+    void irDerecha(){
+
+        if(puedoDerecha())
             this-> col+=1;
+    }
+
+    bool puedoDerecha(){
+        
+        if(col < 8)
             return true;
-        }
 
         return false;
     }
 
-    bool irIzquierda(){
+    void irIzquierda(){
+
+        if(puedoIzquierda()){
+            this-> col-=1;
+        }
+
+    }
+
+    bool puedoIzquierda(){
 
         if(col > 0){
-            this-> col-=1;
             return true;
         }
 
         return false;
     }
 
-    bool irArriba(){
+    void irArriba(){
+        
+        if(puedoArriba()){
+            this-> fil-=1;
+        }
+
+    }
+
+    bool puedoArriba(){
         
         if(fil > 0){
-            this-> fil-=1;
             return true;
         }
 
@@ -75,10 +111,17 @@ class Posicion{
 
     }
 
-    bool irAbajo(){
+    void irAbajo(){
+
+        if(puedoAbajo()){
+            this-> fil+=1;
+        }
+
+    }
+
+    bool puedoAbajo(){
 
         if(fil < 8){
-            this-> fil+=1;
             return true;
         }
 

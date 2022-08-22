@@ -57,12 +57,6 @@ class Sudoku{
             return !(estaEnFila(fila,num, tablero)) && !(estaEnColumna(col,num, tablero)) && !(estaEnSeccion(fila,col,num, tablero));
         }
 
-        void numeroPosibles(int *array){
-            //int*ola = new;
-            //rellena
-            //devuelve el vector
-        }
-
         bool solucionarSudoku(int **tablero, int fila, int col){
 
             // Checamos si ya hemos recorrido todas las filas.
@@ -192,11 +186,48 @@ class Sudoku{
 
             //imprimirSudoku(sudoku);
             if(solucionarSudoku(sudokuResuelto, 0, 0)){
-                imprimirSudoku(sudokuResuelto);
+                imprimirSudoku(sudoku);
             }else{
                 cout << " ~ No existe solucion ~" <<endl;
             }
 
+        }
+
+        bool esCero(int num){
+            return num == 0;
+        }
+
+        void pintarCasilla(){
+
+            int num{numeroPos()};
+
+            p.transformarCoordenadas();
+            p.irHacia(p.getCol()-1,p.getFil());
+
+
+            if(esCero(num)){
+                cout << dye::on_white("   ");
+            }else{
+                cout << dye::on_white(" ") << dye::on_white(num) << dye::on_white(" ");
+            }
+
+            p.reiniciarCoordenadas();
+        }
+
+        void despintarCastilla(){
+            
+            int actual{numeroPos()};
+        
+            p.transformarCoordenadas();
+            p.irHacia(p.getCol()-1,p.getFil());
+
+            if(esCero(actual)){
+                cout << "   ";
+            }else{
+                cout << " " << actual << " ";
+            }
+
+            p.reiniciarCoordenadas();
         }
 
 
@@ -273,44 +304,67 @@ class Sudoku{
         numeroPos() = num;
     }
 
-    // void irDerecha(){
+    void irDerecha(){
 
-    //     if(p.irDerecha()){
-    //         p.irHacia();
+        if(!(p.puedoDerecha())){
+            return;
+        }
+            
+            despintarCastilla();
+            p.irDerecha();
+            p.irHacia();
 
-    //         cout << "M" <<endl;
-    //     }
-    // }
+            pintarCasilla();
 
-    // bool irIzquierda(){
 
-    //     if(x > 0){
-    //         this-> x-=1;
-    //         return true;
-    //     }
+    }
 
-    //     return false;
-    // }
+    void irIzquierda(){
 
-    // bool irArriba(){
+        if(!(p.puedoIzquierda())){
+            return;
+        }
+
+            despintarCastilla();
+            p.irIzquierda();
+            p.irHacia();
+
+            pintarCasilla();
+    }
+
+    void irArriba(){
         
-    //     if(y > 0){
-    //         this-> y-=1;
-    //         return true;
-    //     }
+        if(!(p.puedoArriba())){
+            return;
+        }
 
-    //     return false;
+            despintarCastilla();
+            p.irArriba();
+            p.irHacia();
 
-    // }
+            pintarCasilla();
 
-    // bool irAbajo(){
+    }
 
-    //     if(y < 8){
-    //         this-> y+=1;
-    //         return true;
-    //     }
+    void irAbajo(){
 
-    //     return false;
-    // }
+        despintarCastilla();
+
+        if(!(p.puedoAbajo())){
+            return;
+        }
+            
+            p.irAbajo();
+            despintarCastilla();
+            p.irHacia();
+
+            pintarCasilla();
+
+    }
+
+    void pausar(){
+        p.irHacia(0,29);
+        system("pause");
+    }
 
 };
